@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 class BookingController extends Controller
 {
     /**
-     * @Route("/booking/{slug}", defaults={"slug" = "hostal-cabriales"}, name="booking")
+     * @Route("/booking/{slug}", name="booking")
      */
     public function bookingAction(Request $request, Hostel $hostel) {
         $booking = new Booking();
