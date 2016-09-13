@@ -17,12 +17,14 @@ class RegistrationType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('fullName', null, ['label' => 'form.fullName']);
-        $builder->add('phoneNumber', null, ['label' => 'form.phoneNumber']);
-        $builder->add('country', CountryType::class, [
-            'label' => 'form.country',
-            'required' => false,
-        ])
+        $builder
+            ->add('forename', null, ['label' => 'form.forename'])
+            ->add('surname', null, ['label' => 'form.surname'])
+            ->add('phoneNumber', null, ['label' => 'form.phoneNumber'])
+            ->add('country', CountryType::class, [
+                'label' => 'form.country',
+                'required' => false,
+            ])
         ;
     }
 

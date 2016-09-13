@@ -25,7 +25,8 @@ class ProfileType extends AbstractType {
                 'allow_delete'  => false,
                 'download_link' => false,
             ])
-            ->add('fullName', null, ['label' => 'form.fullName'])
+            ->add('forename', null, ['label' => 'form.forename'])
+            ->add('surname', null, ['label' => 'form.surname'])
             ->add('phoneNumber', null, ['label' => 'form.phoneNumber'])
             ->add('country', CountryType::class, [
                 'label' => 'form.country',

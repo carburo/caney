@@ -1,5 +1,7 @@
 form:
   fullName: Nom et Prénom
+  forename: Prénom
+  surname: Nom de famillie
   country: Pays
   phoneNumber: Téléphone
   email: Adresse e-mail

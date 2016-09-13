@@ -1,5 +1,7 @@
 form:
   fullName: Name
+  forename: Vorname
+  surname: Zuname
   country: Land
   phoneNumber: Telefonnummer
   email: E-Mail

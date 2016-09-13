@@ -66,15 +66,15 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="surename", type="string", length=255)
-     * @Assert\NotBlank(message="Please enter your surename.", groups={"Registration", "Profile"})
+     * @ORM\Column(name="surname", type="string", length=255)
+     * @Assert\NotBlank(message="Please enter your surname.", groups={"Registration", "Profile"})
      * @Assert\Length(
      *     max=255,
      *     maxMessage="The name is too long.",
      *     groups={"Registration", "Profile"}
      * )
      */
-    private $surename;
+    private $surname;
 
     /**
      * @var string
@@ -116,17 +116,17 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getSurename()
+    public function getSurname()
     {
-        return $this->surename;
+        return $this->surname;
     }
 
     /**
      * @param string $surename
      */
-    public function setSurename($surename)
+    public function setSurname($surname)
     {
-        $this->surename = $surename;
+        $this->surname = $surname;
     }
 
     /**
@@ -134,7 +134,7 @@ class User extends BaseUser
      */
     public function getFullName()
     {
-        return "{$this->getForename()} {$this->getSurename()}";
+        return "{$this->getForename()} {$this->getSurname()}";
     }
 
     /**
