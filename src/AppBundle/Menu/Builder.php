@@ -2,6 +2,7 @@
 namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Intl\Intl;
@@ -18,23 +19,33 @@ class Builder implements ContainerAwareInterface
         $menu->addChild('menu.homepage', [
             'route' => 'homepage'
         ]);
-        
-        $menu->addChild('menu.hostels', [
-            'route' => 'hostels'
-        ]);
+
+        $this->addDestinationMenu($menu);
         
         $menu->addChild('menu.contact', [
             'route' => 'contact'
         ]);
         
-        $menu->addChild('Register', [
-            'route' => 'hostel_registration'
-        ]);
-        
-        // access services from the container!
-        // $em = $this->container->get('doctrine')->getManager();
-        
         return $menu;
+    }
+
+    private function addDestinationMenu(ItemInterface $root)
+    {
+        // create another menu item
+        $menu = $root->addChild('destinations', [
+            'label' => 'menu.destinations'
+        ])->setAttribute('dropdown', true);
+
+        $repo = $this->container->get('doctrine')->getRepository('AppBundle\Entity\Location');
+        $locations = $repo->findAll();
+        foreach ($locations as $location) {
+            if(!$location->getHostels()->isEmpty()) {
+                $menu->addChild($location->getName(), [
+                    'route' => "hostelsByDestination",
+                    'routeParameters' => ['slug' => $location->getSlug()]
+                ]);
+            }
+        }
     }
     
     public function userMenu(FactoryInterface $factory, array $options)
@@ -46,12 +57,10 @@ class Builder implements ContainerAwareInterface
         $translator = $this->container->get('translator');
         if ($securityChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $securityContext = $this->container->get('security.token_storage');
-            $userForename = $securityContext->getToken()
-                ->getUser()
-                ->getForename();
+            $user = $securityContext->getToken()->getUser();
         
             $userMessage = $translator->trans('menu.welcome.message', [
-                '%visitor%' => $userForename
+                '%visitor%' => $user->getForename()
             ]);
         
             // create another menu item
@@ -59,17 +68,25 @@ class Builder implements ContainerAwareInterface
                 'label' => $userMessage
             ])->setAttribute('dropdown', true);
         
-            $menu['User']->addChild($translator->trans('menu.user.edit'), [
+            $menu['User']->addChild('menu.user.edit', [
                 'route' => 'fos_user_profile_edit'
             ])->setAttribute('icon', 'icon icon-edit');
             
-            $menu['User']->addChild($translator->trans('menu.user.changePassword'), [
+            $menu['User']->addChild('menu.user.changePassword', [
                 'route' => 'fos_user_change_password'
             ])->setAttribute('icon', 'icon icon-key');
+
+            if($user->isOwner())
+            {
+                $menu['User']->addChild('menu.hostel.register', [
+                    'route' => 'hostel_registration'
+                ]);
+            }
         
             $menu['User']->addChild($translator->trans('layout.logout', [], 'FOSUserBundle'), [
                 'route' => 'fos_user_security_logout'
             ])->setAttribute('icon', 'icon icon-sign-out');
+
         } else {
             $menu->addChild($translator->trans('layout.login', [], 'FOSUserBundle'), [
                 'route' => 'fos_user_security_login'
