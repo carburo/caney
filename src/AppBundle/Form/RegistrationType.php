@@ -25,6 +25,7 @@ class RegistrationType extends AbstractType {
                 'label' => 'form.country',
                 'required' => false,
             ])
+            ->add('owner', null, ['label' => 'form.owner'])
         ;
     }
 

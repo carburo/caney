@@ -6,6 +6,7 @@ form:
   phoneNumber: Phone number
   email: Email
   message: Message
+  owner: Host
 button:
   send: Send
 menu:

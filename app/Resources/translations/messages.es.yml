@@ -6,6 +6,7 @@ form:
   phoneNumber: Teléfono
   email: Correo electrónico
   message: Mensaje
+  owner: Anfitrión
 button:
   send: Enviar
 menu:
