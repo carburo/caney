@@ -1,5 +1,5 @@
 {% for hostel in hostels %}
-    <li class="portfolio-item joomla bootstrap">
+    <li class="portfolio-item">
         <div class="item-inner">
             {% set image = hostel.images|first %}
             <a href="{{ path('hostel_view', {'slug' : hostel.slug}) }}">
