@@ -104,7 +104,7 @@
                                     <a href="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('app_image') }}" itemprop="contentUrl" data-size="{{ image.pixelWidth }}x{{ image.pixelHeight }}">
                                         <img src="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('app_thumb') }}" itemprop="thumbnail" alt="{{ hostel.hostelName ~ ' | ' ~ image.description }}" />
                                     </a>
-                                    <figcaption itemprop="caption description">{{ image.description }}</figcaption>
+                                    <figcaption itemprop="caption description"><h5>{{ image.description }}</h5></figcaption>
                                 </figure>
                             </div>
                         </li><!--/.portfolio-item-->

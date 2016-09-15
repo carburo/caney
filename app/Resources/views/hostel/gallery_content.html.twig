@@ -2,14 +2,16 @@
     <li class="portfolio-item">
         <div class="item-inner">
             {% set image = hostel.images|first %}
-            <a href="{{ path('hostel_view', {'slug' : hostel.slug}) }}">
-                {% if image is not empty %}
-                <img class="img-thumbnail"
-                     src="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('app_thumb') }}"
-                     alt="{{ hostel.hostelName }}">
-                {% endif %}
-                <h5>{{ hostel.hostelName }}</h5>
-            </a>
+            <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                <a href="{{ path('hostel_view', {'slug' : hostel.slug}) }}">
+                    <img
+                        src="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('app_thumb') }}"
+                        itemprop="thumbnail"
+                        alt="{{ hostel.hostelName }}"
+                    />
+                </a>
+                <figcaption itemprop="caption description"><h5>{{ hostel.hostelName }}</h5></figcaption>
+            </figure>
         </div>
     </li><!--/.portfolio-item-->
 {% endfor %}
