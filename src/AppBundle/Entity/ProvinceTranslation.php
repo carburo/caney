@@ -14,7 +14,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 /**
  * @ORM\Entity
  * @ORM\Table(name="province_translations",
- *     uniqueConstraints={@ORM\UniqueConstraint(name="lookup_unique_idx", columns={
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="province_lookup_unique_idx", columns={
  *         "locale", "object_id", "field"
  *     })}
  * )
