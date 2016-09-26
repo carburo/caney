@@ -46,4 +46,12 @@ class HomeController extends Controller
             'recentPictures' => $recentPictures,
         ));
     }
+
+    /**
+     * @Route("/test", name="test")
+     */
+    public function testAction(Request $request)
+    {
+        return $this->render("index.html.twig");
+    }
 }

@@ -4,32 +4,17 @@
     {% trans %}contact.title{% endtrans %}
 {% endblock %}
 
-{% block body %}
-    <section id="title" class="emerald" xmlns="http://www.w3.org/1999/html">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h1>{% trans %}contact.title{% endtrans %}</h1>
-                    <p>{% trans %}contact.subtitle{% endtrans %}</p>
-                </div>
-                <div class="col-sm-6">
-                    <ul class="breadcrumb pull-right">
-                        <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
-                        <li class="active">{% trans %}menu.contact{% endtrans %}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section><!--/#title-->
+{% block headingTitle %}{{ 'contact.title'|trans }}{% endblock %}
+{% block headingSubtitle %}{{ 'contact.subtitle'|trans }}{% endblock %}
+{% block breadcrumbs %}
+    <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
+    <li class="active">{% trans %}menu.contact{% endtrans %}</li>
+{% endblock %}
 
-    <section id="contact-page" class="container">
-        {#<div class="row">#}
-            {#<div class="col-sm-12">#}
-                {#<p><a href="{{ path('hostel_registration') }}">Eres propietario de un hostal? Haz click aquí para llenar el formulario de inscripción.</a></p>#}
-            {#</div>#}
-        {#</div>#}
+{% block content %}
+    <section id="contact-page">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 col-lg-6 col-md-8">
                 {#<h4>{% trans %}title.contact.form{% endtrans %}</h4>#}
                 <div id="success-message" class="status alert alert-success" style="display: none"></div>
                 {{ form_start(form, {'attr': {'class': 'contact-form' }}) }}
@@ -44,7 +29,7 @@
                 </div>
                 {{ form_widget(form) }}
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg">{% trans %}button.send{% endtrans %}</button>
+                    <button type="submit" class="btn btn-raised btn-primary btn-lg">{% trans %}button.send{% endtrans %}</button>
                 </div>
                 {{ form_end(form) }}
             </div>

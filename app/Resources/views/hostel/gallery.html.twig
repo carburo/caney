@@ -4,18 +4,19 @@
     {% trans %}hostels.title{% endtrans %}{#: {{ destination.name }} #}
 {% endblock %}
 
-{% block body %}
-    <section id="portfolio" class="container">
+{% block heading %}{% endblock %}
+{% block content %}
+    <section id="portfolio">
         <div class="row">
             <div class="col-sm-12">
                 <form id="search-form">
-                    <input id="search-box" type="search" class="form-control">
+                    <input id="search-box" type="search" class="form-control" placeholder="Búsqueda">
                 </form>
             </div>
+            <ul class="portfolio-items col-3" id="hostel-gallery">
+                {{ include('hostel/gallery_content.html.twig') }}
+            </ul>
         </div>
-        <ul class="portfolio-items col-3" id="hostel-gallery">
-            {{ include('hostel/gallery_content.html.twig') }}
-        </ul>
     </section><!--/#portfolio-->
 {% endblock %}
 

@@ -22,6 +22,7 @@ menu:
     changePassword: Cambiar contraseña
 contact:
   title: Contacto
+  subtitle: Si tiene alguna interrogante no dude en preguntar. Simplemente debe llenar el siguiente formulario y con gusto intentaremos encontrarle una solución.
 hostels:
   title: Hostales
 profile:

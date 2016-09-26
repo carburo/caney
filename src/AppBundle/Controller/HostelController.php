@@ -29,7 +29,13 @@ class HostelController extends Controller
      */
     public function galleryAction(Request $request) {
         $repo = $this->getRepository();
-        return $this->hostelGallery($repo->findAll());
+        if($request->query->has('query')) {
+            $query = $request->query->get('query');
+            $hostels = $repo->search($query);
+        } else {
+            $hostels = $repo->findAll();
+        }
+        return $this->hostelGallery($hostels);
     }
 
     private function hostelGallery($hostels) {
