@@ -4,29 +4,17 @@
     {{ hostel.hostelName }}
 {% endblock %}
 
-{% block body %}
+{% block headingTitle %}{{ hostel.hostelName }}{% endblock %}
+{% block breadcrumbs %}
+    <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
+    <li><a href="{{ path('hostels') }}">{% trans %}menu.hostels{% endtrans %}</a></li>
+    <li><a href="{{ path('hostelsByDestination', {'slug' : hostel.location.slug }) }}">{{ hostel.location.name }}</a></li>
+    <li class="active">{{ hostel.hostelName }}</li>
+{% endblock %}
+{% block content %}
     {{ include('photo-swipe.html.twig') }}
 
-    <section id="title" class="emerald">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h1>{{ hostel.hostelName }}</h1>
-                    {#<p>{% trans %}subtitle.pictures{% endtrans %}</p>#}
-                </div>
-                <div class="col-sm-6">
-                    <ul class="breadcrumb pull-right">
-                        <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
-                        <li><a href="{{ path('hostels') }}">{% trans %}menu.hostels{% endtrans %}</a></li>
-                        <li><a href="{{ path('hostelsByDestination', {'slug' : hostel.location.slug }) }}">{{ hostel.location.name }}</a></li>
-                        <li class="active">{{ hostel.hostelName }}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section><!--/#title-->
-
-    <section id="contact-page" class="container">
+    <section id="contact-page">
         <div class="row">
             <div class="col-sm-5">
                 {% if is_granted('edit', hostel) %}
@@ -92,7 +80,7 @@
                 <h3>{% trans %}title.host.languages{% endtrans %}</h3>
                 <p>{{ hostel.hostLanguages|split(' ')|locales|join(', ') }}</p>
 
-                <a class="btn btn-primary btn-lg" href="{{ path('booking', {'slug' : hostel.slug}) }}">{% trans %}button.book{% endtrans %}</a>
+                <a class="btn btn-raised btn-primary btn-lg" href="{{ path('booking', {'slug' : hostel.slug}) }}">{% trans %}button.book{% endtrans %}</a>
 
             </div><!--/.col-sm-8-->
             <div class="col-sm-7">

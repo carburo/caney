@@ -9,6 +9,7 @@ form:
   owner: Anfitrión
 button:
   send: Enviar
+  book: Reservar
 menu:
   homepage: Inicio
   hostels: Hostales
@@ -30,3 +31,63 @@ profile:
     fullName: Nombre completo
     phoneNumber: Teléfono
     country: País
+breakfast:
+  label: Desayuno
+  price: "Desayuno: %price% CUC"
+dinner:
+  label: Cena
+  price: "Cena: %price% CUC"
+children:
+  accepted: "Se aceptan niños | No se aceptan niños"
+garage:
+  label: Garaje
+  price: "Garaje: %price% CUC per night"
+cocktails:
+  label: Cócteles
+guide:
+  label: Guía turístico
+horseRide:
+  label: Paseos a caballo
+scubaDiving:
+  label: Buceo
+laundry:
+  label: Lavandería | Lavandería <strong>no disponible</strong>
+swimmingPool:
+  label: Piscina
+internet:
+  label: Internet | Internet <strong>no disponible</strong>
+wifi:
+  label: Wi-Fi | Wi-Fi <strong>no disponible</strong>
+room:
+  capacity:
+    label: "{1}Una persona|]1,Inf[ %capacity% personas"
+  privateBathroom:
+    label: Baño privado | Baño compartido
+  hotWater:
+    label: Agua caliente
+  airConditioner:
+    label: Aire acondicionado| Aire acondicionado <strong>no disponible</strong>
+  voltage:
+    label: "Voltage: %voltage%"
+  privateEntrance:
+    label: Entrada privada
+  safe:
+    label: Caja fuerte
+  terrace:
+    label: Terraza
+  minibar:
+    label: Minibar
+  hairDryer:
+    label: Secadora de pelo
+  television:
+    label: Televisión
+label:
+  notAvailable: no disponible
+title:
+  address: Dirección
+  rooms: Habitaciones
+  home:
+    descriptions: Información general
+  food: Comida
+  host:
+    languages: Idiomas

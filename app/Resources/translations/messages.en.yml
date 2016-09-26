@@ -9,6 +9,7 @@ form:
   owner: Host
 button:
   send: Send
+  book: Book
 menu:
   homepage: Homepage
   hostels: Hostels
@@ -82,3 +83,11 @@ room:
     label: Television
 label:
   notAvailable: Not available
+title:
+  address: Address
+  rooms: Rooms
+  home:
+    descriptions: General Information
+  food: Food
+  host:
+    languages: Languages
