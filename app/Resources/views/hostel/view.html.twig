@@ -46,7 +46,7 @@
                         </li>
                     {% endfor %}
                 </ul>
-                <h3>{% trans %}title.home.descriptions{% endtrans %}</h3>
+                <h3>{% trans %}hostel.info.title{% endtrans %}</h3>
                 <ul>
                     <li>{% transchoice hostel.childrenAccepted %}children.accepted{% endtranschoice %}</li>
                     {% if hostel.garage %}
@@ -81,7 +81,7 @@
                         {% if hostel.scubaDiving %}<li>{{ 'scubaDiving.label'|trans }}</li>{% endif %}
                     </ul>
                 {% endif %}
-                <h3>{% trans %}title.host.languages{% endtrans %}</h3>
+                <h3>{% trans %}hostel.languages.title{% endtrans %}</h3>
                 <p>{{ hostel.hostLanguages|split(' ')|locales|join(', ') }}</p>
 
                 <a class="btn btn-raised btn-primary btn-lg" href="{{ path('booking', {'slug' : hostel.slug}) }}">{% trans %}button.book{% endtrans %}</a>

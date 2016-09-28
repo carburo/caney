@@ -4,30 +4,19 @@
     {{ room.hostel.hostelName }}
 {% endblock %}
 
-{% block body %}
-    {{ include('photo-swipe.html.twig') }}
+{% block headingTitle %}{{ room.name }}{% endblock %}
+{% block headingSubtitle %}{{ room.hostel.hostelName }}{% endblock %}
+{% block bodyPreamble %}{{ include('photo-swipe.html.twig') }}{% endblock %}
+{% block breadcrumbs %}
+    <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
+    <li><a href="{{ path('hostels') }}">{% trans %}menu.hostels{% endtrans %}</a></li>
+    <li><a href="{{ path('hostelsByDestination', {'slug' : room.hostel.location.slug }) }}">{{ room.hostel.location.name }}</a></li>
+    <li><a href="{{ path('hostel_view', {'slug' : room.hostel.slug }) }}">{{ room.hostel.hostelName }}</a></li>
+    <li class="active">{{ room.name }}</li>
+{% endblock %}
 
-    <section id="title" class="emerald">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h2>{{ room.name }}</h2>
-                    <h3>{{ room.hostel.hostelName }}</h3>
-                </div>
-                <div class="col-sm-6">
-                    <ul class="breadcrumb pull-right">
-                        <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
-                        <li><a href="{{ path('hostels') }}">{% trans %}menu.hostels{% endtrans %}</a></li>
-                        <li><a href="{{ path('hostelsByDestination', {'slug' : room.hostel.location.slug }) }}">{{ room.hostel.location.name }}</a></li>
-                        <li><a href="{{ path('hostel_view', {'slug' : room.hostel.slug }) }}">{{ room.hostel.hostelName }}</a></li>
-                        <li class="active">{{ room.name }}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section><!--/#title-->
-
-    <section id="contact-page" class="container">
+{% block content %}
+    <section id="contact-page">
         <div class="row">
             <div class="col-sm-5">
                 <p>{{ room.description }}</p>
@@ -47,7 +36,7 @@
                         {#</li>#}
                     {#{% endfor %}#}
                 {#</ul>#}
-                <h3>{% trans %}room.descriptions.title{% endtrans %}</h3>
+                <h3>{% trans %}room.info.title{% endtrans %}</h3>
                 <ul>
                     <li>{% transchoice room.privateBathroom %}room.privateBathroom.label{% endtranschoice %}</li>
                     {% if room.hotWater %}
@@ -115,7 +104,7 @@
 
             </div><!--/.col-sm-8-->
             <div class="col-sm-7">
-                <ul class="portfolio-items col-2 swipe-gallery">
+                <ul class="portfolio-items cols-xs-1 cols-sm-2 swipe-gallery">
                     {% for image in room.images %}
                         <li class="portfolio-item">
                             <div class="item-inner">
@@ -123,7 +112,7 @@
                                     <a href="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('app_image') }}" itemprop="contentUrl" data-size="{{ image.pixelWidth }}x{{ image.pixelHeight }}">
                                         <img src="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('app_thumb') }}" itemprop="thumbnail" alt="{{ room.hostel.hostelName ~ ' | ' ~ image.description }}" />
                                     </a>
-                                    <figcaption itemprop="caption description">{{ image.description }}</figcaption>
+                                    <figcaption itemprop="caption description"><h5>{{ image.description }}</h5></figcaption>
                                 </figure>
                             </div>
                         </li><!--/.portfolio-item-->

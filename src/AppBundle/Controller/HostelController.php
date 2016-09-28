@@ -21,7 +21,7 @@ class HostelController extends Controller
      * @Route("/hostels/{slug}", name="hostelsByDestination")
      */
     public function galleryByDestinationAction(Request $request, Location $destination) {
-        return $this->hostelGallery($destination->getHostels());
+        return $this->hostelGallery($destination->getHostels(), $destination->getName());
     }
 
     /**
@@ -33,14 +33,16 @@ class HostelController extends Controller
             $query = $request->query->get('query');
             $hostels = $repo->search($query);
         } else {
+            $query = "";
             $hostels = $repo->findAll();
         }
-        return $this->hostelGallery($hostels);
+        return $this->hostelGallery($hostels, $query);
     }
 
-    private function hostelGallery($hostels) {
+    private function hostelGallery($hostels, $query = "") {
         return $this->render('hostel/gallery.html.twig', [
             'hostels' => $hostels,
+            'query' => $query
         ]);
     }
 

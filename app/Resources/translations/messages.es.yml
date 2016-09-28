@@ -31,6 +31,11 @@ profile:
     fullName: Nombre completo
     phoneNumber: Teléfono
     country: País
+hostel:
+  info:
+    title: Información general
+  languages:
+    title: Idiomas
 breakfast:
   label: Desayuno
   price: "Desayuno: %price% CUC"
@@ -83,11 +88,9 @@ room:
     label: Televisión
 label:
   notAvailable: no disponible
+  lowSeason: Temporada baja
+  highSeason: Temporada alta
 title:
   address: Dirección
   rooms: Habitaciones
-  home:
-    descriptions: Información general
   food: Comida
-  host:
-    languages: Idiomas

@@ -33,6 +33,11 @@ profile:
     fullName: Full name
     phoneNumber: Phone number
     country: Country
+hostel:
+  info:
+    title: General Information
+  languages:
+    title: Languages
 breakfast:
   label: Breakfast
   price: "Breakfast: %price% CUC"
@@ -61,6 +66,8 @@ internet:
 wifi:
   label: Wi-Fi | Wi-Fi <strong>Not available</strong>
 room:
+  info:
+    title: General Information
   capacity:
     label: "{1}One person|]1,Inf[ %capacity% persons"
   privateBathroom:
@@ -85,11 +92,9 @@ room:
     label: Television
 label:
   notAvailable: Not available
+  lowSeason: Low season
+  highSeason: High season
 title:
   address: Address
   rooms: Rooms
-  home:
-    descriptions: General Information
   food: Food
-  host:
-    languages: Languages
