@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {% trans %}title.booking{% endtrans %}: {{ hostel }}
+    {% trans %}booking.title{% endtrans %}: {{ hostel }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -9,28 +9,22 @@
     <link href="{{ asset('css/skins/flat/blue.css') }}" rel="stylesheet">
 {% endblock %}
 
-{% block body %}
-    <section id="title" class="emerald">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h1>{% trans %}title.booking{% endtrans %}</h1>
-                    <p>{% trans with {'%hostel%' : hostel} %}subtitle.booking{% endtrans %}</p>
-                </div>
-                <div class="col-sm-6">
-                    <ul class="breadcrumb pull-right">
-                        <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
-                        <li><a href="{{ path('hostels') }}">{% trans %}menu.hostels{% endtrans %}</a></li>
-                        <li><a href="{{ path('hostelsByDestination', {'slug' : hostel.location.slug }) }}">{{ hostel.location.name }}</a></li>
-                        <li><a href="{{ path('hostel_view', {'slug': hostel.slug}) }}">{{ hostel }}</a></li>
-                        <li class="active">{% trans %}menu.booking{% endtrans %}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section><!--/#title-->
+{% block headingTitle %}
+    {% trans %}booking.title{% endtrans %}
+{% endblock %}
+{% block headingSubtitle %}
+    {{ hostel.hostelName }}
+{% endblock %}
+{% block breadcrumbs %}
+    <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
+    <li><a href="{{ path('hostels') }}">{% trans %}menu.hostels{% endtrans %}</a></li>
+    <li><a href="{{ path('hostelsByDestination', {'slug' : hostel.location.slug }) }}">{{ hostel.location.name }}</a></li>
+    <li><a href="{{ path('hostel_view', {'slug': hostel.slug}) }}">{{ hostel }}</a></li>
+    <li class="active">{% trans %}menu.booking{% endtrans %}</li>
+{% endblock %}
 
-    <section id="booking-page" class="container">
+{% block content %}
+    <section id="booking-page">
         <div class="row">
             {% if not_access is defined %}
             <div id="login-div" class="col-lg-6 col-md-12 col-sm-12">
@@ -38,13 +32,11 @@
                     You are not logged-in. You need to log-in in order to make a reservation.
                 </div>
                 <form method="post" action="{{ path('fos_user_security_login') }}">
-                    <input type="hidden" name="_target_path" value="booking" />
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-lg">{% trans %}Log-in{% endtrans %}</button>
                     </div>
                 </form>
                 <form method="post" action="{{ path('fos_user_registration_register') }}">
-                    <input type="hidden" name="_target_path" value="booking" />
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg">{% trans %}Sign up{% endtrans %}</button>
                     </div>
@@ -144,7 +136,7 @@
                 $('#booking_startDate').val(start.format('YYYY-MM-DD'));
                 $('#booking_endDate').val(end.format('YYYY-MM-DD'));
                 var nights = end.diff(start, 'days');
-                var locale = "{{  app.request.attributes.get('_locale') }}";
+                var locale = "{{ app.request.attributes.get('_locale') }}";
                 var text;
                 if(locale == "en") {
                     switch (nights) {

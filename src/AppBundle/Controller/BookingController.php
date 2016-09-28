@@ -26,10 +26,10 @@ class BookingController extends Controller
             return $this->renderBookingForm($request, $booking, $hostel);
         } else {
             $request->getSession()->set('_security.main.target_path', 'booking');
-            return $this->render('booking/index.html.twig', array(
+            return $this->render('booking/index.html.twig', [
                 'not_access' => true,
                 'hostel' => $hostel,
-            ));
+            ]);
         }
     }
 
