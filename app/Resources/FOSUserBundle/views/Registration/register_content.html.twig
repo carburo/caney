@@ -4,63 +4,59 @@
 
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form-signin', 'role': 'form'}}) }}
     <fieldset class="registration-form">
-        <div class="form-group">
+        <div class="form-group label-floating">
             {{ form_errors(form.forename) }}
-            {{ form_label(form.forename, null, {'label_attr': {'class': 'sr-only'}}) }}
-            {{ form_widget(form.forename, {'attr': {'placeholder': form.forename.vars.label}}) }}
+            {{ form_label(form.forename) }}
+            {{ form_widget(form.forename) }}
         </div>
-        <div class="form-group">
+        <div class="form-group label-floating">
             {{ form_errors(form.surname) }}
-            {{ form_label(form.surname, null, {'label_attr': {'class': 'sr-only'}}) }}
-            {{ form_widget(form.surname, {'attr': {'placeholder': form.surname.vars.label}}) }}
+            {{ form_label(form.surname) }}
+            {{ form_widget(form.surname) }}
         </div>
-        <div class="form-group">
+        <div class="form-group label-floating">
             {{ form_errors(form.email) }}
-            {{ form_label(form.email, null, {'label_attr': {'class': 'sr-only'}}) }}
-            <div class="input-group">
-                <span class="input-group-addon"><i class="icon icon-envelope-o"></i></span>
-                {{ form_widget(form.email, {'attr': {'placeholder': form.email.vars.label}}) }}
-            </div>
+            <label class="control-label" for="fos_user_registration_form_email">
+                <i class="icon icon-envelope-o"></i> * {{ form.email.vars.label|trans }}
+            </label>
+            {{ form_widget(form.email) }}
         </div>
-        <div class="form-group">
+        <div class="form-group label-floating">
             {{ form_errors(form.username) }}
-            {{ form_label(form.username, null, {'label_attr': {'class': 'sr-only'}}) }}
-            <div class="input-group">
-                <span class="input-group-addon"><i class="icon icon-user"></i></span>
-                {{ form_widget(form.username, {'attr': {'placeholder': form.username.vars.label}}) }}
-            </div>
+            <label class="control-label" for="fos_user_registration_form_username">
+                <i class="icon icon-user"></i> * {{ form.username.vars.label|trans }}
+            </label>
+            {{ form_widget(form.username) }}
         </div>
-        <div class="form-group">
+        {% trans_default_domain 'messages' %}
+        <div class="form-group label-floating">
             {{ form_errors(form.phoneNumber) }}
-            {{ form_label(form.phoneNumber, null, {'label_attr': {'class': 'sr-only'}}) }}
-            <div class="input-group">
-                <span class="input-group-addon"><i class="icon icon-phone"></i></span>
-                {{ form_widget(form.phoneNumber, {'attr': {'placeholder': form.phoneNumber.vars.label}}) }}
-            </div>
+            <label class="control-label" for="fos_user_registration_form_phonenumber">
+                <i class="icon icon-phone"></i> {{ form.phoneNumber.vars.label|trans }}
+            </label>
+            {{ form_widget(form.phoneNumber) }}
         </div>
-        <div class="form-group">
+        <div class="form-group label-floating">
             {{ form_errors(form.country) }}
-            {{ form_label(form.country, null, {'label_attr': {'class': 'sr-only'}}) }}
-            <div class="input-group">
-                <span class="input-group-addon"><i class="icon icon-globe"></i></span>
-                {{ form_widget(form.country, {'placeholder': form.country.vars.label}) }}
-            </div>
+            <label class="control-label" for="fos_user_registration_form_country">
+                <i class="icon icon-globe"></i> {{ form.country.vars.label|trans }}
+            </label>
+            {{ form_widget(form.country) }}
         </div>
-        <div class="form-group">
+        {% trans_default_domain 'FOSUserBundle' %}
+        <div class="form-group label-floating">
             {{ form_errors(form.plainPassword.first) }}
-            {{ form_label(form.plainPassword.first, null, {'label_attr': {'class': 'sr-only'}}) }}
-            <div class="input-group">
-                <span class="input-group-addon"><i class="icon icon-key"></i></span>
-                {{ form_widget(form.plainPassword.first, {'attr': {'placeholder': form.plainPassword.first.vars.label}}) }}
-            </div>
+            <label class="control-label" for="fos_user_registration_form_password_first">
+                <i class="icon icon-key"></i> {{ form.plainPassword.first.vars.label|trans }}
+            </label>
+            {{ form_widget(form.plainPassword.first) }}
         </div>
-        <div class="form-group">
+        <div class="form-group label-floating">
             {{ form_errors(form.plainPassword.second) }}
-            {{ form_label(form.plainPassword.second, null, {'label_attr': {'class': 'sr-only'}}) }}
-            <div class="input-group">
-                <span class="input-group-addon"><i class="icon icon-repeat"></i></span>
-                {{ form_widget(form.plainPassword.second, {'attr': {'placeholder': form.plainPassword.second.vars.label}}) }}
-            </div>
+            <label class="control-label" for="fos_user_registration_form_password_second">
+                <i class="icon icon-repeat"></i> {{ form.plainPassword.second.vars.label|trans }}
+            </label>
+            {{ form_widget(form.plainPassword.second) }}
         </div>
         {{ form_widget(form) }}
         <div class="form-group">

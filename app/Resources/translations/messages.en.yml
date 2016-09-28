@@ -16,6 +16,8 @@ menu:
   booking: Reservation
   contact: Contact
   destinations: Destinations
+  hostel:
+    register: Register hostel
   welcome:
     message: Hi %visitor%
   user:
@@ -38,6 +40,9 @@ hostel:
     title: General Information
   languages:
     title: Languages
+  register:
+      title: Register hostel
+      subtitle: Fill out the form in order to register a new hostel in your account.
 breakfast:
   label: Breakfast
   price: "Breakfast: %price% CUC"

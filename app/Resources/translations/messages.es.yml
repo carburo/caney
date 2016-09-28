@@ -21,6 +21,8 @@ menu:
   user:
     edit: Editar perfil
     changePassword: Cambiar contraseña
+  hostel:
+    register: Registrar hostal
 contact:
   title: Contacto
   subtitle: Si tiene alguna interrogante no dude en preguntar. Simplemente debe llenar el siguiente formulario y con gusto intentaremos encontrarle una solución.
@@ -36,6 +38,9 @@ hostel:
     title: Información general
   languages:
     title: Idiomas
+  register:
+    title: Registrar hostal
+    subtitle: Llene el formulario con los datos necesarios para registrar un nuevo hostal a su nombre.
 breakfast:
   label: Desayuno
   price: "Desayuno: %price% CUC"
