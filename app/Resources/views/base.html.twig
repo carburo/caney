@@ -70,8 +70,7 @@
 </nav>
 
 {% block body %}
-    {% block bodyPreamble %}
-    {% endblock %}
+    {% block bodyPreamble %}{% endblock %}
     <div class="container" style="margin-top: 20px">
         <div class="page active">
             {% block heading %}
@@ -83,12 +82,14 @@
                     </div>
                     {#{{ dump(knp_menu_get_breadcrumbs_array('AppBundle:Builder:mainMenu', 'menu.hostels')) }}#}
 
+                    {% block breadcrumbsLayout %}
                     <div class="col-sm-6">
                         <ul class="breadcrumb pull-right">
                             {% block breadcrumbs %}
                             {% endblock %}
                         </ul>
                     </div>
+                    {% endblock %}
 
                 </div>
             </section>

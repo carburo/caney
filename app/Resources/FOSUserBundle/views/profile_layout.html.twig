@@ -1,33 +1,25 @@
 {% extends 'base.html.twig' %}
 
+{% block breadcrumbsLayout %}{% endblock %}
 {% block body %}
-
-	{% block fos_user_body %}
-        <section class="container-fluid">
-        	<div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                  {{ knp_menu_render('AppBundle:Builder:user2Menu', { 
-                  		'currentClass': 'active', 
-                  		'menu_template': 'SonataBlockBundle:Block:block_side_menu_template.html.twig' 
-                    }) }}
-                </div>
-            
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            	<div class="col-sm-6">
-                    <h2>{% block heading_title %}{% endblock %}</h2>
-                    {#<p>Pellentesque habitant morbi tristique senectus et netus et malesuada</p>#}
-                </div>
-                <div class="col-sm-6">
-                    <ul class="breadcrumb pull-right">
-                        <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
-                        <li class="active">{% block path %}{% endblock %}</li>
-                    </ul>
-                </div>
-                <div class="col-sm-12">
-                	{% block fos_user_content %}{% endblock %}
-                </div>
+    {% block bodyPreamble %}{% endblock %}
+    <section class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                {{ knp_menu_render('AppBundle:Builder:user2Menu', {
+                    'currentClass': 'active',
+                    'menu_template': 'SonataBlockBundle:Block:block_side_menu_template.html.twig'
+                }) }}
             </div>
-      	</div>
-        </section>
-    {% endblock %}
+
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 page active main">
+                {% block heading %}
+                    {{ parent() }}
+                {% endblock %}
+                {% block content %}
+                    {{ parent() }}
+                {% endblock %}
+            </div>
+        </div>
+    </section>
 {% endblock %}
