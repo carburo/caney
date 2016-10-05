@@ -13,7 +13,7 @@ class LocationController extends FOSRestController implements ClassResourceInter
     {
         $db = $this->getConnection();
         $sql = $this->sqlSelect;
-        return $db->fetchAll($sql, ["locale" => $request->getLocale()]);
+        return $db->fetchAll("$sql order by position", ["locale" => $request->getLocale()]);
     }
 
     public function getAction($slug, Request $request)

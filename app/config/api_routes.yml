@@ -1,0 +1,12 @@
+controllers:
+  type: rest
+  resource: "@AppBundle/RestApi/"
+
+hostels:
+  type: rest
+  resource: AppBundle\RestApi\HostelController
+
+rooms:
+  type: rest
+  resource: AppBundle\RestApi\RoomController
+  parent: hostels

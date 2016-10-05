@@ -36,13 +36,6 @@ class Room
     private $description;
 
     /**
-     * @var RoomType
-     * @ORM\ManyToOne(targetEntity="RoomType")
-     * @ORM\JoinColumn(name="room_type_id", referencedColumnName="id")
-     */
-    private $typeOfRoom;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="capacity", type="integer")
@@ -141,6 +134,13 @@ class Room
     private $television;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="room_type", type="string", length=63)
+     */
+    private $type;
+
+    /**
      * @var Hostel
      * @ORM\ManyToOne(targetEntity="Hostel", inversedBy="rooms")
      * @ORM\JoinColumn(name="hostel_id", referencedColumnName="id")
@@ -225,22 +225,6 @@ class Room
     public function setHostel($hostel)
     {
         $this->hostel = $hostel;
-    }
-
-    /**
-     * @return RoomType
-     */
-    public function getTypeOfRoom()
-    {
-        return $this->typeOfRoom;
-    }
-
-    /**
-     * @param Room $typeOfRoom
-     */
-    public function setTypeOfRoom($typeOfRoom)
-    {
-        $this->typeOfRoom = $typeOfRoom;
     }
 
     /**
@@ -484,6 +468,22 @@ class Room
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type)
+    {
+        $this->type = $type;
     }
 
     /**

@@ -2,8 +2,8 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-hostels:
-  resource: "@AppBundle/RestApi/"
+api:
+  resource: "api_routes.yml"
   type: rest
   prefix: api/{_locale}
   requirements:
