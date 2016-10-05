@@ -61,14 +61,6 @@ class Booking
     private $rooms;
 
     /**
-     * @var ArrivalMean
-     *
-     * @ORM\ManyToOne(targetEntity="ArrivalMean")
-     * @ORM\JoinColumn(name="arrival_mean_id", referencedColumnName="id")
-     */
-    private $arrivalMeans;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="number_of_persons", type="integer")
@@ -174,7 +166,7 @@ class Booking
     }
 
     /**
-     * @return \Room
+     * @return Room
      */
     public function getRooms()
     {
@@ -182,27 +174,11 @@ class Booking
     }
 
     /**
-     * @param \Room $rooms
+     * @param Room $rooms
      */
     public function setRooms($rooms)
     {
         $this->rooms = $rooms;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getArrivalMeans()
-    {
-        return $this->arrivalMeans;
-    }
-
-    /**
-     * @param mixed $arrivalMeans
-     */
-    public function setArrivalMeans($arrivalMeans)
-    {
-        $this->arrivalMeans = $arrivalMeans;
     }
 
     /**
