@@ -45,6 +45,12 @@ twig:
     globals:
       _locales: '%app.locales%'
 
+fos_rest:
+  routing_loader:
+    default_format: json
+  view:
+    view_response_listener: 'force'
+
 # Doctrine Configuration
 doctrine:
     dbal:

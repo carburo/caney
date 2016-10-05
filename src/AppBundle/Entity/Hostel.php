@@ -218,7 +218,7 @@ class Hostel
     /**
      * @var Location
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="hostels")
-     * @ORM\JoinColumn(name="location_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="location_id", referencedColumnName="slug")
      */
     private $location;
 

@@ -15,18 +15,19 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Province
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+//    /**
+//     * @var int
+//     *
+//     * @ORM\Column(name="id", type="integer")
+//     * @ORM\Id
+//     * @ORM\GeneratedValue(strategy="AUTO")
+//     */
+//    private $id;
 
     /**
      * @var string
      *
+     * @ORM\Id
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(length=64, unique=true)
      */
@@ -55,7 +56,7 @@ class Province
 
     /**
      * @ORM\OneToMany(
-     *   targetEntity="LocationTranslation",
+     *   targetEntity="ProvinceTranslation",
      *   mappedBy="object",
      *   cascade={"persist", "remove"}
      * )

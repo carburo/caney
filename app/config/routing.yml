@@ -2,6 +2,13 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
+hostels:
+  resource: "@AppBundle/RestApi/"
+  type: rest
+  prefix: api/{_locale}
+  requirements:
+    _locale: '%app.locales%'
+
 admin_area:
   resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
   prefix: /admin

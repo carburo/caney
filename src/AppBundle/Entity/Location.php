@@ -15,18 +15,19 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Location
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+//    /**
+//     * @var int
+//     *
+//     * @ORM\Column(name="id", type="integer")
+//     * @ORM\Id
+//     * @ORM\GeneratedValue(strategy="AUTO")
+//     */
+//    private $id;
 
     /**
      * @var string
      *
+     * @ORM\Id
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(length=64, unique=true)
      */
@@ -43,7 +44,7 @@ class Location
     /**
      * @var Province
      * @ORM\ManyToOne(targetEntity="Province", inversedBy="locations")
-     * @ORM\JoinColumn(name="province_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="province_id", referencedColumnName="slug")
      */
     private $province;
 
@@ -84,27 +85,27 @@ class Location
         }
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+//    /**
+//     * @return int
+//     */
+//    public function getId()
+//    {
+//        return $this->id;
+//    }
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return Location
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
+//    /**
+//     * Set slug
+//     *
+//     * @param string $slug
+//     *
+//     * @return Location
+//     */
+//    public function setSlug($slug)
+//    {
+//        $this->slug = $slug;
+//
+//        return $this;
+//    }
 
     /**
      * @return string

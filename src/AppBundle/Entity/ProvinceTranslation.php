@@ -37,7 +37,7 @@ class ProvinceTranslation extends AbstractPersonalTranslation {
 
     /**
      * @ORM\ManyToOne(targetEntity="Province", inversedBy="translations")
-     * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="object_id", referencedColumnName="slug", onDelete="CASCADE")
      */
     protected $object;
 
