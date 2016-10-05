@@ -14,12 +14,12 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class RoomTypeController extends FOSRestController implements ClassResourceInterface
+class BookingController extends FOSRestController implements ClassResourceInterface
 {
     public function cgetAction(Request $request)
     {
         $db = $this->getConnection();
-        return $db->fetchAll("select * from room_type");
+        return $db->fetchAll("select * from booking");
     }
 
     private function getConnection(): Connection
