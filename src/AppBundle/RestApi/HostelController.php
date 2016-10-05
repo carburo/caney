@@ -22,6 +22,15 @@ class HostelController extends FOSRestController implements ClassResourceInterfa
         ]);
     }
 
+    public function getRoomsAction($slug)
+    {
+        $db = $this->getConnection();
+        $sql = "select * from room where hostel_id = (select id from hostel where slug = :slug)";
+        return $db->fetchAll($sql, [
+            "slug" => $slug
+        ]);
+    }
+
     private function getConnection(): Connection
     {
         return $connection = $this->get("database_connection");
