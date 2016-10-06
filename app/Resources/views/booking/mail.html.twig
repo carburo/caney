@@ -11,7 +11,6 @@
     Email: {{ booking.user.email }} <br>
     Rango: {{ booking.startDate|date("d/m/Y") }} - {{ booking.endDate|date("d/m/Y") }} <br>
     Número de personas: {{ booking.numberOfPersons }} <br>
-    Arrivo por: {{ booking.arrivalMeans }} <br>
     {% if booking.rooms is not empty %}
     Habitaciones:
     <ul>

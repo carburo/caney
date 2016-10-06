@@ -22,6 +22,14 @@ class ContactController extends FOSRestController implements ClassResourceInterf
         return $db->fetchAll("select * from contact");
     }
 
+    public function getAction($id, Request $request)
+    {
+        $db = $this->getConnection();
+        return $db->fetchAssoc("select * from contact where id = :id", [
+            "id" => $id
+        ]);
+    }
+
     private function getConnection(): Connection
     {
         return $connection = $this->get("database_connection");

@@ -38,6 +38,7 @@ class RoomType extends AbstractType
             ->add('television')
             ->add('typeOfRoom')
             ->add('hostel')
+            ->add('type')
         ;
     }
     

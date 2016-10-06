@@ -7,6 +7,7 @@ form:
   email: Email
   message: Message
   owner: Host
+  comments: Comments
 button:
   send: Send
   book: Book
@@ -95,6 +96,10 @@ room:
     label: Hair dryer
   television:
     label: Television
+  type:
+    single: Single
+    double: Double
+    triple: Triple
 label:
   notAvailable: Not available
   lowSeason: Low season

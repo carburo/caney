@@ -10,6 +10,8 @@ parameters:
     app.locales: en|es|fr|de
     app.path.hostel_images: /uploads/images/hostels
     app.path.user_profile_pictures: /uploads/images/profile
+    sender.email: "%sender_email%"
+    addressee.email: "%addressee_email%"
 
 framework:
     #esi:             ~

@@ -4,11 +4,6 @@
     {% trans %}booking.title{% endtrans %}: {{ hostel }}
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link href="{{ asset('css/skins/flat/blue.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block headingTitle %}
     {% trans %}booking.title{% endtrans %}
 {% endblock %}
@@ -46,62 +41,36 @@
             <div id="success-div" class="col-lg-6 col-md-12 col-sm-12" style="display: none">
                 <div id="success-message" class="status alert alert-success"></div>
                 <div class="form-group">
-                    <button id="success-btn" class="btn btn-success btn-lg">{% trans %}button.go.back{% endtrans %}</button>
+                    <button id="success-btn" class="btn btn-success btn-raised btn-lg">{% trans %}button.go.back{% endtrans %}</button>
                 </div>
             </div>
             {{ form_start(form, {'attr': {'class': 'booking-form' }}) }}
             <div class="col-sm-6">
-                <div class="form-group">
-                    {{ form_widget(form.hostel, {'attr': {'class': 'hidden' }}) }}
-                </div>
-                <div class="form-group">
-                    {{ form_widget(form.user, {'attr': {'class': 'hidden' }}) }}
+                <div class="hidden" style="display: none">
+                    {{ form_widget(form.hostel) }}
+                    {{ form_widget(form.user) }}
+                    {{ form_widget(form.startDate) }}
+                    {{ form_widget(form.endDate) }}
                 </div>
                 <div class="form-group">
                     <label id="nights">{% transchoice 0 with {'%nights%': 0} %}label.info.nights{% endtranschoice %}</label>
                 </div>
                 <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="icon icon-calendar"></i></span>
-                        <input type="text" id="date_range" required="required" maxlength="255" class="form-control" placeholder="{% trans %}label.booking.range{% endtrans %}" />
-                    </div>
-                </div>
-                <div class="hidden">
-                    {{ form_widget(form.startDate) }}
-                    {{ form_widget(form.endDate) }}
-                </div>
-                {#<div class="col-md-6 col-sm-12">#}
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="icon icon-male"></i></span>
-                            {{ form_widget(form.numberOfPersons, {'attr': {'placeholder': 'label.numberOfPersons' }}) }}
-                        </div>
-                    </div>
-                {#</div>#}
-                {#<div class="col-md-6 col-sm-12">#}
-                    {#<div class="form-group">#}
-                        {#<div class="input-group">#}
-                            {#<span class="input-group-addon"><i class="icon icon-child"></i></span>#}
-                            {#<input type="number" class="form-control" placeholder="Children"/>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</div>#}
-                <div class="form-group">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="icon icon-car"></i></span>
-                            {{ form_widget(form.arrivalMeans, {'attr': {'placeholder': 'label.arrivalMeans' }}) }}
-                        </div>
-                    </div>
+                    <label for="date_range"><i class="icon icon-calendar"></i> {{ 'label.booking.range'|trans }}</label>
+                    <input type="text" id="date_range" required="required" maxlength="255" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <div id="booking_room" class="form-group check-list">
+                    <label for="booking_numberOfPersons"><i class="icon icon-male"></i> {{ 'label.numberOfPersons'|trans }}</label>
+                    {{ form_widget(form.numberOfPersons) }}
+                </div>
+                <div class="form-group">
+                    <div id="booking_room" class="form-group">
                         {% for key, value in form.rooms %}
                             {% set room = form.rooms.vars.choices[key].data %}
                             {{
                                 form_widget(value, {
-                                    'label': "#{room.name}: #{room.typeOfRoom.name},
-                                    #{'label.room.capacity'|transchoice(room.capacity, { '%capacity%': room.capacity })}
+                                    'label': "#{room.name}: #{('room.type.' ~ room.type|lower)|trans},
+                                    #{'room.capacity.label'|transchoice(room.capacity, { '%capacity%': room.capacity })}
                                     ($#{room.priceInLow}/$#{room.priceInHigh})"
                                 })
                             }}
@@ -110,11 +79,11 @@
                     </ul>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg">{% trans %}button.send{% endtrans %}</button>
+                    <button type="submit" class="btn btn-primary btn-raised btn-lg">{% trans %}button.send{% endtrans %}</button>
                 </div>
             </div><!--/.col-sm-8-->
             <div class="col-sm-6">
-                {{ form_widget(form.comments, {'attr': {'placeholder': 'label.comments', 'rows': '16' }}) }}
+                {{ form_row(form.comments, {'attr': {'rows': '16' }}) }}
             </div><!--/.col-sm-4-->
             {{ form_end(form) }}
             {% endif %}
@@ -162,17 +131,6 @@
 
             $('#date_range').on('apply.daterangepicker', function(ev, picker) {
                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-            });
-        });
-    </script>
-
-    <script src="{{ asset('js/icheck.min.js') }}"></script>
-    <script>
-        $(document).ready(function(){
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_flat-blue',
-                radioClass: 'iradio_flat-blue',
-                increaseArea: '20%' // optional
             });
         });
     </script>
