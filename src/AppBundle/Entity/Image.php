@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn("discr", type="string")
- * @ORM\DiscriminatorMap({"regular" = "Image", "hostel" = "HostelImage", "room" = "RoomImage"})
+ * @ORM\DiscriminatorMap({"regular" = "Image", "hostel" = "HostelImage"})
  * @Gedmo\TranslationEntity(class="AppBundle\Entity\ImageTranslation")
  */
 class Image

@@ -12,6 +12,7 @@ namespace AppBundle\RestApi;
 use Doctrine\DBAL\Connection;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class RoomController extends FOSRestController implements ClassResourceInterface
 {
@@ -22,6 +23,22 @@ class RoomController extends FOSRestController implements ClassResourceInterface
         return $db->fetchAll($sql, [
             "slug" => $slug
         ]);
+    }
+
+    public function getImagesAction($slug, $id, Request $request)
+    {
+        $repo = $this->getRepository();
+        $helper = $this->get("vich_uploader.templating.helper.uploader_helper");
+
+        $room = $repo->findOneById($id);
+        $images = $room->getImages();
+
+        return ImageController::processImages($images, $request, $helper);
+    }
+
+    private function getRepository()
+    {
+        return $this->getDoctrine()->getRepository('AppBundle:Room');
     }
 
     private function getConnection(): Connection
