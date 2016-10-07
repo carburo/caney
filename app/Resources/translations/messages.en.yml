@@ -11,6 +11,8 @@ form:
 button:
   send: Send
   book: Book
+  go:
+    back: Regresar
 menu:
   homepage: Homepage
   hostels: Hostels
@@ -31,6 +33,13 @@ hostels:
   title: Hostels
 booking:
   title: Booking
+  info:
+    nights: "{0} Choose a date range for the reservation.|{1} Reservation for one night.|]1,Inf[ Reservation for %nights% nights."
+  form:
+    dateRange: Choose a date range for the reservation.
+    people: Number of guests
+  success:
+    message: "<h2>Your request has been sent!</h2><br>We are taking notice of your request and we will attend it as soon as possible.<br>We will contact you via email to confirm availability."
 profile:
   show:
     fullName: Full name

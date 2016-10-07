@@ -51,6 +51,7 @@ class BookingController extends Controller
                 );
                 return new JsonResponse($status);
             } else {
+                // return redirectToAction("hostel_view", ["hostel" => $hostel]);
                 unset($booking);
                 unset($form);
                 $booking = new Booking();

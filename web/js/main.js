@@ -61,12 +61,6 @@ jQuery(function($) {
         return false;
     });
 
-    var successButton = $('#success-btn');
-    successButton.click(function() {
-        $('#success-div').fadeOut();
-        form.fadeIn();
-    })
-
 	//goto top
 	$('.gototop').click(function(event) {
 		event.preventDefault();
@@ -123,3 +117,34 @@ jQuery(function($) {
         });
     });
 });
+
+function translateInfoNights(locale, nights) {
+    var text;
+    switch (locale) {
+        case "es":
+            switch (nights) {
+                case 0: text = "Elija un rango de fechas para la reserva."; break;
+                case 1: text = "Reserva por una noche."; break;
+                default: text = "Reserva por " + nights + " noches.";
+            }
+        case "fr":
+            switch (nights) {
+                case 0: text = "Elija un rango de fechas para la reserva."; break;
+                case 1: text = "Reserva por una noche."; break;
+                default: text = "Reserva por " + nights + " noches.";
+            }
+        case "de":
+            switch (nights) {
+                case 0: text = "Elija un rango de fechas para la reserva."; break;
+                case 1: text = "Reserva por una noche."; break;
+                default: text = "Reserva por " + nights + " noches.";
+            }
+        default:
+            switch (nights) {
+                case 0: text = "Choose a date range for the reservation."; break;
+                case 1: text = "Reservation for one night."; break;
+                default: text = "Reservation for " + nights + " nights.";
+            }
+    }
+    return text;   
+}

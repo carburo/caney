@@ -38,14 +38,16 @@
                 </form>
             </div>
             {% else %}
-            <div id="success-div" class="col-lg-6 col-md-12 col-sm-12" style="display: none">
-                <div id="success-message" class="status alert alert-success"></div>
-                <div class="form-group">
-                    <button id="success-btn" class="btn btn-success btn-raised btn-lg">{% trans %}button.go.back{% endtrans %}</button>
+            <form method="post" action="{{ path('hostel_view', {'slug': hostel.slug}) }}">
+                <div id="success-div" class="col-lg-6 col-md-12 col-sm-12" style="display: none">
+                    <div id="success-message" class="status alert alert-success"></div>
+                        <div class="form-group">
+                            <button id="success-btn" class="btn btn-success btn-raised btn-lg">{% trans %}button.go.back{% endtrans %}</button>
+                        </div>
                 </div>
-            </div>
+            </form>
             {{ form_start(form, {'attr': {'class': 'booking-form' }}) }}
-            <div class="col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="hidden" style="display: none">
                     {{ form_widget(form.hostel) }}
                     {{ form_widget(form.user) }}
@@ -53,14 +55,11 @@
                     {{ form_widget(form.endDate) }}
                 </div>
                 <div class="form-group">
-                    <label id="nights">{% transchoice 0 with {'%nights%': 0} %}label.info.nights{% endtranschoice %}</label>
-                </div>
-                <div class="form-group">
-                    <label for="date_range"><i class="icon icon-calendar"></i> {{ 'label.booking.range'|trans }}</label>
+                    <label class="control-label" for="date_range"><i class="icon icon-calendar"></i> <span id="nights">{{ 'booking.form.dateRange'|trans }}</span></label>
                     <input type="text" id="date_range" required="required" maxlength="255" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <label for="booking_numberOfPersons"><i class="icon icon-male"></i> {{ 'label.numberOfPersons'|trans }}</label>
+                    <label class="control-label" for="booking_numberOfPersons"><i class="icon icon-male"></i> {{ 'booking.form.people'|trans }}</label>
                     {{ form_widget(form.numberOfPersons) }}
                 </div>
                 <div class="form-group">
@@ -78,13 +77,15 @@
                     </div>
                     </ul>
                 </div>
+            </div><!--/.col-sm-8-->
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                {{ form_row(form.comments, {'attr': {'rows': '12' }}) }}
+            </div><!--/.col-sm-4-->
+            <div class="col-sm-12">
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-raised btn-lg">{% trans %}button.send{% endtrans %}</button>
                 </div>
-            </div><!--/.col-sm-8-->
-            <div class="col-sm-6">
-                {{ form_row(form.comments, {'attr': {'rows': '16' }}) }}
-            </div><!--/.col-sm-4-->
+            </div>
             {{ form_end(form) }}
             {% endif %}
         </div>
@@ -94,8 +95,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        $(function() {
-//            $('input[name="booking[rooms][]"]:checked').each(function() {});
+        $(document).ready(function() {
             $('#bookingMenu').addClass('active');
 
             $('#date_range').daterangepicker({
@@ -106,26 +106,7 @@
                 $('#booking_endDate').val(end.format('YYYY-MM-DD'));
                 var nights = end.diff(start, 'days');
                 var locale = "{{ app.request.attributes.get('_locale') }}";
-                var text;
-                if(locale == "en") {
-                    switch (nights) {
-                        case 0: text = "Choose a date range for the reservation."; break;
-                        case 1: text = "Reservation for one night."; break;
-                        default : text = "Reservation for " + nights + " nights.";
-                    }
-                } else if (locale == "es") {
-                    switch (nights) {
-                        case 0: text = "Elija un rango de fechas para la reserva."; break;
-                        case 1: text = "Reserva por una noche."; break;
-                        default : text = "Reserva por " + nights + " noches.";
-                    }
-                } else if (locale == "fr") {
-                    switch (nights) {
-                        case 0: text = "Elija un rango de fechas para la reserva."; break;
-                        case 1: text = "Reserva por una noche."; break;
-                        default : text = "Reserva por " + nights + " noches.";
-                    }
-                }
+                var text = translateInfoNights(locale, nights);
                 $('#nights').text(text);
             });
 
@@ -133,5 +114,6 @@
                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
             });
         });
+        
     </script>
 {% endblock %}
