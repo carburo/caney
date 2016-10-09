@@ -18,7 +18,7 @@
 {% block content %}
     <section id="contact-page">
         <div class="row">
-            <div class="col-sm-5">
+            <div class="col-xs-12">
                 <p>{{ room.description }}</p>
                 {#<h3>{% trans %}room.descriptions.title{% endtrans %}</h3>#}
                 {#<p>{{ room.typeOfRoom }}</p>#}
@@ -102,23 +102,33 @@
 
                 {#<a class="btn btn-primary btn-lg" href="{{ path('booking', {'slug' : hostel.slug}) }}">{% trans %}button.book{% endtrans %}</a>#}
 
-            </div><!--/.col-sm-8-->
-            <div class="col-sm-7">
-                <ul class="portfolio-items cols-xs-1 cols-sm-2 swipe-gallery">
-                    {% for image in room.images %}
-                        <li class="portfolio-item">
-                            <div class="item-inner">
-                                <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                    <a href="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('app_image') }}" itemprop="contentUrl" data-size="{{ image.pixelWidth }}x{{ image.pixelHeight }}">
-                                        <img src="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('app_thumb') }}" itemprop="thumbnail" alt="{{ room.hostel.hostelName ~ ' | ' ~ image.description }}" />
-                                    </a>
-                                    <figcaption itemprop="caption description"><h5>{{ image.description }}</h5></figcaption>
-                                </figure>
-                            </div>
-                        </li><!--/.portfolio-item-->
-                    {% endfor %}
-                </ul>
-            </div><!--/.col-sm-4-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                {{ include('hostel/image_slider.html.twig', {'images': room.images}) }}
+            </div>
         </div>
     </section><!--/#contact-page-->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 'auto',
+        paginationClickable: true,
+        spaceBetween: 10,
+        freeMode: true
+    });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+    .swiper-slide {
+        width: 271px;
+    }
+    </style>
 {% endblock %}

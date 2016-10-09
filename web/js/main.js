@@ -108,7 +108,7 @@ jQuery(function($) {
             var $index = $(this).data('order');
             var options = {
                 index: $index,
-                bgOpacity: 0.7,
+                bgOpacity: 1,
                 showHideOpacity: true
             }
 
