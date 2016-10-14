@@ -29,11 +29,12 @@ class HostelController extends FOSRestController implements ClassResourceInterfa
     {
         $repo = $this->getRepository();
         $helper = $this->get("vich_uploader.templating.helper.uploader_helper");
+        $imagine = $this->get('liip_imagine.cache.manager');
 
         $hostel = $repo->findOneBySlug($slug);
         $images = $hostel->getImages();
 
-        return ImageController::processImages($images, $request, $helper);
+        return ImageController::processImages($images, $request, $helper, $imagine);
     }
 
     private function getConnection(): Connection

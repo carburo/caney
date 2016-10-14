@@ -29,11 +29,12 @@ class RoomController extends FOSRestController implements ClassResourceInterface
     {
         $repo = $this->getRepository();
         $helper = $this->get("vich_uploader.templating.helper.uploader_helper");
+        $imagine = $this->get('liip_imagine.cache.manager');
 
         $room = $repo->findOneById($id);
         $images = $room->getImages();
 
-        return ImageController::processImages($images, $request, $helper);
+        return ImageController::processImages($images, $request, $helper, $imagine);
     }
 
     private function getRepository()

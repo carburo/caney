@@ -25,21 +25,26 @@ class ImageController extends FOSRestController implements ClassResourceInterfac
         return self::processImage($image, $request, $helper);
     }
 
-    public static function processImages($images, Request $request, UploaderHelper $helper)
+    public static function processImages($images, Request $request, UploaderHelper $helper, $imagine)
     {
         $data = [];
         foreach ($images as $image)
         {
-            $data [] = self::processImage($image, $request, $helper);
+            $data [] = self::processImage($image, $request, $helper, $imagine);
         }
         return $data;
     }
 
-    public static function processImage($image, Request $request, UploaderHelper $helper)
+    public static function processImage($image, Request $request, UploaderHelper $helper, $imagine)
     {
+        $imagePath = $helper->asset($image, 'imageFile');
         return [
             "id" => $image->getId(),
-            "uri" => $request->getUriForPath($helper->asset($image, 'imageFile')),
+            //"uri" => $request->getUriForPath($imagePath),
+            "uri" => $imagine->getBrowserPath($imagePath, "app_image"),
+            "uri_thumb" => $imagine->getBrowserPath($imagePath, "app_thumb"),
+            "pixelWidth" => $image->getPixelWidth(),
+            "pixelHeight" => $image->getPixelHeight(),
             "description" => $image->getDescription(),
             "part_of_the_house" => $image->getPartOfTheHouse()->getName()
         ];
