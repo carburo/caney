@@ -7,27 +7,39 @@ form:
   email: Correo electrónico
   message: Mensaje
   owner: Anfitrión
+  comments: Comentarios
 button:
   send: Enviar
   book: Reservar
+  go:
+    back: Regresar
 menu:
   homepage: Inicio
   hostels: Hostales
   booking: Reserva
   contact: Contacto
   destinations: Destinos
+  hostel:
+    register: Registrar hostal
   welcome:
     message: Hola %visitor%
   user:
     edit: Editar perfil
     changePassword: Cambiar contraseña
-  hostel:
-    register: Registrar hostal
 contact:
   title: Contacto
   subtitle: Si tiene alguna interrogante no dude en preguntar. Simplemente debe llenar el siguiente formulario y con gusto intentaremos encontrarle una solución.
 hostels:
   title: Hostales
+booking:
+  title: Reservación
+  info:
+    nights: "{0} Elija un rango de fechas para la reservación.|{1} Reservación por una noche.|]1,Inf[ Reservación por %nights% noches."
+  form:
+    dateRange: Elija un rango de fechas para la reservación.
+    people: Cantidad de invitados.
+  success:
+    message: "<h2>Su solicitud ha sido enviada!</h2><br>Estamos atendiendo su solicitud y le daremos respuesta lo más rápido posible.<br>Le contactaremos vía correo electrónico para confirmar disponibilidad."
 profile:
   show:
     fullName: Nombre completo
@@ -69,6 +81,8 @@ internet:
 wifi:
   label: Wi-Fi | Wi-Fi <strong>no disponible</strong>
 room:
+  info: 
+    title: Información general
   capacity:
     label: "{1}Una persona|]1,Inf[ %capacity% personas"
   privateBathroom:
@@ -91,6 +105,10 @@ room:
     label: Secadora de pelo
   television:
     label: Televisión
+  type:
+    single: Sencilla
+    double: Doble
+    triple: Triple
 label:
   notAvailable: no disponible
   lowSeason: Temporada baja

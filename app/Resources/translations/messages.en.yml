@@ -12,7 +12,7 @@ button:
   send: Send
   book: Book
   go:
-    back: Regresar
+    back: Back
 menu:
   homepage: Homepage
   hostels: Hostels
