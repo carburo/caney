@@ -12,15 +12,9 @@
             <div class="swiper-slide" style="background: blue">Slide 2</div>
             <div class="swiper-slide" style="background: yellow">Slide 3</div>
             <div class="swiper-slide">Slide 4</div>
-            <div class="swiper-slide">Slide 5</div>
-            <div class="swiper-slide">Slide 6</div>
-            <div class="swiper-slide">Slide 7</div>
-            <div class="swiper-slide">Slide 8</div>
-            <div class="swiper-slide">Slide 9</div>
-            <div class="swiper-slide">Slide 10</div>
         </div>
         <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
+        <div class="swiper-pagination swiper-pagination-white"></div>
         <!-- Add Navigation -->
         <!--<div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>-->
@@ -35,7 +29,10 @@
         slidesPerView: 1,
         paginationClickable: true,
         spaceBetween: 0,
-        freeMode: false
+        freeMode: false,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: true,
+        loop: true
     });
     </script>
 {% endblock %}
