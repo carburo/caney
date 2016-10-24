@@ -13,9 +13,9 @@
                     <input id="search-box" type="search" class="form-control" placeholder="Búsqueda" value="{{ query }}">
                 </form>
             </div>
-            <ul class="portfolio-items cols-xs-1 cols-sm-2 cols-md-3 cols-lg-3" id="hostel-gallery">
-                {{ include('hostel/gallery_content.html.twig') }}
-            </ul>
+        </div>
+        <div id="hostel-gallery">
+            {{ include('hostel/gallery_content.html.twig') }}
         </div>
     </section><!--/#portfolio-->
 {% endblock %}
