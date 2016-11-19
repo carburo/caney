@@ -1,150 +1,113 @@
-jQuery(function($) {
+$(document).ready(function() {
+	// Material
+	$.material.init();
 
-	//#main-slider
-	$(function(){
-		$('#main-slider.carousel').carousel({
-			interval: 8000
-		});
+	// Preloader
+	$(window).load(function() {
+	  "use strict";
+	  $('#loader').fadeOut();
 	});
 
-	$( '.centered' ).each(function( e ) {
-		$(this).css('margin-top',  ($('#main-slider').height() - $(this).height())/2);
+
+	//WOW Scroll Spy
+	var wow = new WOW({
+	    //disabled for mobile
+	    mobile: false
+	});
+	wow.init();
+
+	// Okay Nav Intrigation
+	// $('#nav-main').okayNav()
+	
+	// MixitUp Init
+	$('#mea-portfolio').mixItUp(); 
+	
+
+ 	// Bootstrap Carousel
+	$('#main-slide').carousel({
+		interval: 5000,
 	});
 
-	$(window).resize(function(){
-		$( '.centered' ).each(function( e ) {
-			$(this).css('margin-top',  ($('#main-slider').height() - $(this).height())/2);
-		});
-	});
+	// Testimonial Carousel
+	  $("#testimonial-carousel").owlCarousel({
+	      slideSpeed : 300,
+	      paginationSpeed : 400,
+	      singleItem: true,
+	      autoPlay: 3000,
+	      stopOnHover : true,
+	 
+	  });
 
-	//portfolio
-	$(window).load(function(){
-		$portfolio_selectors = $('.portfolio-filter >li>a');
-		if($portfolio_selectors!='undefined'){
-			$portfolio = $('.portfolio-items');
-			// $portfolio.isotope({
-			// 	itemSelector : 'li',
-			// 	layoutMode : 'fitRows'
-			// });
-			$portfolio_selectors.on('click', function(){
-				$portfolio_selectors.removeClass('active');
-				$(this).addClass('active');
-				var selector = $(this).attr('data-filter');
-				// $portfolio.isotope({ filter: selector });
-				return false;
-			});
-		}
-	});
+	  // Flickr Carousel
+	  $("#flickr-carousel").owlCarousel({
+	      slideSpeed : 300,
+	      paginationSpeed : 400,
+	      items : 1,
+	      autoPlay: 3000,
+	      stopOnHover : true,
+	 
+	  });
 
-	//contact form
-	var form = $('.contact-form');
-	form.submit(function () {
-		$this = $(this);
-		$.post($(this).attr('action'), $(this).serialize(), function(data) {
-			$this.prev().text(data.message).fadeIn().delay(3000).fadeOut();
-            $this.fadeOut().delay(3000).fadeIn();
-            $this[0].reset();
-		},'json');
-		return false;
-	});
+	  // Image Carousel
+	  $("#mea-image-carousel").owlCarousel({
+	      slideSpeed : 300,
+	      paginationSpeed : 400,
+	      items : 4,
+	      autoPlay: 3000,
+	      stopOnHover : true,
+	  });
 
-    //booking form
-    var form = $('.booking-form');
-    form.submit(function () {
-        var $this = $(this);
-        $.post($(this).attr('action'), $(this).serialize(), function(data) {
-            $('#success-message').html(data.message);
-            $('#success-div').fadeIn();
-            $this.fadeOut();
-            //$this[0].reset();
-        },'json');
-        return false;
-    });
+	  // Image Carousel
+	  $("#team-carousel").owlCarousel({
+	      slideSpeed : 300,
+	      paginationSpeed : 400,
+	      items : 4,
+	      autoPlay: 3000,
+	      stopOnHover : true,
+	  });
 
-	//goto top
-	$('.gototop').click(function(event) {
-		event.preventDefault();
-		$('html, body').animate({
-			scrollTop: $("body").offset().top
-		}, 500);
-	});
-
-    $('.swipe-gallery').each( function() {
-        // Get the items.
-        var $pic = $(this),
-            getItems = function() {
-                var items = [];
-                $pic.find('a').each(function() {
-                    var $href = $(this).attr('href'),
-                        $size   = $(this).data('size').split('x'),
-                        $width  = $size[0],
-                        $height = $size[1];
-
-                    var item = {
-                        src : $href,
-                        w   : $width,
-                        h   : $height
+	  // Counter JS
+    $('.work-counter-section').on('inview', function(event, visible, visiblePartX, visiblePartY) {
+        if (visible) {
+            $(this).find('.timer').each(function() {
+                var $this = $(this);
+                $({
+                    Counter: 0
+                }).animate({
+                    Counter: $this.text()
+                }, {
+                    duration: 3000,
+                    easing: 'swing',
+                    step: function() {
+                        $this.text(Math.ceil(this.Counter));
                     }
-
-                    items.push(item);
                 });
-                return items;
-            }
-
-        var items = getItems();
-
-        // Preload image.
-        var image = [];
-        $.each(items, function(index, value) {
-            image[index]     = new Image();
-            image[index].src = value['src'];
-        });
-
-        // Binding click event.
-        var $pswp = $('.pswp')[0];
-        $pic.on('click', 'figure', function(event) {
-            event.preventDefault();
-
-            var $index = $(this).data('order');
-            var options = {
-                index: $index,
-                bgOpacity: 1,
-                showHideOpacity: true
-            }
-
-            var lightBox = new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options);
-            lightBox.init();
-        });
+            });
+            $(this).off('inview');
+        }
     });
+
+	  // OkayNav
+	  var navigation = $('#nav-main').okayNav();
+
+	  // Back Top Link
+	  var offset = 200;
+	  var duration = 500;
+	  $(window).scroll(function() {
+	    if ($(this).scrollTop() > offset) {
+	      $('.back-to-top').fadeIn(400);
+	    } else {
+	      $('.back-to-top').fadeOut(400);
+	    }
+	  });
+	  $('.back-to-top').click(function(event) {
+	    event.preventDefault();
+	    $('html, body').animate({
+	      scrollTop: 0
+	    }, 600);
+	    return false;
+	  });
+	  
+ 
 });
 
-function translateInfoNights(locale, nights) {
-    var text;
-    switch (locale) {
-        case "es":
-            switch (nights) {
-                case 0: text = "Elija un rango de fechas para la reserva."; break;
-                case 1: text = "Reserva por una noche."; break;
-                default: text = "Reserva por " + nights + " noches.";
-            }
-        case "fr":
-            switch (nights) {
-                case 0: text = "Elija un rango de fechas para la reserva."; break;
-                case 1: text = "Reserva por una noche."; break;
-                default: text = "Reserva por " + nights + " noches.";
-            }
-        case "de":
-            switch (nights) {
-                case 0: text = "Elija un rango de fechas para la reserva."; break;
-                case 1: text = "Reserva por una noche."; break;
-                default: text = "Reserva por " + nights + " noches.";
-            }
-        default:
-            switch (nights) {
-                case 0: text = "Choose a date range for the reservation."; break;
-                case 1: text = "Reservation for one night."; break;
-                default: text = "Reservation for " + nights + " nights.";
-            }
-    }
-    return text;   
-}

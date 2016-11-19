@@ -1,0 +1,143 @@
+header{
+  height: 7rem;
+  padding: 0 15px;
+}
+.site-logo{
+  position: absolute;
+  top: 20px;
+}
+
+.okayNav__nav--invisible {
+  background: #212121;
+  box-shadow: -2px 0px 2px #efefef;
+}
+.okayNav__menu-toggle{
+  top: 28px;
+}
+.okayNav__menu-toggle span {
+  background: red;
+}
+.okayNav__menu-toggle.icon--active span {
+  background: red;
+}
+
+.navbar-default {
+  border: 0px;
+  background-color: transparent;
+  transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -o-transition: 0.3s all ease-in-out;
+    -ms-transition: 0.3s all ease-in-out;
+}
+.top-nav-collapse{
+  background: #ffffff;
+  border:1px solid #efefef;
+  box-shadow: -2px 0px 2px #efefef;
+  z-index: 5000000000;
+  transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -o-transition: 0.3s all ease-in-out;
+    -ms-transition: 0.3s all ease-in-out;
+}
+#nav-main{
+  float: right;
+  margin-top: 5px;
+}
+#nav-main a.nav-link {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    padding: 12px 2px;
+    margin-right: 30px;
+}
+#nav-main li a.nav-link {
+  border-bottom: 3px solid transparent;
+  padding-top: 28px;
+  transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -o-transition: 0.3s all ease-in-out;
+    -ms-transition: 0.3s all ease-in-out;
+}
+#nav-main li a.nav-link:hover, #nav-main li a.nav-link:focus {
+  border-bottom: 3px solid trasparent;
+  color: rgba(255, 255, 255, 0.6);
+  background-color: transparent;
+  z-index: 5000;
+  transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -o-transition: 0.3s all ease-in-out;
+    -ms-transition: 0.3s all ease-in-out;
+}
+#nav-main li a.nav-link:active, #nav-main li.active a.nav-link {
+  border-bottom: 3px solid #fff;
+  background-color: transparent;
+  z-index: 5000;
+  transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -o-transition: 0.3s all ease-in-out;
+    -ms-transition: 0.3s all ease-in-out;
+}
+.sub-menu-panel{
+  display: none;
+  background: #212121;
+  margin-top: -3px;
+  transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -o-transition: 0.3s all ease-in-out;
+    -ms-transition: 0.3s all ease-in-out;
+    animation: 0.4s ease 0s normal none 1 running fadeInUpMenu;
+}
+li.sub-menu:hover .sub-menu-panel{
+  display: block;
+  position: absolute;
+  top: 100%;
+  transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -o-transition: 0.3s all ease-in-out;
+    -ms-transition: 0.3s all ease-in-out;
+    animation: 0.4s ease 0s normal none 1 running fadeInUpMenu;
+}
+
+li.sub-menu .sub-menu-panel a{
+  color: #626262;;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: capitalize;
+  width: 220px;
+  letter-spacing: 0.1rem;
+  margin: 3px 0;
+  padding: 8px 25px;
+  border-left: 3px solid #212121;
+  transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -o-transition: 0.3s all ease-in-out;
+    -ms-transition: 0.3s all ease-in-out;
+}
+li.sub-menu .sub-menu-panel a:hover, li.sub-menu .sub-menu-panel a:focus, li.sub-menu .sub-menu-panel a.active{
+  background: #373737;
+  border-left: 3px solid red;
+  color: #ffffff;
+  transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -o-transition: 0.3s all ease-in-out;
+    -ms-transition: 0.3s all ease-in-out;
+}
+
+
+/* only small tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+   #nav-main li a.nav-link{
+    padding-top: 18px;
+  }
+}
