@@ -14,7 +14,7 @@ button:
   go:
     back: Back
 menu:
-  homepage: Homepage
+  homepage: Home
   hostels: Hostels
   booking: Reservation
   contact: Contact

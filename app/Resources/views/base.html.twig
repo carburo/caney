@@ -24,12 +24,12 @@
         <!-- Color Presets -->
         {#<link rel="stylesheet" href="{{ asset('css/colors/pink.css') }}">#}
         {#<link rel="stylesheet" href="{{ asset('css/colors/purple.css') }}">#}
-        <link rel="stylesheet" href="{{ asset('css/colors/deep-purple.css') }}">
+        {#<link rel="stylesheet" href="{{ asset('css/colors/deep-purple.css') }}">#}
         {#<link rel="stylesheet" href="{{ asset('css/colors/indigo.css') }}">#}
         {#<link rel="stylesheet" href="{{ asset('css/colors/blue.css') }}">#}
         {#<link rel="stylesheet" href="{{ asset('css/colors/yellow.css') }}">#}
         {#<link rel="stylesheet" href="{{ asset('css/colors/green.css') }}">#}
-        {#<link rel="stylesheet" href="{{ asset('css/colors/red.css') }}">#}
+        <link rel="stylesheet" href="{{ asset('css/colors/red.css') }}">
 
         <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
 
@@ -61,41 +61,22 @@
 
 </head>
 
-<body style="background-color: white">
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{ path('homepage') }}">Caney</a>
+<body>
+    <header id="header" class="navbar navbar-default affix-top" data-spy="affix" data-offset-top="400">
+        <div class="container">
+            <a alt="Caney" class="site-logo" href="{{ path('homepage') }}">
+                <h2>Caney</h2>
+            </a>
+            <nav role="navigation" id="nav-main" class="okayNav">
+                {{ knp_menu_render('AppBundle:Builder:mainMenu', {
+                    'currentClass': 'active',
+                    'lastClass': 'sub-menu',
+                    'firstClass': 'sub-menu',
+                    'branchClass': 'sub-menu'
+                }) }}
+            </nav>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            {{ knp_menu_render('AppBundle:Builder:mainMenu', {
-                'currentClass': 'active',
-                'template': 'menu/bootstrap3_menu.html.twig'
-            }) }}
-            <form class="navbar-form navbar-left" action="{{ path('hostels') }}">
-                <div class="form-group">
-                    <input type="text" name="query" class="form-control col-sm-8" placeholder="Búsqueda">
-                </div>
-            </form>
-            {{ knp_menu_render('AppBundle:Builder:languageMenu', {
-                'currentClass': 'active',
-                'template': 'menu/bootstrap3_menu.html.twig'
-            }) }}
-            {{ knp_menu_render('AppBundle:Builder:userMenu', {
-                'currentClass': 'active',
-                'template': 'menu/bootstrap3_menu.html.twig'
-            }) }}
-
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
+    </header>
 
 {% block body %}
     {% block bodyPreamble %}{% endblock %}

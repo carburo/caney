@@ -47,6 +47,10 @@ twig:
     globals:
       _locales: '%app.locales%'
 
+knp_menu:
+  twig:
+    template: menu/okayNav_menu.html.twig
+
 fos_rest:
   routing_loader:
     default_format: json
