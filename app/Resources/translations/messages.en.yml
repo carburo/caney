@@ -10,6 +10,7 @@ form:
   comments: Comments
 button:
   send: Send
+  send_message: Send Message
   book: Book
   go:
     back: Back
@@ -28,7 +29,7 @@ menu:
     changePassword: Change password
 contact:
   title: Contact
-  subtitle: If you have any question don't hesitate to hesitate to ask. Just fill in the following form and we will be happy to find you a solution.
+  subtitle: Always feel free to
 hostels:
   title: Hostels
 booking:
@@ -117,3 +118,5 @@ title:
   address: Address
   rooms: Rooms
   food: Food
+copyright:
+  message: All Rights Reserved.

@@ -80,36 +80,45 @@
 
 {% block body %}
     {% block bodyPreamble %}{% endblock %}
-    <div class="container" style="margin-top: 20px">
-        <div class="page active">
             {% block heading %}
-            <section id="title" xmlns="http://www.w3.org/1999/html">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h1 class="header">{% block headingTitle %}{% endblock %}</h1>
-                        <p>{% block headingSubtitle %}{% endblock %}</p>
+                 <section class="page-title-section section-padding">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="title-center">
+                                    <div class="title-middle">
+                                        <h2 class="page-tagline">{% block headingSubtitle %}{% endblock %}</h2>
+                                        <h1 class="page-title">{% block headingTitle %}{% endblock %}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    {#{{ dump(knp_menu_get_breadcrumbs_array('AppBundle:Builder:mainMenu', 'menu.hostels')) }}#}
-
-                    {% block breadcrumbsLayout %}
-                    <div class="col-sm-6">
-                        <ul class="breadcrumb pull-right">
-                            {% block breadcrumbs %}
-                            {% endblock %}
-                        </ul>
-                    </div>
-                    {% endblock %}
-
-                </div>
-            </section>
+                </section>                
             {% endblock %}
 
             {% block content %}
             {% endblock %}
-        </div>
-    </div>
+    {% block footer %}
+        {% include "footer.html.twig" %}
+    {% endblock %}
 {% endblock %}
 
+{% block ui_elements %}
+        <!-- Back To Top -->
+        <a href="#" class="back-to-top">
+          <div class="ripple-container"></div>
+          <i class="fa fa-angle-up">
+          </i>
+        </a>
+
+        <!-- Preloader -->
+        <div id="loader">
+          <div class="square-spin">
+            <img src="{{ asset('images/Preloader.gif') }}" alt="Preloader">
+          </div>
+        </div>
+{% endblock %}
 
 {% block javascripts %}
     <!-- JS Files -->
