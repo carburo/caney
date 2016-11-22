@@ -6,97 +6,165 @@
 
 {% block headingTitle %}{{ hostel.hostelName }}{% endblock %}
 
-{% block breadcrumbs %}
-    <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
-    <li><a href="{{ path('hostels') }}">{% trans %}menu.hostels{% endtrans %}</a></li>
-    <li><a href="{{ path('hostelsByDestination', {'slug' : hostel.location.slug }) }}">{{ hostel.location.name }}</a></li>
-    <li class="active">{{ hostel.hostelName }}</li>
-{% endblock %}
-
 {% block bodyPreamble %}
     {{ include('photo-swipe.html.twig') }}
 {% endblock %}
 
 {% block content %}
     <section id="contact-page">
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                {% if is_granted('edit', hostel) %}
-                    <a href="{{ path('hostel_edit', {'slug': hostel.slug}) }}">Edit</a>
-                {% endif %}
-                <p>
-                    {{ hostel.description[:255]|nl2br }}
-                    {% if hostel.description|length > 255 %}
-                        &hellip;
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    {% if is_granted('edit', hostel) %}
+                        <a href="{{ path('hostel_edit', {'slug': hostel.slug}) }}">Edit</a>
                     {% endif %}
-                </p>
-                <h3>{% trans %}title.address{% endtrans %}</h3>
-                <p>{{ hostel.address }}</p>
-                <h3>{% trans %}title.rooms{% endtrans %}</h3>
-                <ul>
-                    {% for room in hostel.rooms %}
-                        <li>
-                            <a href="{{ path('room_view', {'id': room.id }) }}">
-                                <strong>{{ room.name }}:</strong>
-                                {% transchoice room.capacity with {'%capacity%': room.capacity} %}room.capacity.label{% endtranschoice %}
-                                (<abbr title="{{ 'label.lowSeason'|trans }}"><i class="icon icon-arrow-down"></i></abbr> ${{ room.priceInLow }}
-                                /
-                                <abbr title="{{ 'label.highSeason'|trans }}"><i class="icon icon-arrow-up"></i></abbr> ${{ room.priceInHigh }})
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>{#--/.col-sm-8--#}
-            <div class="col-md-6 col-sm-12">
-                <h3>{% trans %}hostel.info.title{% endtrans %}</h3>
-                <ul>
-                    <li>{% transchoice hostel.childrenAccepted %}children.accepted{% endtranschoice %}</li>
-                    {% if hostel.garage %}
-                        <li>{% trans with { '%price%': hostel.garagePrice } %}garage.price{% endtrans %}</li>
-                    {% else %}
-                        <li>{{ 'garage.label'|trans }}: <strong>{{ 'label.notAvailable'|trans }}</strong></li>
-                    {% endif %}
-                    <li>{% transchoice hostel.laundry %}laundry.label{% endtranschoice %}</li>
-                    {% if hostel.swimmingPool %}<li>{{ 'swimmingPool.label'|trans }}</li>{% endif %}
-                    <li>{% transchoice hostel.internet %}internet.label{% endtranschoice %}</li>
-                    <li>{% transchoice hostel.wifi %}wifi.label{% endtranschoice %}</li>
-                </ul>
-                <h3>{% trans %}title.food{% endtrans %}</h3>
-                <ul>
-                    {% if hostel.breakfast %}
-                        <li>{% trans with {'%price%': hostel.breakfastPrice } %}breakfast.price{% endtrans %}</li>
-                    {% else %}
-                        <li>{{ 'breakfast.label'|trans }}: <strong>{{ 'label.notAvailable'|trans }}</strong></li>
-                    {% endif %}
-                    {% if hostel.dinner %}
-                        <li>{% trans with {'%price%': hostel.dinnerPrice } %}dinner.price{% endtrans %}</li>
-                    {% else %}
-                        <li>{{ 'dinner.label'|trans }}: <strong>{{ 'label.notAvailable'|trans }}</strong></li>
-                    {% endif %}
-                    {% if hostel.cocktails %}<li>{{ 'cocktails.label'|trans }}</li>{% endif %}
-                </ul>
-                {% if hostel.guide or hostel.horseRide or hostel.scubaDiving %}
-                    <h3>{% trans %}title.other.services{% endtrans %}</h3>
+                    <p>
+                        {{ hostel.description[:255]|nl2br }}
+                        {% if hostel.description|length > 255 %}
+                            &hellip;
+                        {% endif %}
+                    </p>
+                    <h3>
+                        <i class='material-icons'>place</i>
+                        {% trans %}title.address{% endtrans %}
+                    </h3>
+                    <p>{{ hostel.address }}</p>
+                    <h3>
+                        <i class='material-icons'>hotel</i>
+                        {% trans %}title.rooms{% endtrans %}
+                    </h3>
+                    <div class="panel-group mea-default-accordion" id="mea-accordion" role="tablist" aria-multiselectable="true">
+                        {% for room in hostel.rooms %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading{{ loop.index }}">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#mea-accordion" href="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}" class="collapsed">
+                                    {{ room.name }}
+                                    ({% transchoice room.capacity with {'%capacity%': room.capacity} %}room.capacity.label{% endtranschoice %}:
+                                    ${{ room.priceInLow }} / ${{ room.priceInHigh }})
+                                    </a>
+                                </h4>
+                                </div>
+                                <div id="collapse{{ loop.index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ loop.index }}" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li>{% transchoice room.privateBathroom %}room.privateBathroom.label{% endtranschoice %}</li>
+                                        {% if room.hotWater %}
+                                            <li>{{ 'room.hotWater.label' | trans }}</li>
+                                        {% endif %}
+                                        <li>
+                                            <i class='material-icons'>ac_unit</i>
+                                            {% transchoice room.airConditioner %}room.airConditioner.label{% endtranschoice %}
+                                        </li>
+                                        {% if room.voltage120 or room.voltage240 %}
+                                            <li>{{ 'room.voltage.label' | trans({'%voltage%': room.voltage | join(', ')}) }}</li>
+                                        {% endif %}
+                                        {% if room.privateEntrance %}
+                                            <li>{{ 'room.privateEntrance.label' | trans }}</li>
+                                        {% endif %}
+                                        {% if room.safe %}
+                                            <li>{{ 'room.safe.label' | trans }}</li>
+                                        {% endif %}
+                                        {% if room.terrace %}
+                                            <li>{{ 'room.terrace.label' | trans }}</li>
+                                        {% endif %}
+                                        {% if room.minibar %}
+                                            <li>{{ 'room.minibar.label' | trans }}</li>
+                                        {% endif %}
+                                        {% if room.hairDryer %}
+                                            <li>{{ 'room.hairDryer.label' | trans }}</li>
+                                        {% endif %}
+                                        {% if room.television %}
+                                            <li>{{ 'room.television.label' | trans }}</li>
+                                        {% endif %}                                    
+                                    </ul>
+                                </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>{#--/.col-sm-8--#}
+                <div class="col-md-6 col-sm-12">
+                    <h3>{% trans %}hostel.info.title{% endtrans %}</h3>
                     <ul>
-                        {% if hostel.guide %}<li>{{ 'guide.label'|trans }}</li>{% endif %}
-                        {% if hostel.horseRide %}<li>{{ 'horseRide.label'|trans }}</li>{% endif %}
-                        {% if hostel.scubaDiving %}<li>{{ 'scubaDiving.label'|trans }}</li>{% endif %}
+                        <li>
+                            <i class='material-icons'>child_friendly</i>
+                            {% transchoice hostel.childrenAccepted %}children.accepted{% endtranschoice %}
+                        </li>
+                        <li>
+                            <i class='material-icons'>directions_car</i>
+                            {% if hostel.garage %}
+                                {% trans with { '%price%': hostel.garagePrice } %}garage.price{% endtrans %}
+                            {% else %}
+                                {{ 'garage.label'|trans }}: <strong>{{ 'label.notAvailable'|trans }}</strong>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <i class='material-icons'>local_laundry_service</i>
+                            {% transchoice hostel.laundry %}laundry.label{% endtranschoice %}
+                        </li>
+                        {% if hostel.swimmingPool %}<li>{{ 'swimmingPool.label'|trans }}</li>{% endif %}
+                        <li>
+                            <i class='material-icons'>http</i>
+                            {% transchoice hostel.internet %}internet.label{% endtranschoice %}
+                        </li>
+                        <li>
+                            <i class='material-icons'>wifi</i>
+                            {% transchoice hostel.wifi %}wifi.label{% endtranschoice %}
+                        </li>
                     </ul>
-                {% endif %}
-                <h3>{% trans %}hostel.languages.title{% endtrans %}</h3>
-                <p>{{ hostel.hostLanguages|split(' ')|locales|join(', ') }}</p>
+                    <h3>{% trans %}title.food{% endtrans %}</h3>
+                    <ul>
+                        <li>
+                            <i class='material-icons'>free_breakfast</i>
+                            {% if hostel.breakfast %}
+                                {% trans with {'%price%': hostel.breakfastPrice } %}breakfast.price{% endtrans %}
+                            {% else %}
+                                {{ 'breakfast.label'|trans }}: <strong>{{ 'label.notAvailable'|trans }}</strong>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <i class='material-icons'>local_dining</i>
+                            {% if hostel.dinner %}
+                                {% trans with {'%price%': hostel.dinnerPrice } %}dinner.price{% endtrans %}
+                            {% else %}
+                                {{ 'dinner.label'|trans }}: <strong>{{ 'label.notAvailable'|trans }}</strong>
+                            {% endif %}
+                        </li>
+                        {% if hostel.cocktails %}
+                            <li>
+                                <i class='material-icons'>local_bar</i>
+                                {{ 'cocktails.label'|trans }}
+                            </li>
+                        {% endif %}
+                    </ul>
+                    {% if hostel.guide or hostel.horseRide or hostel.scubaDiving %}
+                        <h3>{% trans %}title.other.services{% endtrans %}</h3>
+                        <ul>
+                            {% if hostel.guide %}<li>{{ 'guide.label'|trans }}</li>{% endif %}
+                            {% if hostel.horseRide %}<li>{{ 'horseRide.label'|trans }}</li>{% endif %}
+                            {% if hostel.scubaDiving %}<li>{{ 'scubaDiving.label'|trans }}</li>{% endif %}
+                        </ul>
+                    {% endif %}
+                    <h3>
+                        <i class='material-icons'>translate</i>
+                        {{ 'hostel.languages.title'|trans }} 
+                        <small>{{ 'hostel.languages.subtitle'|trans }}</small>
+                    </h3>
+                    <p>{{ hostel.hostLanguages|split(' ')|locales|join(', ') }}</p>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                {{ include('hostel/image_slider.html.twig', {'images': hostel.images}) }}
-            </div><!--/.col-sm-4-->
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <a class="btn btn-raised btn-primary btn-lg" href="{{ path('booking', {'slug' : hostel.slug}) }}">
-                    {% trans %}button.book{% endtrans %}
-                </a>
+            <div class="row">
+                <div class="col-xs-12">
+                    {{ include('hostel/image_slider.html.twig', {'images': hostel.images}) }}
+                </div><!--/.col-sm-4-->
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <a class="btn btn-common" href="{{ path('booking', {'slug' : hostel.slug}) }}">
+                        <i class="material-icons">event_note</i> {{ 'button.book'|trans }}
+                    </a>
+                </div>
             </div>
         </div>
     </section><!--/#contact-page-->
@@ -117,8 +185,13 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
-    .swiper-slide {
-        width: 271px;
-    }
+        .page-title-section {
+            position: relative;
+            background: url(/images/hostal.jpg) no-repeat scroll center center;
+            background-size: cover;
+        }
+        .swiper-slide {
+            width: 271px;
+        }
     </style>
 {% endblock %}

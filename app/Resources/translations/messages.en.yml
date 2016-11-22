@@ -12,7 +12,7 @@ form:
 button:
   send: Send
   send_message: Send Message
-  book: Book
+  book: Make a reservation
   go:
     back: Back
 menu:
@@ -52,6 +52,7 @@ hostel:
     title: General Information
   languages:
     title: Languages
+    subtitle: spoken by the hosts
   register:
       title: Register hostel
       subtitle: Fill out the form in order to register a new hostel in your account.

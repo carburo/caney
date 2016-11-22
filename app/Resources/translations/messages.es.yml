@@ -12,7 +12,7 @@ form:
 button:
   send: Enviar
   send_message: Enviar mensaje
-  book: Reservar
+  book: Hacer una reservación
   go:
     back: Regresar
 menu:
@@ -52,6 +52,7 @@ hostel:
     title: Información general
   languages:
     title: Idiomas
+    subtitle: hablados por los anfitriones
   register:
     title: Registrar hostal
     subtitle: Llene el formulario con los datos necesarios para registrar un nuevo hostal a su nombre.
