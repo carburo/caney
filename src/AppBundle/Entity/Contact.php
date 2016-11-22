@@ -44,6 +44,13 @@ class Contact {
     /**
      * @var string
      *
+     * @ORM\Column(name="subject", type="string", length=255)
+     */
+    private $subject;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="message", type="string", nullable=true, length=4000)
      */
     private $message;
@@ -88,6 +95,16 @@ class Contact {
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
     }
 
     /**

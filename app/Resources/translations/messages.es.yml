@@ -5,11 +5,13 @@ form:
   country: País
   phoneNumber: Teléfono
   email: Correo electrónico
+  subject: Asunto
   message: Mensaje
   owner: Anfitrión
   comments: Comentarios
 button:
   send: Enviar
+  send_message: Enviar mensaje
   book: Reservar
   go:
     back: Regresar

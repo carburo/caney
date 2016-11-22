@@ -82,9 +82,8 @@
                             </div>
                             <!-- Subject -->
                             <div class="form-group label-floating is-empty">
-                              <label class="control-label" for="msgSubject">Subject</label>
-                              <input class="form-control" id="msg_subject" name="subject" required="" data-error="Please enter your message subject" type="text">
-                              <div class="help-block with-errors"></div>
+                                {{ form_label(form.subject, 'form.subject') }}
+                                {{ form_widget(form.subject) }}
                             </div>
                             <!-- Message -->
                             <div class="form-group label-floating is-empty">

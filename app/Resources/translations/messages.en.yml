@@ -5,6 +5,7 @@ form:
   country: Country
   phoneNumber: Phone number
   email: Email
+  subject: Subject
   message: Message
   owner: Host
   comments: Comments
