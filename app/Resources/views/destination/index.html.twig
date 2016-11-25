@@ -1,0 +1,100 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ destination.name }}
+{% endblock %}
+
+{% block headingTitle %}{{ destination.name }}{% endblock %}
+
+{#{% block bodyPreamble %}#}
+    {#{{ include('photo-swipe.html.twig') }}#}
+{#{% endblock %}#}
+
+{% block content %}
+    <section id="destination-page" class="mea-blog-post-page section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="single-blog-page col-md-8">
+                    <article class="single-post">
+                        <h2>Trinidad, joya colonial del Caribe</h2>
+                        <strong>Lorem</strong> ipsum dolor sit amet, consectetur adipisicing elit. Harum minima, earum optio quia recusandae ipsam, obcaecati! Sunt ullam nisi, ratione quisquam provident eius quae facilis eos, deserunt consequatur, officiis quos.
+
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta reiciendis illum possimus et ducimus quia sed dolorum id cumque rerum, fuga voluptatem, fugiat quidem mollitia eos vel, nisi voluptatum corrupti eaque voluptas! Praesentium hic pariatur est voluptatibus suscipit vel tempora necessitatibus animi ratione tempore natus modi, odit, explicabo nulla laudantium veritatis dignissimos? Odit sequi, ipsam quod eligendi tempore obcaecati reprehenderit, dicta repudiandae officiis voluptatibus odio cupiditate, tempora repellat ut. Possimus odit veritatis fugiat dolorem accusamus, facilis excepturi.
+
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus magni ad sapiente optio illo iste quidem quod voluptatibus, eligendi aliquid?
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section><!--/#destination-page-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper swipe-gallery">
+                        {% for hostel in destination.hostels %}
+                            <div class="swiper-slide hostel-image single-team-widget">
+                                <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                    <a href="{{ path('hostel_view', {'slug' : hostel.slug}) }}" itemprop="contentUrl" data-size="270x270">
+                                        <img src="{{ asset('images/team1.png') }}" itemprop="thumbnail" alt="{{ hostel.hostelName }}" />
+                                    </a>
+                                    <figcaption class="team-member-info" itemprop="caption description">
+                                        <div class="know-more">
+                                            <a class="btn btn-round btn-fab" href="{{ path('hostel_view', {'slug' : hostel.slug}) }}">
+                                                <i class="material-icons">arrow_forward</i>
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </div>
+                                        <h2 class="subtitle">{{ hostel.hostelName }}</h2>
+                                        <p>desde <strong>{{ hostel.rooms[0].priceInLow }}</strong> CUC</p>
+                                        {#<div class="social-profiles">#}
+                                        {#<a href="#"><i class="fa fa-twitter"></i></a>#}
+                                        {#<a href="#"><i class="fa fa-facebook"></i></a>#}
+                                        {#<a href="#"><i class="fa fa-dribbble"></i></a>#}
+                                        {#<a href="#"><i class="fa fa-behance"></i></a>#}
+                                        {#</div>#}
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 4,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        slidesPerGroup: 2,
+        spaceBetween: 10
+//        freeMode: true
+    });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .page-title-section {
+            position: relative;
+            background: url(/images/trinidad.jpg) no-repeat scroll center center;
+            background-size: cover;
+        }
+        /*.swiper-slide {*/
+            /*width: 271px;*/
+        /*}*/
+        .subtitle {
+            font-weight: 300;
+        }
+    </style>
+{% endblock %}
