@@ -1,12 +1,12 @@
 <div class="swiper-container">
     <div class="swiper-wrapper swipe-gallery">
         {% for image in images %}
-            <div class="swiper-slide hostel-image thumbnail">
+            <div class="swiper-slide hostel-image single-team-widget">
                 <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                     <a href="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('app_image') }}" itemprop="contentUrl" data-size="{{ image.pixelWidth }}x{{ image.pixelHeight }}">
                         <img src="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('app_thumb') }}" itemprop="thumbnail" alt="{{ image.partOfTheHouse }}" />
                     </a>
-                    <figcaption itemprop="caption description"><h5>{{ image.partOfTheHouse }}</h5></figcaption>
+                    <figcaption class="team-member-info" itemprop="caption description"><h5 class="image-caption">{{ image.partOfTheHouse }}</h5></figcaption>
                 </figure>
             </div>
         {% endfor %}

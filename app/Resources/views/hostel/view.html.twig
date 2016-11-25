@@ -48,34 +48,61 @@
                                 <div id="collapse{{ loop.index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ loop.index }}" aria-expanded="false" style="height: 0px;">
                                 <div class="panel-body">
                                     <ul>
-                                        <li>{% transchoice room.privateBathroom %}room.privateBathroom.label{% endtranschoice %}</li>
+                                        <li>
+                                            <i class="material-icons">hot_tub</i>
+                                            {% transchoice room.privateBathroom %}room.privateBathroom.label{% endtranschoice %}
+                                        </li>
                                         {% if room.hotWater %}
-                                            <li>{{ 'room.hotWater.label' | trans }}</li>
+                                            <li>
+                                                <i class="material-icons">invert_colors</i>
+                                                {{ 'room.hotWater.label' | trans }}
+                                            </li>
                                         {% endif %}
                                         <li>
                                             <i class='material-icons'>ac_unit</i>
                                             {% transchoice room.airConditioner %}room.airConditioner.label{% endtranschoice %}
                                         </li>
                                         {% if room.voltage120 or room.voltage240 %}
-                                            <li>{{ 'room.voltage.label' | trans({'%voltage%': room.voltage | join(', ')}) }}</li>
+                                            <li>
+                                                <i class='material-icons'>flash_on</i>
+                                                {{ 'room.voltage.label' | trans({'%voltage%': room.voltage | join(', ')}) }}
+                                            </li>
                                         {% endif %}
                                         {% if room.privateEntrance %}
-                                            <li>{{ 'room.privateEntrance.label' | trans }}</li>
+                                            <li>
+                                                <i class="fa fa-check-square"></i>
+                                                {{ 'room.privateEntrance.label' | trans }}
+                                            </li>
                                         {% endif %}
                                         {% if room.safe %}
-                                            <li>{{ 'room.safe.label' | trans }}</li>
+                                            <li>
+                                                <i class="fa fa-check-square"></i>
+                                                {{ 'room.safe.label' | trans }}
+                                            </li>
                                         {% endif %}
                                         {% if room.terrace %}
-                                            <li>{{ 'room.terrace.label' | trans }}</li>
+                                            <li>
+                                                <i class="fa fa-check-square"></i>
+                                                {{ 'room.terrace.label' | trans }}
+                                            </li>
                                         {% endif %}
                                         {% if room.minibar %}
-                                            <li>{{ 'room.minibar.label' | trans }}</li>
+                                            <li>
+                                                <i class="fa fa-check-square"></i>
+                                                {{ 'room.minibar.label' | trans }}
+                                            </li>
                                         {% endif %}
                                         {% if room.hairDryer %}
-                                            <li>{{ 'room.hairDryer.label' | trans }}</li>
+                                            <li>
+                                                <i class="fa fa-check-square"></i>
+                                                {{ 'room.hairDryer.label' | trans }}
+                                            </li>
                                         {% endif %}
                                         {% if room.television %}
-                                            <li>{{ 'room.television.label' | trans }}</li>
+                                            <li>
+                                                <i class="material-icons">tv</i>
+                                                {{ 'room.television.label' | trans }}
+                                            </li>
                                         {% endif %}                                    
                                     </ul>
                                 </div>
@@ -139,11 +166,26 @@
                         {% endif %}
                     </ul>
                     {% if hostel.guide or hostel.horseRide or hostel.scubaDiving %}
-                        <h3>{% trans %}title.other.services{% endtrans %}</h3>
+                        <h3>{% trans %}title.activities{% endtrans %}</h3>
                         <ul>
-                            {% if hostel.guide %}<li>{{ 'guide.label'|trans }}</li>{% endif %}
-                            {% if hostel.horseRide %}<li>{{ 'horseRide.label'|trans }}</li>{% endif %}
-                            {% if hostel.scubaDiving %}<li>{{ 'scubaDiving.label'|trans }}</li>{% endif %}
+                            {% if hostel.guide %}
+                                <li>
+                                    <i class="map-icon map-icon-point-of-interest"></i>
+                                    {{ 'guide.label'|trans }}
+                                </li>
+                            {% endif %}
+                            {% if hostel.horseRide %}
+                                <li>
+                                    <i class="map-icon map-icon-horse-riding"></i>
+                                    {{ 'horseRide.label'|trans }}
+                                </li>
+                            {% endif %}
+                            {% if hostel.scubaDiving %}
+                                <li>
+                                    <i class="map-icon map-icon-scuba-diving"></i>
+                                    {{ 'scubaDiving.label'|trans }}
+                                </li>
+                            {% endif %}
                         </ul>
                     {% endif %}
                     <h3>
@@ -192,6 +234,12 @@
         }
         .swiper-slide {
             width: 271px;
+        }
+        .single-team-widget .team-member-info {
+            height: auto;
+        }
+        .image-caption {
+            font-weight: bold;
         }
     </style>
 {% endblock %}
