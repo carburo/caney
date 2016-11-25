@@ -15,6 +15,12 @@ button:
   book: Hacer una reservación
   go:
     back: Regresar
+account:
+  log_in: Iniciar sesión
+  sign_up: Crear cuenta
+  message:
+    not_logged_in: No tiene sesión inciada
+    need_log_in: Debe iniciar sesión para poder realizar una reserva
 menu:
   homepage: Inicio
   hostels: Hostales

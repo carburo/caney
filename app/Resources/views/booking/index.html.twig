@@ -22,21 +22,28 @@
     <section id="booking-page">
         <div class="row">
             {% if not_access is defined %}
-            <div id="login-div" class="col-lg-6 col-md-12 col-sm-12">
-                <div id="success-message" class="status alert alert-info">
-                    You are not logged-in. You need to log-in in order to make a reservation.
-                </div>
-                <form method="post" action="{{ path('fos_user_security_login') }}">
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-raised btn-success btn-lg">{% trans %}Log-in{% endtrans %}</button>
+                <section class="call-to-action-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h1 class="wow animated slideInRight" data-wow-delay=".2s">
+                                    {{ 'account.message.not_logged_in'|trans }}
+                                </h1>
+                                <h2 class="wow animated slideInRight" data-wow-delay=".4s">
+                                    {{ 'account.message.need_log_in'|trans }}
+                                </h2>
+                                <a href="{{ path('fos_user_security_login') }}" class="wow animated fadeInUp btn btn-common mt-50" data-wow-delay=".6s">
+                                    <i class="fa fa-sign-in"></i> {{ 'account.log_in'|trans }}
+                                    <div class="ripple-container"></div>
+                                </a>
+                                <a href="{{ path('fos_user_registration_register') }}" class="wow animated fadeInUp btn btn-common mt-50" data-wow-delay=".6s">
+                                    <i class="material-icons">person_add</i> {{ 'account.sign_up'|trans }}
+                                    <div class="ripple-container"></div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </form>
-                <form method="post" action="{{ path('fos_user_registration_register') }}">
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-raised btn-primary btn-lg">{% trans %}Sign up{% endtrans %}</button>
-                    </div>
-                </form>
-            </div>
+                </section>
             {% else %}
             <form method="post" action="{{ path('hostel_view', {'slug': hostel.slug}) }}">
                 <div id="success-div" class="col-lg-6 col-md-12 col-sm-12" style="display: none">

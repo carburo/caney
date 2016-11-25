@@ -15,6 +15,12 @@ button:
   book: Make a reservation
   go:
     back: Back
+account:
+  log_in: Log-in
+  sign_up: Sign up
+  message:
+    not_logged_in: You are not logged-in
+    need_log_in: You need to log-in in order to make a reservation
 menu:
   homepage: Home
   hostels: Hostels
