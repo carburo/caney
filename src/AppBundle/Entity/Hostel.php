@@ -702,6 +702,14 @@ class Hostel
     {
         $this->active = $active;
     }
+
+    public function getCapacity() {
+        $capacity = 0;
+        foreach($this->getRooms() as $room) {
+            $capacity += $room->getCapacity();
+        }
+        return $capacity;
+    }
     
     public function __toString() {
         return $this->hostelName;

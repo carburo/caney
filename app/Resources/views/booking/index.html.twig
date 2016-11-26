@@ -32,11 +32,11 @@
                                 <h2 class="wow animated slideInRight" data-wow-delay=".4s">
                                     {{ 'account.message.need_log_in'|trans }}
                                 </h2>
-                                <a href="{{ path('fos_user_security_login') }}" class="wow animated fadeInUp btn btn-common mt-50" data-wow-delay=".6s">
+                                <a href="{{ path('fos_user_security_login') }}" class="btn btn-lg btn-common mt-50">
                                     <i class="fa fa-sign-in"></i> {{ 'account.log_in'|trans }}
                                     <div class="ripple-container"></div>
                                 </a>
-                                <a href="{{ path('fos_user_registration_register') }}" class="wow animated fadeInUp btn btn-common mt-50" data-wow-delay=".6s">
+                                <a href="{{ path('fos_user_registration_register') }}" class="btn btn-lg btn-raised btn-default mt-50">
                                     <i class="material-icons">person_add</i> {{ 'account.sign_up'|trans }}
                                     <div class="ripple-container"></div>
                                 </a>
@@ -45,55 +45,65 @@
                     </div>
                 </section>
             {% else %}
-            <form method="post" action="{{ path('hostel_view', {'slug': hostel.slug}) }}">
-                <div id="success-div" class="col-lg-6 col-md-12 col-sm-12" style="display: none">
-                    <div id="success-message" class="status alert alert-success"></div>
-                        <div class="form-group">
-                            <button id="success-btn" class="btn btn-success btn-raised btn-lg">{% trans %}button.go.back{% endtrans %}</button>
+                <section id="success-section" class="section-padding" style="display: none">
+                    <div class="container">
+                        <form method="post" action="{{ path('hostel_view', {'slug': hostel.slug}) }}">
+                            <div id="success-div" class="col-lg-6 col-md-12 col-sm-12">
+                                <div id="success-message" class="status alert alert-success"></div>
+                                <div class="form-group">
+                                    <button id="success-btn" class="btn btn-success btn-raised btn-lg">
+                                        {% trans %}button.go.back{% endtrans %}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+                <div class="container">
+                    {{ form_start(form, {'attr': {'class': 'booking-form' }}) }}
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="hidden" style="display: none">
+                            {{ form_widget(form.hostel) }}
+                            {{ form_widget(form.user) }}
+                            {{ form_widget(form.startDate) }}
+                            {{ form_widget(form.endDate) }}
                         </div>
-                </div>
-            </form>
-            {{ form_start(form, {'attr': {'class': 'booking-form' }}) }}
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="hidden" style="display: none">
-                    {{ form_widget(form.hostel) }}
-                    {{ form_widget(form.user) }}
-                    {{ form_widget(form.startDate) }}
-                    {{ form_widget(form.endDate) }}
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="date_range"><i class="icon icon-calendar"></i> <span id="nights">{{ 'booking.form.dateRange'|trans }}</span></label>
-                    <input type="text" id="date_range" required="required" maxlength="255" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="booking_numberOfPersons"><i class="icon icon-male"></i> {{ 'booking.form.people'|trans }}</label>
-                    {{ form_widget(form.numberOfPersons) }}
-                </div>
-                <div class="form-group">
-                    <div id="booking_room" class="form-group">
-                        {% for key, value in form.rooms %}
-                            {% set room = form.rooms.vars.choices[key].data %}
-                            {{
-                                form_widget(value, {
-                                    'label': "#{room.name}: #{('room.type.' ~ room.type|lower)|trans},
+                        <div class="form-group">
+                            <label class="control-label" for="date_range"><i class="icon icon-calendar"></i> <span id="nights">{{ 'booking.form.dateRange'|trans }}</span></label>
+                            <input type="text" id="date_range" required="required" maxlength="255" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="booking_numberOfPersons">
+                                <i class="icon icon-male"></i> {{ 'booking.form.people'|trans }}
+                            </label>
+                            {{ form_widget(form.numberOfPersons) }}
+                        </div>
+                        <div class="form-group">
+                            <div id="booking_room" class="form-group">
+                                {% for key, value in form.rooms %}
+                                    {% set room = form.rooms.vars.choices[key].data %}
+                                    {{
+                                    form_widget(value, {
+                                        'label': "#{room.name}: #{('room.type.' ~ room.type|lower)|trans},
                                     #{'room.capacity.label'|transchoice(room.capacity, { '%capacity%': room.capacity })}
                                     ($#{room.priceInLow}/$#{room.priceInHigh})"
-                                })
-                            }}
-                        {% endfor %}
+                                    })
+                                    }}
+                                {% endfor %}
+                            </div>
+                            </ul>
+                        </div>
+                    </div><!--/.col-sm-8-->
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        {{ form_row(form.comments, {'attr': {'rows': '12' }}) }}
+                    </div><!--/.col-sm-4-->
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-common btn-lg">{% trans %}button.send{% endtrans %}</button>
+                        </div>
                     </div>
-                    </ul>
+                    {{ form_end(form) }}
                 </div>
-            </div><!--/.col-sm-8-->
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                {{ form_row(form.comments, {'attr': {'rows': '12' }}) }}
-            </div><!--/.col-sm-4-->
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-raised btn-lg">{% trans %}button.send{% endtrans %}</button>
-                </div>
-            </div>
-            {{ form_end(form) }}
             {% endif %}
         </div>
     </section><!--/#contact-page-->

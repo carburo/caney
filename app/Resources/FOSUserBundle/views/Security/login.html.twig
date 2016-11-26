@@ -2,16 +2,19 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block headingTitle %}Log in{% endblock %}
-{% block path %}Log in{% endblock %}
+{% block headingTitle %}
+    {{ 'account.log_in'|trans({}, 'messages') }}
+{% endblock %}
 
 {% block fos_user_body %}
 
     <section id="login" class="container">
-        {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
         <form class="form-signin" role="form" action="{{ path('fos_user_security_check') }}" method="POST">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
             <fieldset class="registration-form">
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
                 <div class="form-group label-floating">
@@ -37,7 +40,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" id="_submit" name="_submit" class="btn btn-raised btn-primary btn-md btn-block" value="{{ 'security.login.submit'|trans }}" />
+                    <input type="submit" id="_submit" name="_submit" class="btn btn-common btn-md btn-block" value="{{ 'security.login.submit'|trans }}" />
                 </div>
             </fieldset>
         </form>

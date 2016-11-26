@@ -107,6 +107,21 @@ $(document).ready(function() {
 	    }, 600);
 	    return false;
 	  });
+
+    //booking form
+    var form = $('.booking-form');
+    form.submit(function () {
+		$('#loader').fadeIn();
+        var $this = $(this);
+        $.post($(this).attr('action'), $(this).serialize(), function(data) {
+			$('#loader').fadeOut();
+            $('#success-message').html(data.message);
+            $('#success-section').fadeIn();
+            $this.fadeOut();
+            //$this[0].reset();
+        },'json');
+        return false;
+    });
 	  
 	  $('.swipe-gallery').each( function() {
         // Get the items.
@@ -155,6 +170,36 @@ $(document).ready(function() {
             lightBox.init();
         });
     });
- 
+
 });
 
+function translateInfoNights(locale, nights) {
+	var text;
+	switch (locale) {
+		case "es":
+			switch (nights) {
+				case 0: text = "Elija un rango de fechas para la reserva."; break;
+				case 1: text = "Reserva por una noche."; break;
+				default: text = "Reserva por " + nights + " noches.";
+			}
+		case "fr":
+			switch (nights) {
+				case 0: text = "Elija un rango de fechas para la reserva."; break;
+				case 1: text = "Reserva por una noche."; break;
+				default: text = "Reserva por " + nights + " noches.";
+			}
+		case "de":
+			switch (nights) {
+				case 0: text = "Elija un rango de fechas para la reserva."; break;
+				case 1: text = "Reserva por una noche."; break;
+				default: text = "Reserva por " + nights + " noches.";
+			}
+		default:
+			switch (nights) {
+				case 0: text = "Choose a date range for the reservation."; break;
+				case 1: text = "Reservation for one night."; break;
+				default: text = "Reservation for " + nights + " nights.";
+			}
+	}
+	return text;
+}

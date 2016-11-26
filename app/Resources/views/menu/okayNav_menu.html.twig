@@ -1,4 +1,4 @@
-{% extends 'knp_menu.html.twig' %}
+{% extends 'KnpMenuBundle::menu.html.twig' %}
 
 {% block item %}
 {% import "knp_menu.html.twig" as macros %}
@@ -114,5 +114,3 @@
     	{{ block('label') }}
     </a>
 {% endblock %}
-
-{% block label %}{{ item.label|trans }}{% endblock %}

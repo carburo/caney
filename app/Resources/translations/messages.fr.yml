@@ -14,7 +14,7 @@ button:
   go:
     back: avant
 menu:
-  homepage: Page d'accueil
+  homepage: Accueil
   hostels: Chez l'habitant
   booking: Reserve
   contact: Contact

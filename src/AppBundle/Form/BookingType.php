@@ -5,7 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -29,7 +29,6 @@ class BookingType extends AbstractType
             ->add('endDate', DateType::class, [
                 'widget' => 'single_text'
             ])
-            ->add('numberOfPersons')
             ->add('comments', TextareaType::class, [
                 'required' => false,
             ])
@@ -44,13 +43,24 @@ class BookingType extends AbstractType
                 $hostel = $booking->getHostel();
                 $rooms = null === $hostel ? [] : $hostel->getRooms();
 
-                $form->add('rooms', EntityType::class, [
+                $persons = array();
+                for ($i = 1; $i <= $hostel->getCapacity(); $i++)
+                {
+                    $persons[$i] = $i;
+                }
+
+                $form
+                    ->add('rooms', EntityType::class, [
                     'multiple' => true,
                     'class' => 'AppBundle:Room',
                     'expanded' => 'true',
                     'choices' => $rooms,
                     'translation_domain' => false,
-                ]);
+                ])
+                    ->add('numberOfPersons', ChoiceType::class, [
+                        'choices' => $persons
+                    ])
+                ;
             }
         );
     }
