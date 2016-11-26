@@ -37,6 +37,8 @@ menu:
 contact:
   title: Contact
   subtitle: Always feel free to
+  invitation:
+    message: We’re always here to hear form you
 hostels:
   title: Hostels
 booking:

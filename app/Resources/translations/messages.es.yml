@@ -36,7 +36,9 @@ menu:
     changePassword: Cambiar contraseña
 contact:
   title: Contacto
-  subtitle: Si tiene alguna interrogante no dude en preguntar. Simplemente debe llenar el siguiente formulario y con gusto intentaremos encontrarle una solución.
+  subtitle: Nunca dudes en hacer
+  invitation:
+      message: Siempre estamos disponibles para saber de ti
 hostels:
   title: Hostales
 booking:
