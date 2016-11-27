@@ -26,12 +26,12 @@ class LocationRepository extends SortableRepository
     public function activeHostelsCount($slug) {
         $em = $this->getEntityManager();
         $mapping = new ResultSetMappingBuilder($em);
-        $mapping->addScalarResult('count', 'count', 'int');
+        $mapping->addScalarResult('count', 'count', 'integer');
 
-        $sql = "active_hostels_count_by_location(?)";
+        $sql = "SELECT active_hostels_count_by_location(?) count";
         $query = $em->createNativeQuery($sql, $mapping);
         $query->setParameter(1, $slug);
 
-        return $query->getResult();
+        return $query->getResult()[0]["count"];
     }
 }

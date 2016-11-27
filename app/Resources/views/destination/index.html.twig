@@ -6,10 +6,6 @@
 
 {% block headingTitle %}{{ destination.name }}{% endblock %}
 
-{#{% block bodyPreamble %}#}
-    {#{{ include('photo-swipe.html.twig') }}#}
-{#{% endblock %}#}
-
 {% block content %}
     <section id="destination-page" class="mea-blog-post-page section-padding">
         <div class="container">
@@ -30,39 +26,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper swipe-gallery">
-                        {% for hostel in destination.hostels %}
-                            <div class="swiper-slide hostel-image single-team-widget">
-                                <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                    <a href="{{ path('hostel_view', {'slug' : hostel.slug}) }}" itemprop="contentUrl" data-size="270x270">
-                                        <img src="{{ asset('images/team1.png') }}" itemprop="thumbnail" alt="{{ hostel.hostelName }}" />
-                                    </a>
-                                    <figcaption class="team-member-info" itemprop="caption description">
-                                        <div class="know-more">
-                                            <a class="btn btn-round btn-fab" href="{{ path('hostel_view', {'slug' : hostel.slug}) }}">
-                                                <i class="material-icons">arrow_forward</i>
-                                                <div class="ripple-container"></div>
-                                            </a>
-                                        </div>
-                                        <h2 class="subtitle">{{ hostel.hostelName }}</h2>
-                                        <p>desde <strong>{{ hostel.rooms[0].priceInLow }}</strong> CUC</p>
-                                        {#<div class="social-profiles">#}
-                                        {#<a href="#"><i class="fa fa-twitter"></i></a>#}
-                                        {#<a href="#"><i class="fa fa-facebook"></i></a>#}
-                                        {#<a href="#"><i class="fa fa-dribbble"></i></a>#}
-                                        {#<a href="#"><i class="fa fa-behance"></i></a>#}
-                                        {#</div>#}
-                                    </figcaption>
-                                </figure>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
-
+                {% include 'hostel/slider.html.twig' %}
             </div>
         </div>
     </div>
@@ -89,12 +53,6 @@
             position: relative;
             background: url(/images/trinidad.jpg) no-repeat scroll center center;
             background-size: cover;
-        }
-        /*.swiper-slide {*/
-            /*width: 271px;*/
-        /*}*/
-        .subtitle {
-            font-weight: 300;
         }
     </style>
 {% endblock %}

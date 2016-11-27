@@ -703,7 +703,8 @@ class Hostel
         $this->active = $active;
     }
 
-    public function getCapacity() {
+    public function getCapacity()
+    {
         $capacity = 0;
         foreach($this->getRooms() as $room) {
             $capacity += $room->getCapacity();
@@ -711,7 +712,8 @@ class Hostel
         return $capacity;
     }
 
-    public function getMinimumPrice() {
+    public function getMinimumPrice()
+    {
         $roomPrice = 0;
         foreach ($this->getRooms() as $room) {
             if($roomPrice == 0 || $room->getPriceInLow() < $roomPrice) {
@@ -719,6 +721,18 @@ class Hostel
             }
         }
         return $roomPrice;
+    }
+
+    public function getFrontImage()
+    {
+        foreach ($this->getImages() as $image)
+        {
+            if($image->isFrontImage())
+            {
+                return $image;
+            }
+        }
+        return null;
     }
     
     public function __toString() {

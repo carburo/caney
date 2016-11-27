@@ -36,6 +36,13 @@ class HostelImage extends Image
      */
     private $partOfTheHouse;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="front_image", type="boolean")
+     */
+    private $frontImage;
+
     public function __construct(CacheManager $cacheManager = null)
     {
         parent::__construct($cacheManager);
@@ -88,6 +95,22 @@ class HostelImage extends Image
     public function setPartOfTheHouse($partOfTheHouse)
     {
         $this->partOfTheHouse = $partOfTheHouse;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isFrontImage(): bool
+    {
+        return $this->frontImage;
+    }
+
+    /**
+     * @param boolean $frontImage
+     */
+    public function setFrontImage(bool $frontImage)
+    {
+        $this->frontImage = $frontImage;
     }
 
     public function __toString() {

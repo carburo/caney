@@ -15,33 +15,7 @@
         </div>
         <div class="row mt-100">
             <div class="col-md-12">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper swipe-gallery">
-                        {% for hostel in hostels %}
-                            {% set hostelPath = path('hostel_view', {'slug' : hostel.slug }) %}
-                            <div class="swiper-slide hostel-image single-team-widget">
-                                <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                    <a href="{{ hostelPath }}" itemprop="contentUrl" data-size="270x270">
-                                        <img src="{{ asset('images/team1.png') }}" itemprop="thumbnail" alt="{{ hostel.hostelName }}" />
-                                    </a>
-                                    <figcaption class="team-member-info" itemprop="caption description">
-                                        <div class="know-more">
-                                            <a class="btn btn-round btn-fab" href="{{ hostelPath }}">
-                                                <i class="material-icons">arrow_forward</i>
-                                                <div class="ripple-container"></div>
-                                            </a>
-                                        </div>
-                                        <h2 class="subtitle">{{ hostel.hostelName }}</h2>
-                                        <p>{{ 'hostel.price.label'|trans({'%price%': hostel.minimumPrice})|raw }}</p>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
+                {% include 'hostel/slider.html.twig' %}
             </div>
         </div>
     </div>

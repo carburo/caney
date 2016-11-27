@@ -229,7 +229,7 @@
     <style>
         .page-title-section {
             position: relative;
-            background: url(/images/hostal.jpg) no-repeat scroll center center;
+            background: url("{{ vich_uploader_asset(hostel.frontImage, 'imageFile')|imagine_filter('app_image') }}") no-repeat scroll center center;
             background-size: cover;
         }
         .swiper-slide {

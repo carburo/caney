@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Doctrine\DBAL\Types\Type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,27 +38,16 @@ class HomeController extends Controller
      */
     public function homeAction(Request $request)
     {
-        $repo = $this->getDoctrine()->getRepository('AppBundle:Location');
-        $destinations = $repo->activeLocations();
+        $locationRepo = $this->getDoctrine()->getRepository('AppBundle:Location');
+        $destinations = $locationRepo->activeLocations();
 
-        $repo = $this->getDoctrine()->getRepository('AppBundle:Image');
-        $recentPictures = $repo->findByFrontPage(true);
+        $hostelRepo = $this->getDoctrine()->getRepository('AppBundle:Hostel');
+        $hostels = $hostelRepo->findByActive(true);
 
-        $repo = $this->getDoctrine()->getRepository('AppBundle:Hostel');
-        $hostels = $repo->findAll();
-
-        return $this->render('home/index.html.twig', array(
+        return $this->render('home/index.html.twig', [
             'destinations' => $destinations,
             'hostels' => $hostels,
-            'recentPictures' => $recentPictures,
-        ));
-    }
-
-    /**
-     * @Route("/test", name="test")
-     */
-    public function testAction(Request $request)
-    {
-        return $this->render("index.html.twig");
+            'destinationRepo' => $locationRepo,
+        ]);
     }
 }

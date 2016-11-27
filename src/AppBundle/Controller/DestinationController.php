@@ -21,8 +21,12 @@ class DestinationController extends Controller
      * @Route("/destination/{slug}", name="destinationView")
      */
     public function index(Request $request, Location $destination) {
+        $hostelRepo = $this->getDoctrine()->getRepository('AppBundle:Hostel');
+        $hostels = $hostelRepo->activeByLocation($destination->getSlug());
+
         return $this->render('destination/index.html.twig', [
-            'destination' => $destination
+            'destination' => $destination,
+            'hostels' => $hostels,
         ]);
     }
 }

@@ -32,7 +32,7 @@
                                             </a>
                                         </div>
                                         <h2 class="subtitle">{{ destination.name }}</h2>
-                                        {% set count = destination.amountOfHostels %}
+                                        {% set count = destinationRepo.activeHostelsCount(destination.slug) %}
                                         <p>{{ 'destination.amount.of.hostels'|transchoice(count, {'%count%': count }) }}</p>
                                     </figcaption>
                                 </figure>
