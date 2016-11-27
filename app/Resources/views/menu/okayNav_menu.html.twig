@@ -88,15 +88,27 @@
 		{% if item.attribute('icon') is not empty  %}
     		<i class="{{ item.attribute('icon') }}"></i> 
     	{% endif %}
+        {% if item.attribute('material-icon') is not empty  %}
+            <i class="material-icons">{{ item.attribute('material-icon') }}</i>
+        {% endif %}
 		{{ block('label') }}
 	</a>
 {% endblock %}
 
 {% block spanElement %}
-	<span>{{ macros.attributes(item.labelAttributes) }}>
+    {%- set classes = item.labelAttribute('class') is not empty ? [item.labelAttribute('class')] : [] %}
+    {%- if is_dropdown_item %}
+        {%- set classes = classes|merge(['sub-menu-item']) %}
+    {%- else %}
+        {%- set classes = classes|merge(['nav-link']) %}
+    {%- endif %}
+	<span class="{{ classes|join(' ') }}">
 		{% if item.attribute('icon') is not empty  %}
     		<i class="{{ item.attribute('icon') }}"></i> 
     	{% endif %}
+        {% if item.attribute('material-icon') is not empty  %}
+            <i class="material-icons">{{ item.attribute('material-icon') }}</i>
+        {% endif %}
 		{{ block('label') }}
 	</span>
 {% endblock %}
@@ -111,6 +123,9 @@
     	{% if item.attribute('icon') is not empty  %}
     		<i class="{{ item.attribute('icon') }}"></i> 
     	{% endif %}
+        {% if item.attribute('material-icon') is not empty  %}
+            <i class="material-icons">{{ item.attribute('material-icon') }}</i>
+        {% endif %}
     	{{ block('label') }}
     </a>
 {% endblock %}

@@ -35,22 +35,9 @@ class Builder implements ContainerAwareInterface
     private function addDestinationMenu(ItemInterface $root)
     {
         // create another menu item
-        $menu = $root->addChild('destinations', [
-            'label' => 'menu.destinations'
-        ])->setAttribute('dropdown', true);
-
-        $repo = $this->container->get('doctrine')->getRepository('AppBundle\Entity\Location');
-        $locations = $repo->findAll();
-        foreach ($locations as $location) {
-            if(!$location->getHostels()->isEmpty()) {
-                $menu->addChild($location->getName(), [
-                    'route' => "hostelsByDestination",
-                    'routeParameters' => ['slug' => $location->getSlug()]
-                ])
-                    ->setExtra('translation_domain', false)
-                    ->setAttribute('dropdown_item', true);
-            }
-        }
+        $menu = $root->addChild('menu.destinations', [
+            'uri' => '#'
+        ]);
     }
     
     public function userMenu(FactoryInterface $factory, array $options)
@@ -70,24 +57,29 @@ class Builder implements ContainerAwareInterface
         if ($securityChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $securityContext = $this->container->get('security.token_storage');
             $user = $securityContext->getToken()->getUser();
-        
-            // create another menu item
-            $menu = $root->addChild('menu.welcome.message')
-                ->setExtra('translation_params', [
-                    '%visitor%' => $user->getForename()
-                ])
+
+            $menu = $root->addChild('menu.settings')
                 ->setAttribute('dropdown', true);
+
+            $menu->addChild('person.full_name', [
+                'uri' => "#"
+            ])
+                ->setExtra('translation_params', [
+                    '%forename%' => $user->getForename(),
+                    '%surname%' => $user->getSurname()
+                ])
+                ->setAttribute('dropdown_item', true);
         
             $menu->addChild('menu.user.edit', [
                 'route' => 'fos_user_profile_edit'
             ])
-                ->setAttribute('icon', 'icon icon-edit')
+                ->setAttribute('icon', 'fa fa-edit')
                 ->setAttribute('dropdown_item', true);
             
             $menu->addChild('menu.user.changePassword', [
                 'route' => 'fos_user_change_password'
             ])
-                ->setAttribute('icon', 'icon icon-key')
+                ->setAttribute('icon', 'fa fa-key')
                 ->setAttribute('dropdown_item', true);
 
             if($user->isOwner())
@@ -101,7 +93,7 @@ class Builder implements ContainerAwareInterface
                 'route' => 'fos_user_security_logout'
             ])
                 ->setExtra('translation_domain', 'FOSUserBundle')
-                ->setAttribute('icon', 'icon icon-sign-out')
+                ->setAttribute('icon', 'fa fa-sign-out')
                 ->setAttribute('dropdown_item', true);
 
         } else {
@@ -109,7 +101,7 @@ class Builder implements ContainerAwareInterface
                 'route' => 'fos_user_security_login'
             ])
                 ->setExtra('translation_domain', 'FOSUserBundle')
-                ->setAttribute('icon', 'icon icon-sign-in');
+                ->setAttribute('icon', 'fa fa-sign-in');
         }
     }
     
@@ -133,6 +125,7 @@ class Builder implements ContainerAwareInterface
             'label' => $this->localeName($requestLocale, $requestLocale)
         ])
             ->setExtra('translation_domain', false)
+            ->setAttribute('material-icon', 'translate')
             ->setAttribute('dropdown', true);
         
         $route = $request->attributes->get('_route');

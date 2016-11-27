@@ -21,6 +21,8 @@ account:
   message:
     not_logged_in: You are not logged-in
     need_log_in: You need to log-in in order to make a reservation
+person:
+  full_name: %forename% %surname%
 menu:
   homepage: Home
   hostels: Hostels
@@ -31,6 +33,7 @@ menu:
     register: Register hostel
   welcome:
     message: Hi %visitor%
+  settings: Settings
   user:
     edit: Edit profile
     changePassword: Change password
