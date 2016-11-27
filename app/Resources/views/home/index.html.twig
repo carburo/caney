@@ -1,122 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block heading %}
-<!-- Main Carousel Section -->
-    <div id="main-slide" class="carousel slide carousel-fade" data-ride="carousel">
-    
-        <div class="carousel-inner">
-            <div class="item active">
-                <img class="img-responsive" src="{{ asset('images/slider-bg4.jpg') }}" alt="slider">
-                <div class="slider-content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12 text-left">
-                                <h1 class="slideInLeft animated wow hero-heading animated" data-wow-delay=".6s" style="visibility: visible;-webkit-animation-delay: .6s; -moz-animation-delay: .6s; animation-delay: .6s;">Create Amazing Web<br>Experiences</h1>
-                                <h5 class="fadeInDown wow animated hero-sub-heading animated" data-wow-delay=".8s" style="visibility: visible;-webkit-animation-delay: .8s; -moz-animation-delay: .8s; animation-delay: .8s;">Great choice for your next webdesign project</h5>
-                                <a href="javascript:void(0)" class="animated fadeInUp wow btn btn-common animated" data-wow-delay=".9s" style="visibility: visible;-webkit-animation-delay: .9s; -moz-animation-delay: .9s; animation-delay: .9s;"><i class="material-icons"></i> Explore<div class="ripple-container"></div></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-            <div class="item">
-                <img class="img-responsive" src="{{ asset('images/slider-bg2.jpg') }}" alt="slider">
-                <div class="slider-content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <h1 class="animated wow fadeIn hero-heading animated" data-wow-delay=".7s" style="visibility: visible;-webkit-animation-delay: .7s; -moz-animation-delay: .7s; animation-delay: .7s;">Material Design Inspired</h1>
-                                <h5 class="animated5 hero-sub-heading">Refreshing Design - Built-with Latest Bootstrap &amp; HTML5</h5>
-                                <a href="javascript:void(0)" class="animated6 btn btn-lg btn-common"><i class="material-icons"></i> Purchase</a>
-                                    <a href="javascript:void(0)" class="animated6 btn btn-lg btn-raised btn-default"><i class="material-icons"></i> Learn More<div class="ripple-container"></div></a><div class="ripple-container"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <img class="img-responsive" src="{{ asset('images/slider-bg3.jpg') }}" alt="slider">
-                <div class="slider-content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <h1 class="animated wow bounceInUp hero-heading animated" data-wow-delay=".6s" style="visibility: visible;-webkit-animation-delay: .6s; -moz-animation-delay: .6s; animation-delay: .6s;">Cutting Edge Features</h1>
-                                <h5 class="animated4 hero-sub-heading">Material Design - Bootstrap - HTML5 - CSS3 - Responsive </h5>
-                                <a href="javascript:void(0)" class="animated4 btn btn-common"><i class="material-icons"></i> Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-        </div> 
-    
-        <a class="left carousel-control" href="#main-slide" data-slide="prev">
-        <span><i class="fa fa-angle-left" data-ripple-color="#F0F0F0"><div class="ripple-container"></div></i></span>
-        </a>
-        <a class="right carousel-control" href="#main-slide" data-slide="next">
-        <span><i class="fa fa-angle-right" data-ripple-color="#F0F0F0"><div class="ripple-container"></div></i></span>
-        </a>
-    </div>
-    <!-- Main Carousel Section End-->
+    {% include 'home/main-slide.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 4,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            slidesPerGroup: 2,
+            spaceBetween: 10
+//        freeMode: true
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
-        <!-- About Section -->
-        <section class="mea-about-section section-padding">
-            <div class="container">
-                <div class="row">
-                    <!-- Section Titile -->
-                    <div class="col-md-6 mea-title-section wow animated slideInLeft" data-wow-delay=".2s">
-                        <h1 class="section-titile-bg">About MEA</h1>
-                        <h1 class="section-title">About MEA</h1>
-                    </div>
-                    <!-- Section Quote -->
-                    <div class="col-md-6 mea-section-quote wow animated slideInRight" data-wow-delay=".2s">
-                        <blockquote>
-                            <p>We are a strategic, creative studio based out of Savannah, Georgia. Our close team of innovative professionals is passionate about partnering with good people and organizations.</p>
-                        </blockquote>
-                        <div class="mt-20 clearfix sub-quote">
-                            <p>We are a close team of creative professionals based out of Savannah, Georgia. We are passionate about partnering with good people and organizations to provide exceptional custom solutions. Our skills are specific and fine-tuned. We are specialists, not generalists.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-80">
-                    <!-- Single About Widget -->
-                    <div class="col-md-4 about-widget wow animated fadeInUp" data-wow-delay=".4s">
-                        <i class="material-icons">&#xE90F;</i>
-                        <h2 class="subtitle">Insights</h2>
-                        <p>Excepteur sint occaecat cupidatat non proidt, sunt in culpa qui officia deserunt mollit <br>animidest laborum.</p>
-                    </div>
-                    <!-- Single About Widget -->
-                    <div class="col-md-4 about-widget wow animated fadeInUp" data-wow-delay=".5s">
-                        <i class="material-icons">&#xE8F1;</i>
-                        <h2 class="subtitle">Design</h2>
-                        <p>Excepteur sint occaecat cupidatat non proidt, sunt in culpa qui officia deserunt mollit <br>animidest laborum.</p>
-                    </div>
-                    <!-- Single About Widget -->
-                    <div class="col-md-4 about-widget wow animated fadeInUp" data-wow-delay=".6s">
-                        <i class="material-icons">&#xE8E5;</i>
-                        <h2 class="subtitle">Growth</h2>
-                        <p>Excepteur sint occaecat cupidatat non proidt, sunt in culpa qui officia deserunt mollit <br>animidest laborum.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- About Section End -->
-
-        <!-- Call to action Section -->
-        <section class="call-to-action-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <h1 class="wow animated slideInRight" data-wow-delay=".2s">Its Free Version!</h1>
-                        <h2 class="wow animated slideInRight" data-wow-delay=".4s"><a href="https://graygrids.com/item/mea-free-material-design-multi-purpose-bootstrap-html5-template">Purchase Full Version to Get All Pages and Features</a></h2>
-                        <a href="https://graygrids.com/item/mea-free-material-design-multi-purpose-bootstrap-html5-template" class="wow animated fadeInUp btn btn-common mt-50" data-wow-delay=".6s"><i class="fa fa-shopping-cart"></i> Purchase Now!<div class="ripple-container"></div></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Call to action Section End -->
+    {% include 'home/destinations.html.twig' %}
+    {% include 'home/hostels.html.twig' %}
 
         <!-- Services Section -->
         <section class="mea-service-section section-padding">
@@ -213,20 +117,6 @@
         </section>
         <!-- Services Section End -->
 
-        <!-- Call to action Section -->
-        <section class="call-to-action-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <h1 class="wow animated slideInRight" data-wow-delay=".2s">Its Free Version!</h1>
-                        <h2 class="wow animated slideInRight" data-wow-delay=".4s"><a href="https://graygrids.com/item/mea-free-material-design-multi-purpose-bootstrap-html5-template">Purchase Full Version to Get All Pages and Features</a></h2>
-                        <a href="https://graygrids.com/item/mea-free-material-design-multi-purpose-bootstrap-html5-template" class="wow animated fadeInUp btn btn-common mt-50" data-wow-delay=".6s"><i class="fa fa-shopping-cart"></i> Purchase Now!<div class="ripple-container"></div></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Call to action Section End -->
-
         <!-- Testimonial Section -->
         <section class="mea-testimonial-section section-padding">
             <div class="container">
@@ -308,20 +198,6 @@
             </div>
         </section>
         <!-- Testimonial Section End -->
-
-        <!-- Call to action Section -->
-        <section class="call-to-action-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <h1 class="wow animated slideInRight" data-wow-delay=".2s">Its Free Version!</h1>
-                        <h2 class="wow animated slideInRight" data-wow-delay=".4s"><a href="https://graygrids.com/item/mea-free-material-design-multi-purpose-bootstrap-html5-template">Purchase Full Version to Get All Pages and Features</a></h2>
-                        <a href="https://graygrids.com/item/mea-free-material-design-multi-purpose-bootstrap-html5-template" class="wow animated fadeInUp btn btn-common mt-50" data-wow-delay=".6s"><i class="fa fa-shopping-cart"></i> Purchase Now!<div class="ripple-container"></div></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Call to action Section End -->
 
         <!-- Our BLog Section -->
         <section class="mea-blog-section section-padding">  
@@ -416,18 +292,4 @@
             </div>
         </section>
         <!-- Our BLog Section End -->
-
-        <!-- Call to action Section -->
-        <section class="call-to-action-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <h1 class="wow animated slideInRight" data-wow-delay=".2s">Its Free Version!</h1>
-                        <h2 class="wow animated slideInRight" data-wow-delay=".4s"><a href="https://graygrids.com/item/mea-free-material-design-multi-purpose-bootstrap-html5-template">Purchase Full Version to Get All Pages and Features</a></h2>
-                        <a href="https://graygrids.com/item/mea-free-material-design-multi-purpose-bootstrap-html5-template" class="wow animated fadeInUp btn btn-common mt-50" data-wow-delay=".6s"><i class="fa fa-shopping-cart"></i> Purchase Now!<div class="ripple-container"></div></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Call to action Section End -->    
 {% endblock %}

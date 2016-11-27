@@ -64,6 +64,12 @@ hostel:
   register:
       title: Register hostel
       subtitle: Fill out the form in order to register a new hostel in your account.
+  price:
+    label: "from <strong>%price%</strong> CUC"
+destination:
+  amount:
+    of:
+      hostels: "{1} 1 listed house|]1,Inf[ %count% listed houses"
 breakfast:
   label: Breakfast
   price: "Breakfast: %price% CUC"

@@ -710,6 +710,16 @@ class Hostel
         }
         return $capacity;
     }
+
+    public function getMinimumPrice() {
+        $roomPrice = 0;
+        foreach ($this->getRooms() as $room) {
+            if($roomPrice == 0 || $room->getPriceInLow() < $roomPrice) {
+                $roomPrice = $room->getPriceinLow();
+            }
+        }
+        return $roomPrice;
+    }
     
     public function __toString() {
         return $this->hostelName;

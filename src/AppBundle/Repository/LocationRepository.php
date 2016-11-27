@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Gedmo\Sortable\Entity\Repository\SortableRepository;
 
 /**
@@ -11,4 +12,26 @@ use Gedmo\Sortable\Entity\Repository\SortableRepository;
  */
 class LocationRepository extends SortableRepository
 {
+    public function activeLocations() {
+        $em = $this->getEntityManager();
+        $mapping = new ResultSetMappingBuilder($em);
+        $mapping->addRootEntityFromClassMetadata('AppBundle\Entity\Location', 'l');
+
+        $sql = "CALL active_locations()";
+        $query = $em->createNativeQuery($sql, $mapping);
+
+        return $query->getResult();
+    }
+
+    public function activeHostelsCount($slug) {
+        $em = $this->getEntityManager();
+        $mapping = new ResultSetMappingBuilder($em);
+        $mapping->addScalarResult('count', 'count', 'int');
+
+        $sql = "active_hostels_count_by_location(?)";
+        $query = $em->createNativeQuery($sql, $mapping);
+        $query->setParameter(1, $slug);
+
+        return $query->getResult();
+    }
 }

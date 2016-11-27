@@ -15,15 +15,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Location
 {
-//    /**
-//     * @var int
-//     *
-//     * @ORM\Column(name="id", type="integer")
-//     * @ORM\Id
-//     * @ORM\GeneratedValue(strategy="AUTO")
-//     */
-//    private $id;
-
     /**
      * @var string
      *
@@ -84,28 +75,6 @@ class Location
             $t->setObject($this);
         }
     }
-
-//    /**
-//     * @return int
-//     */
-//    public function getId()
-//    {
-//        return $this->id;
-//    }
-
-//    /**
-//     * Set slug
-//     *
-//     * @param string $slug
-//     *
-//     * @return Location
-//     */
-//    public function setSlug($slug)
-//    {
-//        $this->slug = $slug;
-//
-//        return $this;
-//    }
 
     /**
      * @return string
@@ -185,6 +154,10 @@ class Location
     public function setProvince($province)
     {
         $this->province = $province;
+    }
+
+    public function getAmountOfHostels() {
+        return $this->getHostels()->count();
     }
 
     public function __toString() {
