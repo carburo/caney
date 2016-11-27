@@ -20,7 +20,7 @@ class Builder implements ContainerAwareInterface
             'route' => 'homepage'
         ]);
 
-        $this->addDestinationMenu($menu);
+//        $this->addDestinationMenu($menu);
         
         $menu->addChild('menu.contact', [
             'route' => 'contact'
@@ -32,13 +32,13 @@ class Builder implements ContainerAwareInterface
         return $menu;
     }
 
-    private function addDestinationMenu(ItemInterface $root)
-    {
-        // create another menu item
-        $menu = $root->addChild('menu.destinations', [
-            'uri' => '#'
-        ]);
-    }
+//    private function addDestinationMenu(ItemInterface $root)
+//    {
+//        // create another menu item
+//        $menu = $root->addChild('menu.destinations', [
+//            'uri' => '#'
+//        ]);
+//    }
     
     public function userMenu(FactoryInterface $factory, array $options)
     {
@@ -59,16 +59,17 @@ class Builder implements ContainerAwareInterface
             $user = $securityContext->getToken()->getUser();
 
             $menu = $root->addChild('menu.settings')
+                ->setAttribute('material-icon', 'settings')
                 ->setAttribute('dropdown', true);
 
-            $menu->addChild('person.full_name', [
-                'uri' => "#"
-            ])
-                ->setExtra('translation_params', [
-                    '%forename%' => $user->getForename(),
-                    '%surname%' => $user->getSurname()
-                ])
-                ->setAttribute('dropdown_item', true);
+//            $menu->addChild('person.full_name', [
+//                'uri' => "#"
+//            ])
+//                ->setExtra('translation_params', [
+//                    '%forename%' => $user->getForename(),
+//                    '%surname%' => $user->getSurname()
+//                ])
+//                ->setAttribute('dropdown_item', true);
         
             $menu->addChild('menu.user.edit', [
                 'route' => 'fos_user_profile_edit'

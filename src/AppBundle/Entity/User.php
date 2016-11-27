@@ -79,21 +79,21 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="phone_number", type="string", length=255)
+     * @ORM\Column(name="phone_number", type="string", nullable=true, length=255)
      */
     private $phoneNumber;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=2)
+     * @ORM\Column(name="country", type="string", nullable=true, length=2)
      */
     private $country;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="owner", type="boolean")
+     * @ORM\Column(name="owner", type="boolean", nullable=true)
      */
     private $owner;
 

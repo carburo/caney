@@ -11,6 +11,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -32,7 +33,7 @@ class ProfileType extends AbstractType {
                 'label' => 'form.country',
                 'required' => false,
             ])
-            ->add('owner', null, ['label' => 'form.owner'])
+            ->add('owner', HiddenType::class, ['label' => 'form.owner'])
         ;
     }
 

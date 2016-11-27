@@ -11,6 +11,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class RegistrationType extends AbstractType {
@@ -20,12 +21,15 @@ class RegistrationType extends AbstractType {
         $builder
             ->add('forename', null, ['label' => 'form.forename'])
             ->add('surname', null, ['label' => 'form.surname'])
-            ->add('phoneNumber', null, ['label' => 'form.phoneNumber'])
+            ->add('phoneNumber', null, [
+                'label' => 'form.phoneNumber',
+                'required' => false
+            ])
             ->add('country', CountryType::class, [
                 'label' => 'form.country',
                 'required' => false,
             ])
-            ->add('owner', null, ['label' => 'form.owner'])
+            ->add('owner', HiddenType::class, ['label' => 'form.owner'])
         ;
     }
 

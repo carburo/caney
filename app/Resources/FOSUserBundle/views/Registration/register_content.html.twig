@@ -17,14 +17,14 @@
         <div class="form-group label-floating">
             {{ form_errors(form.email) }}
             <label class="control-label" for="fos_user_registration_form_email">
-                <i class="icon icon-envelope-o"></i> * {{ form.email.vars.label|trans }}
+                <i class="fa fa-envelope-o"></i> {{ form.email.vars.label|trans }}
             </label>
             {{ form_widget(form.email) }}
         </div>
         <div class="form-group label-floating">
             {{ form_errors(form.username) }}
             <label class="control-label" for="fos_user_registration_form_username">
-                <i class="icon icon-user"></i> * {{ form.username.vars.label|trans }}
+                <i class="fa fa-user"></i> {{ form.username.vars.label|trans }}
             </label>
             {{ form_widget(form.username) }}
         </div>
@@ -32,14 +32,14 @@
         <div class="form-group label-floating">
             {{ form_errors(form.phoneNumber) }}
             <label class="control-label" for="fos_user_registration_form_phonenumber">
-                <i class="icon icon-phone"></i> {{ form.phoneNumber.vars.label|trans }}
+                <i class="fa fa-phone"></i> {{ form.phoneNumber.vars.label|trans }}
             </label>
             {{ form_widget(form.phoneNumber) }}
         </div>
         <div class="form-group label-floating">
             {{ form_errors(form.country) }}
             <label class="control-label" for="fos_user_registration_form_country">
-                <i class="icon icon-globe"></i> {{ form.country.vars.label|trans }}
+                <i class="fa fa-globe"></i> {{ form.country.vars.label|trans }}
             </label>
             {{ form_widget(form.country) }}
         </div>
@@ -47,14 +47,14 @@
         <div class="form-group label-floating">
             {{ form_errors(form.plainPassword.first) }}
             <label class="control-label" for="fos_user_registration_form_password_first">
-                <i class="icon icon-key"></i> {{ form.plainPassword.first.vars.label|trans }}
+                <i class="fa fa-key"></i> {{ form.plainPassword.first.vars.label|trans }}
             </label>
             {{ form_widget(form.plainPassword.first) }}
         </div>
         <div class="form-group label-floating">
             {{ form_errors(form.plainPassword.second) }}
             <label class="control-label" for="fos_user_registration_form_password_second">
-                <i class="icon icon-repeat"></i> {{ form.plainPassword.second.vars.label|trans }}
+                <i class="fa fa-repeat"></i> {{ form.plainPassword.second.vars.label|trans }}
             </label>
             {{ form_widget(form.plainPassword.second) }}
         </div>

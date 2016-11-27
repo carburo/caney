@@ -15,9 +15,6 @@ $(document).ready(function() {
 	    mobile: false
 	});
 	wow.init();
-
-	// Okay Nav Intrigation
-	// $('#nav-main').okayNav()
 	
 	// MixitUp Init
 	$('#mea-portfolio').mixItUp(); 
@@ -25,7 +22,7 @@ $(document).ready(function() {
 
  	// Bootstrap Carousel
 	$('#main-slide').carousel({
-		interval: 5000,
+		interval: 15000,
 	});
 
 	// Testimonial Carousel
@@ -184,15 +181,15 @@ function translateInfoNights(locale, nights) {
 			}
 		case "fr":
 			switch (nights) {
-				case 0: text = "Elija un rango de fechas para la reserva."; break;
-				case 1: text = "Reserva por una noche."; break;
-				default: text = "Reserva por " + nights + " noches.";
+				case 0: text = "Choisissez une rangée de date pour fair la réservation."; break;
+				case 1: text = "Réservation pour une nuit."; break;
+				default: text = "Réservation pour " + nights + " nuits.";
 			}
 		case "de":
 			switch (nights) {
-				case 0: text = "Elija un rango de fechas para la reserva."; break;
-				case 1: text = "Reserva por una noche."; break;
-				default: text = "Reserva por " + nights + " noches.";
+                case 0: text = "Choose a date range for the reservation."; break;
+                case 1: text = "Reservation for one night."; break;
+                default: text = "Reservation for " + nights + " nights.";
 			}
 		default:
 			switch (nights) {
