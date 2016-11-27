@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn("discr", type="string")
- * @ORM\DiscriminatorMap({"regular" = "Image", "hostel" = "HostelImage"})
+ * @ORM\DiscriminatorMap({"regular" = "Image", "hostel" = "HostelImage", "location" = "LocationImage"})
  * @Gedmo\TranslationEntity(class="AppBundle\Entity\ImageTranslation")
  */
 class Image
@@ -41,7 +41,7 @@ class Image
     private $filename;
 
     /**
-     * @Vich\UploadableField(mapping="hostel_images", fileNameProperty="filename")
+     * @Vich\UploadableField(mapping="images", fileNameProperty="filename")
      * @var UploadedFile
      * @Assert\Image(
      * maxSize = "2048k"

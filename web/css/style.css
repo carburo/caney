@@ -1896,3 +1896,11 @@ figure.single-portfolio:hover figcaption {
   padding: 15px;
   margin: 0 auto;
 }
+
+.swiper-slide {
+  width: 271px;
+}
+
+.image-caption {
+    font-weight: bold;
+}

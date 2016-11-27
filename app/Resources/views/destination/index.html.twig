@@ -35,14 +35,13 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-    var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 4,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        slidesPerGroup: 2,
-        spaceBetween: 10
-//        freeMode: true
-    });
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            freeMode: true,
+            spaceBetween: 10
+        });
     </script>
 {% endblock %}
 
@@ -51,7 +50,7 @@
     <style>
         .page-title-section {
             position: relative;
-            background: url(/images/trinidad.jpg) no-repeat scroll center center;
+            background: url("{{ vich_uploader_asset(destination.frontImage, 'imageFile')|imagine_filter('app_slider') }}") no-repeat scroll center center;
             background-size: cover;
         }
     </style>

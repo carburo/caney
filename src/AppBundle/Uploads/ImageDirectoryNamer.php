@@ -10,10 +10,11 @@ namespace AppBundle\Uploads;
 
 
 use AppBundle\Entity\HostelImage;
+use AppBundle\Entity\LocationImage;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
 
-class HostelDirectoryNamer implements  DirectoryNamerInterface {
+class ImageDirectoryNamer implements  DirectoryNamerInterface {
 
     /**
      * Creates a directory name for the file being uploaded.
@@ -26,8 +27,11 @@ class HostelDirectoryNamer implements  DirectoryNamerInterface {
     public function directoryName($object, PropertyMapping $mapping)
     {
         if($object instanceof HostelImage) {
-            return (string) $object->getHostel()->getId();
+            return "hostels/" . $object->getHostel()->getId();
         }
-        return "images";
+        if($object instanceof LocationImage) {
+            return "locations/" . $object->getLocation()->getSlug();
+        }
+        return "general";
     }
 }

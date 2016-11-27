@@ -229,17 +229,11 @@
     <style>
         .page-title-section {
             position: relative;
-            background: url("{{ vich_uploader_asset(hostel.frontImage, 'imageFile')|imagine_filter('app_image') }}") no-repeat scroll center center;
+            background: url("{{ vich_uploader_asset(hostel.frontImage, 'imageFile')|imagine_filter('app_slider') }}") no-repeat scroll center center;
             background-size: cover;
-        }
-        .swiper-slide {
-            width: 271px;
         }
         .single-team-widget .team-member-info {
             height: auto;
-        }
-        .image-caption {
-            font-weight: bold;
         }
     </style>
 {% endblock %}

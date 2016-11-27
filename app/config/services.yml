@@ -24,8 +24,8 @@ services:
     public: false
     tags:
       - { name: security.voter }
-  app.directory_namer.hostel:
-    class: AppBundle\Uploads\HostelDirectoryNamer
+  app.directory_namer.image:
+    class: AppBundle\Uploads\ImageDirectoryNamer
   app.form.registration:
     class: AppBundle\Form\RegistrationType
     tags:

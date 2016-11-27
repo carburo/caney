@@ -51,6 +51,11 @@ class Location
     private $position;
 
     /**
+     * @ORM\OneToMany(targetEntity="LocationImage", mappedBy="location")
+     */
+    private $images;
+
+    /**
      * @ORM\OneToMany(
      *   targetEntity="LocationTranslation",
      *   mappedBy="object",
@@ -156,8 +161,36 @@ class Location
         $this->province = $province;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param mixed $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+    }
+
     public function getAmountOfHostels() {
         return $this->getHostels()->count();
+    }
+
+    public function getFrontImage()
+    {
+        foreach ($this->getImages() as $image)
+        {
+            if($image->isFrontImage())
+            {
+                return $image;
+            }
+        }
+        return null;
     }
 
     public function __toString() {

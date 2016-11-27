@@ -8,7 +8,7 @@ imports:
 parameters:
     locale: en
     app.locales: en|es|fr|de
-    app.path.hostel_images: /uploads/images/hostels
+    app.path.images: /uploads/images
     app.path.user_profile_pictures: /uploads/images/profile
     sender.email: "%sender_email%"
     addressee.email: "%addressee_email%"
@@ -113,9 +113,9 @@ vich_uploader:
   db_driver: orm
   mappings:
     hostel_images:
-      uri_prefix:         '%app.path.hostel_images%'
-      upload_destination: '%kernel.root_dir%/../web/%app.path.hostel_images%'
-      directory_namer:    app.directory_namer.hostel
+      uri_prefix:         '%app.path.images%'
+      upload_destination: '%kernel.root_dir%/../web/%app.path.images%'
+      directory_namer:    app.directory_namer.image
       delete_on_update:   true
       delete_on_remove:   true
     user_profile_picture:
@@ -153,6 +153,10 @@ liip_imagine:
           # Position: One of topleft,top,topright,left,center,right,bottomleft,bottom,bottomright
           position: bottomright
         strip: ~
+    app_slider:
+      filters:
+        auto_rotate: ~
+        downscale: { max: [1920, 800] }
 
 sonata_block:
   default_contexts: [cms]

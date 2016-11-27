@@ -3,9 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Location;
-use AppBundle\Entity\Hostel;
-use AppBundle\Form\HostelType;
-use AppBundle\Repository\HostelRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @package AppBundle\Controller
  * @Route("/{_locale}", requirements={"_locale" = "%app.locales%"})
  */
-class DestinationController extends Controller
+class LocationController extends Controller
 {
     /**
      * @Route("/destination/{slug}", name="destinationView")

@@ -8,12 +8,11 @@
     {{ parent() }}
     <script>
         var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 4,
+            slidesPerView: 'auto',
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
-            slidesPerGroup: 2,
+            freeMode: true,
             spaceBetween: 10
-//        freeMode: true
         });
     </script>
 {% endblock %}
