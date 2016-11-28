@@ -1,8 +1,7 @@
 {% extends "FOSUserBundle::profile_layout.html.twig" %}
 
 {% block headingTitle %}Editar perfil{% endblock %}
-{% block path %}Log in{% endblock %}
 
-{% block content %}
-{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+{% block fos_user_content %}
+    {% include "FOSUserBundle:Profile:edit_content.html.twig" %}
 {% endblock %}

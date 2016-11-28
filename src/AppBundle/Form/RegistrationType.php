@@ -21,7 +21,7 @@ class RegistrationType extends AbstractType {
         $builder
             ->add('forename', null, ['label' => 'form.forename'])
             ->add('surname', null, ['label' => 'form.surname'])
-            ->add('phoneNumber', null, [
+            ->add('phoneNumber', HiddenType::class, [
                 'label' => 'form.phoneNumber',
                 'required' => false
             ])

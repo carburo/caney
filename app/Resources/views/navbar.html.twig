@@ -1,0 +1,11 @@
+<a alt="Caney" class="site-logo" href="{{ path('homepage') }}">
+    <h2 style="margin-top: 10px; padding: 6px 2px; line-height: 0;">Caney</h2>
+</a>
+<nav role="navigation" id="nav-main" class="okayNav">
+    {{ knp_menu_render('AppBundle:Builder:mainMenu', {
+        'currentClass': 'active',
+        'lastClass': 'sub-menu',
+        'firstClass': 'sub-menu',
+        'branchClass': 'sub-menu'
+    }) }}
+</nav>

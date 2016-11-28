@@ -1,10 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_bare.html.twig' %}
 
-{% block breadcrumbs %}
-    <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
-    <li class="active">{% block path %}{% endblock %}</li>
-{% endblock %}
 {% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 style="text-align: center">{% block headingTitle %}{% endblock %}</h2>
+        </div>
+    </div>
 	{% block fos_user_body %}
         <div class="row">
             <div class="col-xs-12">

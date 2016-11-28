@@ -112,7 +112,7 @@ fos_user:
 vich_uploader:
   db_driver: orm
   mappings:
-    hostel_images:
+    images:
       uri_prefix:         '%app.path.images%'
       upload_destination: '%kernel.root_dir%/../web/%app.path.images%'
       directory_namer:    app.directory_namer.image

@@ -24,10 +24,12 @@ account:
 person:
   full_name: %forename% %surname%
 menu:
-  homepage: Home
+  home: Home
+  homepage: Homepage
   hostels: Hostels
   booking: Reservation
   contact: Contact
+  contact_us: Contact Us
   destinations: Destinations
   hostel:
     register: Register hostel

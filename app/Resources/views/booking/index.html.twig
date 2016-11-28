@@ -134,3 +134,14 @@
         
     </script>
 {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .page-title-section {
+            position: relative;
+            background: url("{{ vich_uploader_asset(hostel.frontImage, 'imageFile')|imagine_filter('app_slider') }}") no-repeat scroll center center;
+            background-size: cover;
+        }
+    </style>
+{% endblock %}

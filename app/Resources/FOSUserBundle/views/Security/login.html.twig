@@ -5,9 +5,9 @@
 {% block headingTitle %}
     {{ 'account.log_in'|trans({}, 'messages') }}
 {% endblock %}
+{% block footer %}{% endblock %}
 
-{% block fos_user_body %}
-
+{% block fos_user_content %}
     <section id="login" class="container">
         <form class="form-signin" role="form" action="{{ path('fos_user_security_check') }}" method="POST">
             {% if error %}
@@ -41,8 +41,11 @@
                 </div>
                 <div class="form-group">
                     <input type="submit" id="_submit" name="_submit" class="btn btn-common btn-md btn-block" value="{{ 'security.login.submit'|trans }}" />
+                    <a class="btn btn-md btn-block btn-raised btn-default" href="{{ path('fos_user_registration_register') }}">
+                        {{ 'account.sign_up'|trans({}, 'messages') }}
+                    </a>
                 </div>
             </fieldset>
         </form>
     </section><!--/#registration-->
-{% endblock fos_user_body %}
+{% endblock %}
