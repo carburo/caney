@@ -21,16 +21,21 @@ account:
   message:
     not_logged_in: No tiene sesión inciada
     need_log_in: Debe iniciar sesión para poder realizar una reserva
+person:
+  full_name: %forename% %surname%
 menu:
-  homepage: Inicio
+  home: Inicio
+  homepage: Página de inicio
   hostels: Hostales
   booking: Reserva
   contact: Contacto
+  contact_us: Contáctenos
   destinations: Destinos
   hostel:
     register: Registrar hostal
   welcome:
     message: Hola %visitor%
+  settings: Configuración
   user:
     edit: Editar perfil
     changePassword: Cambiar contraseña
@@ -64,6 +69,8 @@ hostel:
   register:
     title: Registrar hostal
     subtitle: Llene el formulario con los datos necesarios para registrar un nuevo hostal a su nombre.
+  price:
+      label: "desde <strong>%price%</strong> CUC"
 breakfast:
   label: Desayuno
   price: "Desayuno: %price% CUC"

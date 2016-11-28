@@ -5,34 +5,49 @@ form:
   country: Pays
   phoneNumber: Téléphone
   email: Adresse e-mail
+  subject: Sujet
   message: Message
   owner: hôte/hôtesse
   comments: commentaires
 button:
   send: Envoyer
+  send_message: Envoyer message
   book: Réserver
   go:
     back: avant
+account:
+  log_in: Log in
+  sign_up: Sign up
+  message:
+    not_logged_in: You are not logged-in
+    need_log_in: You need to log-in in order to make a reservation
+person:
+  full_name: %forename% %surname%
 menu:
-  homepage: Accueil
+  home: Accueil
+  homepage: Page d'accueil
   hostels: Chez l'habitant
   booking: Reserve
   contact: Contact
+  contact_us: Contactez nous
   destinations: Destinations
   hostel:
     register: Enregistrer Hôtel
   welcome:
     message: Bonjour %visitor%
+  settings: Réglages
   user:
     edit: Éditer profil
     changePassword: Modifier le mot de passe
 contact:
   title: Contact
-  subtitle: Si vous avez...
+  subtitle:
+  invitation:
+      message: We’re always here to hear form you
 hostels:
   title: Chez l'habitant
 booking:
-  title: Booking
+  title: Réservation
   info:
     nights: "{0} Choose a date range for the reservation.|{1} Reservation for one night.|]1,Inf[ Reservation for %nights% nights."
   form:
@@ -48,17 +63,24 @@ profile:
 hostel:
   info:
     title: Information générale
-    languages:
+  languages:
     title: Langues
+    subtitle: parlé pour les hôtes
   register:
       title: Enregistrer Hôtel
       subtitle: Fill out the form in order to register a new hostel in your account.
+  price:
+      label: "à partir de <strong>%price%</strong> CUC"
+destination:
+  amount:
+    of:
+      hostels: "{1} une maison listée|]1,Inf[ %count% maisons listées"
 breakfast:
-  label: Breakfast
-  price: "Breakfast: %price% CUC"
+  label: Petit déjeuner
+  price: "Petit déjeuner: %price% CUC"
 dinner:
-  label: Dinner
-  price: "Dinner: %price% CUC"
+  label: Déjeuner/Dîner
+  price: "Déjeuner/Dîner: %price% CUC"
 children:
   accepted: "Children accepted | Children not accepted"
 garage:
@@ -67,22 +89,22 @@ garage:
 cocktails:
   label: Coktails
 guide:
-  label: Tourist guide
+  label: Guide
 horseRide:
-  label: Horse ride
+  label: Équitation
 scubaDiving:
-  label: Scuba Diving
+  label: Plongée sous-marine
 laundry:
-  label: Laundry | Laundry <strong>Not available</strong>
+  label: Blanchisserie | Blanchisserie <strong>pas disponible</strong>
 swimmingPool:
-  label: Swimming Pool
+  label: Piscine
 internet:
-  label: Internet | Internet <strong>Not available</strong>
+  label: Internet | Internet <strong>pas disponible</strong>
 wifi:
-  label: Wi-Fi | Wi-Fi <strong>Not available</strong>
+  label: Wi-Fi | Wi-Fi <strong>pas disponible</strong>
 room:
   info:
-    title: General Information
+    title: Information général
   capacity:
     label: "{1}One person|]1,Inf[ %capacity% persons"
   privateBathroom:
@@ -102,18 +124,21 @@ room:
   minibar:
     label: Minibar
   hairDryer:
-    label: Hair dryer
+    label: Sèche-cheveu
   television:
-    label: Television
+    label: Télévision
   type:
-    single: Single
+    single: Simple
     double: Double
     triple: Triple
 label:
-  notAvailable: Not available
-  lowSeason: Low season
-  highSeason: High season
+  notAvailable: Pas disponible
+  lowSeason: Basse saison
+  highSeason: Haute saison
 title:
-  address: Address
-  rooms: Rooms
-  food: Food
+  address: Adresse
+  rooms: Chambres
+  food: Repas
+  activities: Activités
+copyright:
+  message: Tous droits réservés.
