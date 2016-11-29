@@ -15,6 +15,7 @@ button:
   book: Make a reservation
   go:
     back: Back
+  contact_us: Contact Us
 account:
   log_in: Log-in
   sign_up: Sign up
