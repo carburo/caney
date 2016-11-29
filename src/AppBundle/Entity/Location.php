@@ -33,6 +33,13 @@ class Location
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable = true)
+     */
+    private $description;
+
+    /**
      * @var Province
      * @ORM\ManyToOne(targetEntity="Province", inversedBy="locations")
      * @ORM\JoinColumn(name="province_id", referencedColumnName="slug")
@@ -175,6 +182,22 @@ class Location
     public function setImages($images)
     {
         $this->images = $images;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description ?? "";
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
     }
 
     public function getAmountOfHostels() {

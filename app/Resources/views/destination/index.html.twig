@@ -7,22 +7,19 @@
 {% block headingTitle %}{{ destination.name }}{% endblock %}
 
 {% block content %}
+    {% if destination.description is not empty %}
     <section id="destination-page" class="mea-blog-post-page section-padding">
         <div class="container">
             <div class="row">
-                <div class="single-blog-page col-md-8">
+                <div class="single-blog-page col-md-12">
                     <article class="single-post">
-                        <h2>Trinidad, joya colonial del Caribe</h2>
-                        <strong>Lorem</strong> ipsum dolor sit amet, consectetur adipisicing elit. Harum minima, earum optio quia recusandae ipsam, obcaecati! Sunt ullam nisi, ratione quisquam provident eius quae facilis eos, deserunt consequatur, officiis quos.
-
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta reiciendis illum possimus et ducimus quia sed dolorum id cumque rerum, fuga voluptatem, fugiat quidem mollitia eos vel, nisi voluptatum corrupti eaque voluptas! Praesentium hic pariatur est voluptatibus suscipit vel tempora necessitatibus animi ratione tempore natus modi, odit, explicabo nulla laudantium veritatis dignissimos? Odit sequi, ipsam quod eligendi tempore obcaecati reprehenderit, dicta repudiandae officiis voluptatibus odio cupiditate, tempora repellat ut. Possimus odit veritatis fugiat dolorem accusamus, facilis excepturi.
-
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus magni ad sapiente optio illo iste quidem quod voluptatibus, eligendi aliquid?
+                        {{ destination.description|raw }}
                     </article>
                 </div>
             </div>
         </div>
     </section><!--/#destination-page-->
+    {% endif %}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
