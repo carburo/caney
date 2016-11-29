@@ -18,9 +18,9 @@
                     {% if is_granted('edit', hostel) %}
                         <a href="{{ path('hostel_edit', {'slug': hostel.slug}) }}">Edit</a>
                     {% endif %}
-                    <p>
-                        {{ hostel.description[:255]|nl2br }}
-                        {% if hostel.description|length > 255 %}
+                    <p style="margin-top:20px ">
+                        {{ hostel.description[:800]|nl2br }}
+                        {% if hostel.description|length > 800 %}
                             &hellip;
                         {% endif %}
                     </p>
