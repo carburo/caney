@@ -15,9 +15,36 @@
             spaceBetween: 10
         });
     </script>
+    <script>
+        // constructs the suggestion engine
+        var states = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            prefetch: '/api/en/searches.json'
+        });
+
+        $('#bloodhound .typeahead').typeahead({
+                    hint: true,
+                    highlight: true,
+                    minLength: 1
+                },
+                {
+                    name: 'states',
+                    source: states
+                });
+    </script>
 {% endblock %}
 
 {% block content %}
+    <section id="search" style="padding-top: 2em">
+        <div class="container">
+            <div class="row">
+                <div id="bloodhound" class="col-md-12" style="text-align: center">
+                    <input type="text" class="typeahead" placeholder="Type a city, a place to go"/>
+                </div>
+            </div>
+        </div>
+    </section>
     {% include 'home/destinations.html.twig' %}
     {% include 'home/hostels.html.twig' %}
 {% endblock %}

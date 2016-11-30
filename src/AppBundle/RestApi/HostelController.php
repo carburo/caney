@@ -2,12 +2,10 @@
 
 namespace AppBundle\RestApi;
 
-use AppBundle\Entity\Hostel;
 use Doctrine\DBAL\Connection;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class HostelController extends FOSRestController implements ClassResourceInterface
 {

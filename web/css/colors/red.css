@@ -158,3 +158,15 @@ li.sub-menu .sub-menu-panel a:hover, li.sub-menu .sub-menu-panel a:focus, li.sub
 .find-widget i {
   background: #e53935;
 }
+
+.typeahead:focus {
+  border: 2px solid #e53935;
+}
+
+.tt-suggestion:hover {
+  background-color: #e53935;
+}
+
+.tt-suggestion.tt-cursor {
+  background-color: #e53935;
+}

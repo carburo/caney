@@ -1,35 +1,56 @@
-{% extends "base.html.twig" %}
+{% extends "base_bare.html.twig" %}
 
 {% block title %}
     {% trans %}hostels.title{% endtrans %}{#: {{ destination.name }} #}
 {% endblock %}
 
-{% block heading %}{% endblock %}
 {% block content %}
-    <section id="portfolio">
-        <div class="row">
-            <div class="col-sm-12">
-                <form id="search-form">
-                    <input id="search-box" type="search" class="form-control" placeholder="Búsqueda" value="{{ query }}">
-                </form>
+    <section id="search" style="padding-top: 2em">
+        <div class="container">
+            <div class="row">
+                    <div id="bloodhound" class="col-md-12" style="text-align: center">
+                        <form id="search-form">
+                            <input id="search-box" type="text" class="typeahead" placeholder="Type a city, a place to go" value="{{ query }}"/>
+                        </form>
+                    </div>
             </div>
         </div>
-        <div id="hostel-gallery">
+    </section>
+    <section id="hostel-gallery">
+        <div class="container" id="hostel-gallery-container">
             {{ include('hostel/gallery_content.html.twig') }}
         </div>
-    </section><!--/#portfolio-->
+    </section>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script>
-        var form = $('#search-form');
-        form.submit(function () {
-            var $query = $('#search-box').val();
+        // constructs the suggestion engine
+        var states = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            prefetch: '/api/en/searches.json'
+        });
+
+        $('#bloodhound .typeahead').typeahead({
+                    hint: true,
+                    highlight: true,
+                    minLength: 1
+                },
+                {
+                    name: 'states',
+                    source: states
+                });
+    </script>
+    <script>
+        $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+            $('#loader').fadeIn();
+            var $query = suggestion;
             $.get(Routing.generate('hostel_search', { query: $query, _locale: '{{ app.request.locale }}' }), $(this).serialize(), function(data) {
-                $('#hostel-gallery').html(data);
+                $('#hostel-gallery-container').html(data);
+                $('#loader').fadeOut();
             });
-            return false;
         });
     </script>
 {% endblock %}

@@ -24,6 +24,19 @@ class HostelRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function searchPrefetch() {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "CALL search_prefetch()";
+        $rawResult = array_values($conn->fetchAll($sql));
+        $result = [];
+        foreach ($rawResult as $value)
+        {
+            $result[] = $value["text"];
+        }
+
+        return $result;
+    }
+
     public function activeByLocation($slug) {
         $em = $this->getEntityManager();
         $mapping = new ResultSetMappingBuilder($em);

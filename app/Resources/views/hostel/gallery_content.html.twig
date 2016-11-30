@@ -1,56 +1,29 @@
 {% for hostel in hostels %}
     <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{ hostel.hostelName }}</h3>
-            </div>
-            <div class="panel-body">
-                <div class="col-md-6 col-sm-12" style="padding-right:0px">
-                    <p class="bs-component btn-group-sm">
-                        {% if hostel.garage %}
-                            <a class="btn btn-primary btn-fab"><i class="material-icons md-24">local_parking</i></a>
+        <div class="col-md-6 col-sm-12">
+            {% set hostelPath = path('hostel_view', {'slug' : hostel.slug }) %}
+            <div class="swiper-slide hostel-image single-team-widget">
+                <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                    <a href="{{ hostelPath }}" itemprop="contentUrl" data-size="270x270">
+                        {% if hostel.frontImage is not null %}
+                            <img src="{{ vich_uploader_asset(hostel.frontImage, 'imageFile')|imagine_filter('app_thumb') }}" itemprop="thumbnail" alt="{{ hostel.hostelName }}" />
                         {% endif %}
-                        {% if hostel.childrenAccepted %}
-                            <a class="btn btn-primary btn-fab"><i class="material-icons md-24">child_friendly</i></a>
-                        {% endif %}
-                        {% if hostel.laundry %}
-                            <a class="btn btn-primary btn-fab"><i class="material-icons md-24">local_laundry_service</i></a>
-                        {% endif %}
-                        {% if hostel.swimmingPool %}
-                            <a class="btn btn-primary btn-fab"><i class="material-icons md-24">pool</i></a>
-                        {% endif %}
-                        {% if hostel.wifi %}
-                            <a class="btn btn-primary btn-fab"><i class="material-icons md-24">wifi</i></a>
-                        {% endif %}
-                        {% if hostel.breakfast %}
-                            <a class="btn btn-primary btn-fab"><i class="material-icons md-24">free_breakfast</i></a>
-                        {% endif %}
-                        {% if hostel.dinner %}
-                            <a class="btn btn-primary btn-fab"><i class="material-icons md-24">local_dining</i></a>
-                        {% endif %}
-                        {% if hostel.cocktails %}
-                            <a class="btn btn-primary btn-fab"><i class="material-icons md-24">local_bar</i></a>
-                        {% endif %}
-                        <a class="btn btn-primary btn-fab"><i class="material-icons md-24">hot_tub</i></a>
-                        <a class="btn btn-primary btn-fab"><i class="material-icons md-24">ac_unit</i></a>
-          {#<a class="btn btn-primary btn-fab"><i class="material-icons icon icon-bed icon-2x"></i></a>#}
-        </p>
-
-                    {{ hostel.description }}
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    {% set image = hostel.images|first %}
-                    <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                        <a href="{{ path('hostel_view', {'slug' : hostel.slug}) }}">
-                            <img
-                                src="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('app_thumb') }}"
-                                itemprop="thumbnail"
-                                alt="{{ hostel.hostelName }}"
-                            />
-                        </a>
-                    </figure>
-                </div>
+                    </a>
+                    <figcaption class="team-member-info" itemprop="caption description">
+                        <div class="know-more">
+                            <a class="btn btn-round btn-fab" href="{{ hostelPath }}">
+                                <i class="material-icons">arrow_forward</i>
+                                <div class="ripple-container"></div>
+                            </a>
+                        </div>
+                        <h2 class="subtitle">{{ hostel.hostelName }}</h2>
+                        <p>{{ 'hostel.price.label'|trans({'%price%': hostel.minimumPrice})|raw }}</p>
+                    </figcaption>
+                </figure>
             </div>
         </div>
-    </div><!--/.portfolio-item-->
+        <div class="col-md-6 col-sm-12">
+            {# Mapa #}
+        </div>
+    </div>
 {% endfor %}
