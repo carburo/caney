@@ -110,10 +110,13 @@
     {{ parent() }}
     <script type="text/javascript">
         $(document).ready(function() {
+            var locale = "{{ app.request.attributes.get('_locale') }}";
+            {% set locale =  app.request.attributes.get('_locale') %}
+
             $("#date_range").attr("disabled", "true");
             var availability = [];
             function getAvailability() {
-                return $.getJSON("/api/es/hostels/{{ hostel.id }}/availability", null, function(json) {
+                return $.getJSON("/api/{{ locale }}/hostels/{{ hostel.id }}/availability", null, function(json) {
                     availability = json;
                 });
             }
@@ -136,13 +139,26 @@
                 $('#booking_startDate').val(start.format('YYYY-MM-DD'));
                 $('#booking_endDate').val(end.format('YYYY-MM-DD'));
                 var nights = end.diff(start, 'days');
-                var locale = "{{ app.request.attributes.get('_locale') }}";
                 var text = translateInfoNights(locale, nights);
                 $('#nights').text(text);
             });
 
             $('#date_range').on('apply.daterangepicker', function(ev, picker) {
                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+
+                var startDate = picker.startDate.format('YYYY-MM-DD');
+                var endDate = picker.endDate.format('YYYY-MM-DD');
+
+                $("#booking_room label").attr("style", "text-decoration: line-through")
+                $("#booking_room input").attr("disabled", "disabled")
+                $.getJSON("/api/{{ locale }}/hostels/{{ hostel.id }}/available_rooms/" + startDate + "/" + endDate, null, function(json) {
+                    for(var id in json) {
+                        console.log(json[id]);
+                        $("#booking_rooms_" + json[id]).parent("label").removeAttr("style");
+                        $("#booking_rooms_" + json[id]).removeAttr("disabled");
+                    }
+                    $(":disabled:checked").removeAttr("checked");
+                });
             });
         });
 

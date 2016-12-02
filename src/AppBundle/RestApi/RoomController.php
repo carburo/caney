@@ -14,6 +14,7 @@ use Doctrine\DBAL\Connection;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations\Get;
 
 class RoomController extends FOSRestController implements ClassResourceInterface
 {
@@ -37,6 +38,44 @@ class RoomController extends FOSRestController implements ClassResourceInterface
         $result = [];
         foreach($dataset as $row) {
             $result[] = $row["available"] == "1";
+        }
+        return $result;
+    }
+
+    /**
+     * @Get("hostels/{id}/available_rooms/{startDate}/{endDate}")
+     */
+    public function getAvailableAction($id, $startDate, $endDate)
+    {
+        $db = $this->getConnection();
+        $sql = "call free_rooms_in_hostel_by_date_range(:id, :startDate, :endDate)";
+        $dataset = $db->fetchAll($sql, [
+            "id" => $id,
+            "startDate" => $startDate,
+            "endDate" => $endDate
+        ]);
+        $result = [];
+        foreach($dataset as $row) {
+            $result[] = (int) $row["id"];
+        }
+        return $result;
+    }
+
+    /**
+     * @Get("hostels/{id}/occupied_rooms/{startDate}/{endDate}")
+     */
+    public function getOccupiedAction($id, $startDate, $endDate)
+    {
+        $db = $this->getConnection();
+        $sql = "call occupied_rooms_in_hostel_by_date_range(:id, :startDate, :endDate)";
+        $dataset = $db->fetchAll($sql, [
+            "id" => $id,
+            "startDate" => $startDate,
+            "endDate" => $endDate
+        ]);
+        $result = [];
+        foreach($dataset as $row) {
+            $result[] = (int) $row["id"];
         }
         return $result;
     }
