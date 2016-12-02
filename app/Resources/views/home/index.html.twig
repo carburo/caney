@@ -33,18 +33,15 @@
                     source: states
                 });
     </script>
+    <script>
+        $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+            $("#search-form").submit();
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
-    <section id="search" style="padding-top: 2em">
-        <div class="container">
-            <div class="row">
-                <div id="bloodhound" class="col-md-12" style="text-align: center">
-                    <input type="text" class="typeahead" placeholder="Type a city, a place to go"/>
-                </div>
-            </div>
-        </div>
-    </section>
+    {% include 'home/search.html.twig' %}
     {% include 'home/destinations.html.twig' %}
     {% include 'home/hostels.html.twig' %}
 {% endblock %}

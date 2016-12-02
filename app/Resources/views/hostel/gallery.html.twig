@@ -5,17 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <section id="search" style="padding-top: 2em">
-        <div class="container">
-            <div class="row">
-                    <div id="bloodhound" class="col-md-12" style="text-align: center">
-                        <form id="search-form">
-                            <input id="search-box" type="text" class="typeahead" placeholder="Type a city, a place to go" value="{{ query }}"/>
-                        </form>
-                    </div>
-            </div>
-        </div>
-    </section>
+    {{ include('home/search.html.twig') }}
     <section id="hostel-gallery">
         <div class="container" id="hostel-gallery-container">
             {{ include('hostel/gallery_content.html.twig') }}
@@ -44,13 +34,23 @@
                 });
     </script>
     <script>
+        var form = $('#search-form');
+        form.submit(function () {
+            var $query = $('#search-box').val();
+            performSearch($query);
+            return false;
+        });
+
         $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+            performSearch(suggestion);
+        });
+
+        function performSearch($query) {
             $('#loader').fadeIn();
-            var $query = suggestion;
             $.get(Routing.generate('hostel_search', { query: $query, _locale: '{{ app.request.locale }}' }), $(this).serialize(), function(data) {
                 $('#hostel-gallery-container').html(data);
                 $('#loader').fadeOut();
             });
-        });
+        }
     </script>
 {% endblock %}
