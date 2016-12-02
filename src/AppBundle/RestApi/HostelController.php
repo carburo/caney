@@ -2,6 +2,7 @@
 
 namespace AppBundle\RestApi;
 
+use DateTime;
 use Doctrine\DBAL\Connection;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -21,6 +22,21 @@ class HostelController extends FOSRestController implements ClassResourceInterfa
         return $db->fetchAll("select * from hostel where slug = :slug", [
             "slug" => $slug
         ]);
+    }
+
+    public function getAvailabilityAction($id)
+    {
+        $db = $this->getConnection();
+        $sql = "call hostel_availability(:id, :checkDate)";
+        $dataset = $db->fetchAll($sql, [
+            "id" => $id,
+            "checkDate" => (new DateTime())->format("y-m-d")
+        ]);
+        $result = [];
+        foreach($dataset as $row) {
+            $result[] = $row["available"] == "1";
+        }
+        return $result;
     }
 
     public function getImagesAction($slug, Request $request)

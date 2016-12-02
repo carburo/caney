@@ -41,7 +41,8 @@ class BookingController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-//            $this->sendEmail($booking);
+            $this->sendEmail($booking);
+            $booking->setStatus("PENDING");
             $this->saveInDatabase($booking);
 
             if($request->isXmlHttpRequest()) {

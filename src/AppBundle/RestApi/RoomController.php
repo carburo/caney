@@ -9,6 +9,7 @@
 namespace AppBundle\RestApi;
 
 
+use DateTime;
 use Doctrine\DBAL\Connection;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -23,6 +24,21 @@ class RoomController extends FOSRestController implements ClassResourceInterface
         return $db->fetchAll($sql, [
             "slug" => $slug
         ]);
+    }
+
+    public function getAvailabilityAction($id)
+    {
+        $db = $this->getConnection();
+        $sql = "call room_availability(:id, :checkDate)";
+        $dataset = $db->fetchAll($sql, [
+            "id" => $id,
+            "checkDate" => (new DateTime())->format("y-m-d")
+        ]);
+        $result = [];
+        foreach($dataset as $row) {
+            $result[] = $row["available"] == "1";
+        }
+        return $result;
     }
 
     public function getImagesAction($slug, $id, Request $request)

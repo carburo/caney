@@ -7,15 +7,9 @@
 {% block headingTitle %}
     {% trans %}booking.title{% endtrans %}
 {% endblock %}
+
 {% block headingSubtitle %}
     {{ hostel.hostelName }}
-{% endblock %}
-{% block breadcrumbs %}
-    <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
-    <li><a href="{{ path('hostels') }}">{% trans %}menu.hostels{% endtrans %}</a></li>
-    <li><a href="{{ path('hostelsByDestination', {'slug' : hostel.location.slug }) }}">{{ hostel.location.name }}</a></li>
-    <li><a href="{{ path('hostel_view', {'slug': hostel.slug}) }}">{{ hostel }}</a></li>
-    <li class="active">{% trans %}menu.booking{% endtrans %}</li>
 {% endblock %}
 
 {% block content %}
@@ -69,12 +63,14 @@
                             {{ form_widget(form.endDate) }}
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="date_range"><i class="icon icon-calendar"></i> <span id="nights">{{ 'booking.form.dateRange'|trans }}</span></label>
+                            <label class="control-label" for="date_range">
+                                <i id="nights_icon" class="fa fa-circle-o-notch fa-spin"></i> <span id="nights"> Loading available dates</span>
+                            </label>
                             <input type="text" id="date_range" required="required" maxlength="255" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="booking_numberOfPersons">
-                                <i class="icon icon-male"></i> {{ 'booking.form.people'|trans }}
+                                <i class="material-icons">people</i> {{ 'booking.form.people'|trans }}
                             </label>
                             {{ form_widget(form.numberOfPersons) }}
                         </div>
@@ -99,7 +95,7 @@
                     </div><!--/.col-sm-4-->
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-common btn-lg">{% trans %}button.send{% endtrans %}</button>
+                            <button type="submit" class="btn btn-common btn-lg"><i class="material-icons">done</i> {% trans %}button.send{% endtrans %}</button>
                         </div>
                     </div>
                     {{ form_end(form) }}
@@ -109,15 +105,33 @@
     </section><!--/#contact-page-->
 {% endblock %}
 
+
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#bookingMenu').addClass('active');
+            $("#date_range").attr("disabled", "true");
+            var availability = [];
+            function getAvailability() {
+                return $.getJSON("/api/es/hostels/{{ hostel.id }}/availability", null, function(json) {
+                    availability = json;
+                });
+            }
+            $.when(getAvailability()).done(function() {
+                $("#date_range").removeAttr("disabled");
+                $("#nights").html("{{ 'booking.form.dateRange'|trans }}");
+                $("#nights_icon").attr("class", "material-icons");
+                $("#nights_icon").html("date_range");
+            });
 
             $('#date_range').daterangepicker({
                 autoUpdateInput: false,
-                autoApply: true
+                autoApply: true,
+                isInvalidDate: function(checkDate) {
+                    if(checkDate < moment()) return true;
+                    if(checkDate > moment().add(1, "year")) return true;
+                    return !availability[checkDate.diff(moment(), "days")];
+                }
             }, function(start, end, label) {
                 $('#booking_startDate').val(start.format('YYYY-MM-DD'));
                 $('#booking_endDate').val(end.format('YYYY-MM-DD'));
@@ -131,7 +145,7 @@
                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
             });
         });
-        
+
     </script>
 {% endblock %}
 
