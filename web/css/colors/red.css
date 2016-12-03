@@ -170,3 +170,13 @@ li.sub-menu .sub-menu-panel a:hover, li.sub-menu .sub-menu-panel a:focus, li.sub
 .tt-suggestion.tt-cursor {
   background-color: #e53935;
 }
+
+.checkbox input[type=checkbox]:checked + .checkbox-material .check,
+label.checkbox-inline input[type=checkbox]:checked + .checkbox-material .check {
+  color: #e53935;
+  border-color: #e53935;
+}
+.checkbox input[type=checkbox]:checked + .checkbox-material .check:before,
+label.checkbox-inline input[type=checkbox]:checked + .checkbox-material .check:before {
+  color: #e53935;
+}

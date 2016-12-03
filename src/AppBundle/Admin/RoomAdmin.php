@@ -35,7 +35,7 @@ class RoomAdmin extends AbstractAdmin {
             ->add('minibar')
             ->add('hairDryer')
             ->add('television')
-            ->add('typeOfRoom')
+            ->add('type')
             ->add('hostel');
 	}
 	

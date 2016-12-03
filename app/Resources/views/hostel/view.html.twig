@@ -16,7 +16,9 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     {% if is_granted('edit', hostel) %}
-                        <a href="{{ path('hostel_edit', {'slug': hostel.slug}) }}">Edit</a>
+                        <a class="btn btn-common" href="{{ path('hostel_edit', {'slug': hostel.slug}) }}">
+                            <i class="material-icons">edit</i> Edit
+                        </a>
                     {% endif %}
                     <p style="margin-top:20px ">
                         {{ hostel.description[:800]|nl2br }}

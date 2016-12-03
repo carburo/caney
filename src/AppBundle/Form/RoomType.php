@@ -17,6 +17,7 @@ class RoomType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('type')
             ->add('description')
             ->add('capacity')
             ->add('priceInHigh', MoneyType::class, [
@@ -36,9 +37,7 @@ class RoomType extends AbstractType
             ->add('minibar')
             ->add('hairDryer')
             ->add('television')
-            ->add('typeOfRoom')
             ->add('hostel')
-            ->add('type')
         ;
     }
     

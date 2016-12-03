@@ -1,15 +1,15 @@
-{% extends "base.html.twig" %}
+{% extends "base_bare.html.twig" %}
 
 {% block title %}
     {% trans %}title.contact{% endtrans %}
 {% endblock %}
 
-{% block body %}
+{% block content %}
     <section class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
+            <div class="col-md-2 sidebar">
                 {% set menu = knp_menu_get('AppBundle:HostelMenuBuilder:mainMenu', [], {
-                    'hostel': hostel
+                'hostel': hostel
                 }) %}
                 {{ knp_menu_render(menu, {
                     'currentClass': 'active',
@@ -17,33 +17,17 @@
                 }) }}
             </div>
 
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <div class="col-sm-6">
-                    <h2>{% trans %}title.contact{% endtrans %}</h2>
-                    <p>{% trans %}subtitle.contact{% endtrans %}</p>
-                </div>
-                <div class="col-sm-6">
-                    <ul class="breadcrumb pull-right">
-                        <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
-                        <li class="active">{% trans %}menu.contact{% endtrans %}</li>
-                    </ul>
-                </div>
-                <div class="col-sm-12">
-                    <ul>
-                        {% for room in rooms %}
-                            <li>
-                                <a href="{{ path('room_edit', {'id': room.id}) }}">{{ room.name }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    <p><button class="btn btn-default"><i class="icon icon-plus"></i> New room</button></p>
-                    {#{{ form_start(form) }}#}
-                        {#{{ form_widget(form) }}#}
-                        {#<div class="form-group">#}
-                            {#<button type="submit" class="btn btn-primary btn-lg">{% trans %}button.send{% endtrans %}</button>#}
-                        {#</div>#}
-                    {#{{ form_end(form) }}#}
-                </div>
+            <div class="col-md-10 main">
+                <ul>
+                    {% for room in rooms %}
+                        <li>
+                            <a href="{{ path('room_edit', {'id': room.id}) }}">{{ room.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <p>
+                    <button class="btn btn-common"><i class="material-icons">add</i> New room</button>
+                </p>
             </div>
         </div>
     </section>

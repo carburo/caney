@@ -1,15 +1,18 @@
-{% extends "base.html.twig" %}
+{% extends "base_bare.html.twig" %}
 
 {% block title %}
     {% trans %}title.contact{% endtrans %}
 {% endblock %}
 
+{% block headingTitle %}{% trans %}hostel.edit.title{% endtrans %}{% endblock %}
+{% block hedingSubtitle %}{% trans %}hostel.edit.subtitle{% endtrans %}{% endblock %}
+
 {% set hostel = form.vars.value %}
 
-{% block body %}
+{% block content %}
     <section class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
+            <div class="col-md-2 sidebar">
                 {% set menu = knp_menu_get('AppBundle:HostelMenuBuilder:mainMenu', [], {
                 'hostel': hostel
                 }) %}
@@ -19,25 +22,13 @@
                 }) }}
             </div>
 
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <div class="col-sm-6">
-                    <h2>{% trans %}title.contact{% endtrans %}</h2>
-                    <p>{% trans %}subtitle.contact{% endtrans %}</p>
+            <div class="col-md-9 main">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-common btn-lg">{% trans %}button.update{% endtrans %}</button>
                 </div>
-                <div class="col-sm-6">
-                    <ul class="breadcrumb pull-right">
-                        <li><a href="{{ path('homepage') }}">{% trans %}menu.homepage{% endtrans %}</a></li>
-                        <li class="active">{% trans %}menu.contact{% endtrans %}</li>
-                    </ul>
-                </div>
-                <div class="col-sm-12">
-                    {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-lg">{% trans %}button.send{% endtrans %}</button>
-                        </div>
-                    {{ form_end(form) }}
-                </div>
+                {{ form_end(form) }}
             </div>
         </div>
     </section>

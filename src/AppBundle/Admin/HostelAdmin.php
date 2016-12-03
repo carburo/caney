@@ -14,6 +14,7 @@ class HostelAdmin extends AbstractAdmin {
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper->add('hostelName')
+            ->add('active')
             ->add('description', TextareaType::class)
             ->add('owner')
             ->add('address')
@@ -38,9 +39,6 @@ class HostelAdmin extends AbstractAdmin {
             ->add('internet')
             ->add('wifi')
             ->add('location')
-            ->add('otherServices', null, array(
-                'expanded' => 'true'
-            ))
             ->add('rooms', 'sonata_type_collection', [
             ])
             ->add('images', 'sonata_type_collection', [
