@@ -20,7 +20,7 @@ class Builder implements ContainerAwareInterface
             'route' => 'homepage'
         ]);
 
-//        $this->addDestinationMenu($menu);
+        $this->addBookingsMenu($menu);
         
         $menu->addChild('menu.contact', [
             'route' => 'contact'
@@ -32,13 +32,15 @@ class Builder implements ContainerAwareInterface
         return $menu;
     }
 
-//    private function addDestinationMenu(ItemInterface $root)
-//    {
-//        // create another menu item
-//        $menu = $root->addChild('menu.destinations', [
-//            'uri' => '#'
-//        ]);
-//    }
+    private function addBookingsMenu(ItemInterface $root)
+    {
+        if ($this->isUserAuthenticated())
+        {
+            $root->addChild('menu.bookings', [
+                'route' => 'user_bookings'
+            ]);
+        }
+    }
     
     public function userMenu(FactoryInterface $factory, array $options)
     {
@@ -52,9 +54,7 @@ class Builder implements ContainerAwareInterface
     
     public function addUserMenu(ItemInterface $root)
     {
-        $securityChecker = $this->container->get('security.authorization_checker');
-
-        if ($securityChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if($this->isUserAuthenticated()) {
             $securityContext = $this->container->get('security.token_storage');
             $user = $securityContext->getToken()->getUser();
 
@@ -156,9 +156,8 @@ class Builder implements ContainerAwareInterface
     {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav nav-sidebar');
-    
-        $securityChecker = $this->container->get('security.authorization_checker');
-        if ($securityChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+
+        if ($this->isUserAuthenticated()) {
     
             $menu->addChild('menu.user.edit', [
                 'route' => 'fos_user_profile_edit'
@@ -180,4 +179,8 @@ class Builder implements ContainerAwareInterface
         return $menu;
     }
 
+    private function isUserAuthenticated() {
+        $securityChecker = $this->container->get('security.authorization_checker');
+        return $securityChecker->isGranted('IS_AUTHENTICATED_REMEMBERED');
+    }
 }

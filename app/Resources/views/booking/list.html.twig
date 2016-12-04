@@ -1,0 +1,34 @@
+{% extends "base_bare.html.twig" %}
+
+{% block title %}
+    {% trans %}hostels.title{% endtrans %}
+{% endblock %}
+
+{% block content %}
+    <div class="container section-padding">
+        {% set label_class = {'PENDING': 'warning', 'CANCELLED': 'danger', 'CONFIRMED': 'success'} %}
+        {% for booking in bookings %}
+            <div class="row">
+                <div class="media">
+                    {#<div class="media-left">#}
+                        {#<i class="material-icons md-24 icon-round">wifi</i>#}
+                    {#</div>#}
+                    <div class="media-body">
+                        <h2 class="subtitle">
+                            <a href="{{ path('booking_details', {'id': booking.id }) }}">
+                                {{ booking.hostel }}
+                            </a>
+                        </h2>
+                        <p>
+                            <span class="label label-{{ label_class[booking.status] }}">
+                                {{ booking.status|title }}
+                            </span>
+                            <br>
+                            {{ booking.startDate|date('d/m/Y') }} - {{ booking.endDate|date('d/m/Y') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

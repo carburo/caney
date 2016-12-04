@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Booking;
 use AppBundle\Entity\Hostel;
+use AppBundle\Entity\User;
 use AppBundle\Form\BookingType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,6 +19,19 @@ use Symfony\Component\HttpFoundation\Request;
 class BookingController extends Controller
 {
     /**
+     * @Route("/booking/list", name="user_bookings")
+     */
+    public function listAction(Request $request)
+    {
+        $user = $this->getUser();
+        $repo = $this->getDoctrine()->getRepository("AppBundle:Booking");
+        $bookings = $repo->findByUser($user);
+        return $this->render('booking/list.html.twig', [
+            'bookings' => $bookings
+        ]);
+    }
+
+    /**
      * @Route("/booking/{slug}", name="booking")
      */
     public function bookingAction(Request $request, Hostel $hostel) {
@@ -31,6 +45,22 @@ class BookingController extends Controller
                 'hostel' => $hostel,
             ]);
         }
+    }
+
+    /**
+     * @Route("/booking/details/{id}", name="booking_details")
+     */
+    public function bookingDetailsAction(Request $request, Booking $booking) {
+        // TODO set the appropriate permissions
+        $accessGranted = $this->isGranted('create', $booking);
+        if(!$accessGranted) {
+            $request->getSession()->set('_security.main.target_path', 'booking_details');
+        }
+        return $this->render('booking/details.html.twig', [
+            'not_access' => !$accessGranted,
+            'hostel' => $booking->getHostel(),
+            'booking' => $booking
+        ]);
     }
 
     private function renderBookingForm(Request $request, Booking $booking, Hostel $hostel)  {

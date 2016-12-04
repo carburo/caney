@@ -1,0 +1,35 @@
+{% extends "base_bare.html.twig" %}
+
+{% set label_class = {'PENDING': 'warning', 'CANCELLED': 'danger', 'CONFIRMED': 'success'} %}
+
+{% block title %}
+    {% trans %}booking.title{% endtrans %}: {{ hostel }}
+{% endblock %}
+
+{% block headingTitle %}
+    {% trans %}booking.title{% endtrans %}
+{% endblock %}
+
+{% block headingSubtitle %}
+    {{ hostel.hostelName }}
+{% endblock %}
+
+{% block content %}
+    <section id="booking-page">
+        {% if not_access is defined and not_access == true %}
+            {% include 'booking/request_login.html.twig' %}
+        {% else %}
+            <div class="container">
+                <h2>{{ hostel.hostelName }}</h2>
+                <p>
+                    <span class="label label-{{ label_class[booking.status] }}">
+                        {{ booking.status|title }}
+                    </span>
+                </p>
+                <p>
+                    {{ booking.startDate|date('d/m/Y') }} - {{ booking.endDate|date('d/m/Y') }}
+                </p>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

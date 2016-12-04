@@ -13,6 +13,7 @@ menu:
   homepage: Homepage
   hostels: Gasthäuser
   booking: Reservierung
+  bookings: Reservierungen
   contact: Kontakt
   welcome:
     message: Hallo %visitor%
