@@ -75,11 +75,11 @@ class Booking
     private $numberOfPersons;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="comments", type="string", nullable=true, length=4000)
+     * @var ContactThread
+     * @ORM\OneToOne(targetEntity="ContactThread")
+     * @ORM\JoinColumn(name="thread_id", referencedColumnName="id")
      */
-    private $comments;
+    private $commentThread;
 
     /**
      * @var string
@@ -126,30 +126,6 @@ class Booking
     public function getStartDate()
     {
         return $this->startDate;
-    }
-
-    /**
-     * Set comments
-     *
-     * @param string $comments
-     *
-     * @return Booking
-     */
-    public function setComments($comments)
-    {
-        $this->comments = $comments;
-
-        return $this;
-    }
-
-    /**
-     * Get comments
-     *
-     * @return string
-     */
-    public function getComments()
-    {
-        return $this->comments;
     }
 
     /**
@@ -262,6 +238,22 @@ class Booking
     public function setBookingDatetime(\DateTime $bookingDatetime)
     {
         $this->bookingDatetime = $bookingDatetime;
+    }
+
+    /**
+     * @return ContactThread
+     */
+    public function getCommentThread(): ContactThread
+    {
+        return $this->commentThread;
+    }
+
+    /**
+     * @param ContactThread $commentThread
+     */
+    public function setCommentThread(ContactThread $commentThread)
+    {
+        $this->commentThread = $commentThread;
     }
 }
 

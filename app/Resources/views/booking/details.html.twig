@@ -32,4 +32,39 @@
             </div>
         {% endif %}
     </section>
+    <section class="mea-blog-post-page">
+        <div class="container">
+            <div class="row">
+                <!-- Single Blog Post -->
+                <div class="single-blog-page col-md-8">
+                    <div class="users-comment-section mt-20">
+                        <div class="comment-box clearfix">
+                            <div class="form-group label-floating col-md-12 is-empty">
+                                <label class="sr-only" for="usermessage">Message</label>
+                                <textarea placeholder="Type here message" id="usermessage" rows="5" required="" class="form-control"></textarea>
+                            </div>
+                            <a href="javascript:void(0)" class="mt-30 btn btn-common"><i class="material-icons"></i>{{ 'button.send'|trans }}<div class="ripple-container"></div></a>
+                        </div>
+
+                        <ul>
+                            {% for message in messages %}
+                                <li class="media">
+                                    <div class="media-left">
+                                        {#<img src="Blog%20Single%20_%20MEA_files/comment1.jpg" alt="">#}
+                                        <i class="material-icons icon-round md-24">person</i>
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="#"><h3>{{ message.user.fullName }}</h3></a>
+                                        <p>
+                                            {{ message.message }}
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

@@ -66,15 +66,22 @@ class BookingController extends Controller
      * @Route("/booking/details/{id}", name="booking_details")
      */
     public function bookingDetailsAction(Request $request, Booking $booking) {
-        // TODO set the appropriate permissions
-        $accessGranted = $this->isGranted('create', $booking);
-        if(!$accessGranted) {
-            $request->getSession()->set('_security.main.target_path', 'booking_details');
-        }
+        // TODO set the appropriate permissions. Should be edit
+        $this->denyAccessUnlessGranted('create', $booking);
+
+        $repo = $this->getDoctrine()->getRepository("AppBundle:ContactMessage");
+        $messages = $repo->createQueryBuilder('m')
+            ->where('m.thread = :thread')
+            ->orderBy('m.messageDatetime', 'DESC')
+            ->setParameter('thread', $booking->getCommentThread())
+            ->getQuery()
+            ->getResult()
+        ;
+
         return $this->render('booking/details.html.twig', [
-            'not_access' => !$accessGranted,
             'hostel' => $booking->getHostel(),
-            'booking' => $booking
+            'booking' => $booking,
+            'messages' => $messages
         ]);
     }
 
