@@ -50,8 +50,12 @@
                             {% for message in messages %}
                                 <li class="media">
                                     <div class="media-left">
-                                        {#<img src="Blog%20Single%20_%20MEA_files/comment1.jpg" alt="">#}
-                                        <i class="material-icons icon-round md-24">person</i>
+                                        {% set image = message.user.profilePicture %}
+                                        {% if(image is empty) %}
+                                            <i class="material-icons icon-round md-24" style="margin-right: 0">person</i>
+                                        {% else %}
+                                            <img class="img-circle img-raised" src="{{ vich_uploader_asset(message.user, 'imageFile')|imagine_filter('comment_thumb') }}" alt="">
+                                        {% endif %}
                                     </div>
                                     <div class="media-body">
                                         <a href="#"><h3>{{ message.user.fullName }}</h3></a>
