@@ -76,7 +76,7 @@ class Booking
 
     /**
      * @var ContactThread
-     * @ORM\OneToOne(targetEntity="ContactThread")
+     * @ORM\OneToOne(targetEntity="ContactThread", cascade={"persist"})
      * @ORM\JoinColumn(name="thread_id", referencedColumnName="id")
      */
     private $commentThread;
@@ -92,6 +92,7 @@ class Booking
     {
         $this->bookingDatetime = new \DateTime();
         $this->status = "PENDING";
+        $this->commentThread = new ContactThread();
     }
 
     /**

@@ -29,9 +29,6 @@ class BookingType extends AbstractType
             ->add('endDate', DateType::class, [
                 'widget' => 'single_text'
             ])
-            ->add('comments', TextareaType::class, [
-                'required' => false,
-            ])
         ;
 
         $builder->addEventListener(
