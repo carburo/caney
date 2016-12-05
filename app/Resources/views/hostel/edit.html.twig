@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-2 sidebar">
                 {% set menu = knp_menu_get('AppBundle:HostelMenuBuilder:mainMenu', [], {
-                'hostel': hostel
+                    'hostel': hostel
                 }) %}
                 {{ knp_menu_render(menu, {
                     'currentClass': 'active',

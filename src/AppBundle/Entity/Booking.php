@@ -24,6 +24,13 @@ class Booking
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="booking_datetime", type="datetime")
+     */
+    private $bookingDatetime;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="start_date", type="date")
      */
     private $startDate;
@@ -80,6 +87,12 @@ class Booking
      * @ORM\Column(name="status", type="string")
      */
     private $status;
+
+    public function __construct()
+    {
+        $this->bookingDatetime = new \DateTime();
+        $this->status = "PENDING";
+    }
 
     /**
      * Get id
@@ -233,6 +246,22 @@ class Booking
     public function setStatus(string $status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBookingDatetime(): \DateTime
+    {
+        return $this->bookingDatetime;
+    }
+
+    /**
+     * @param \DateTime $bookingDatetime
+     */
+    public function setBookingDatetime(\DateTime $bookingDatetime)
+    {
+        $this->bookingDatetime = $bookingDatetime;
     }
 }
 

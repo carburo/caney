@@ -25,7 +25,22 @@ class BookingController extends Controller
     {
         $user = $this->getUser();
         $repo = $this->getDoctrine()->getRepository("AppBundle:Booking");
-        $bookings = $repo->findByUser($user);
+        $builder = $repo->createQueryBuilder('b');
+
+        if(!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            $builder
+                ->where('b.user = :user')
+                ->setParameter(':user', $user)
+                ;
+        }
+
+        // TODO Add a field in Booking with the date the booking was performed
+        $bookings = $builder
+            ->orderBy('b.bookingDatetime', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+
         return $this->render('booking/list.html.twig', [
             'bookings' => $bookings
         ]);
@@ -72,7 +87,6 @@ class BookingController extends Controller
 
         if($form->isSubmitted() && $form->isValid()) {
             $this->sendEmail($booking);
-            $booking->setStatus("PENDING");
             $this->saveInDatabase($booking);
 
             if($request->isXmlHttpRequest()) {
