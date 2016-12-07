@@ -54,7 +54,7 @@ class BookingController extends Controller
         if($this->isGranted('create', $booking)) {
             return $this->renderBookingForm($request, $booking, $hostel);
         } else {
-            $request->getSession()->set('_security.main.target_path', 'booking');
+//            $request->getSession()->set('_security.main.target_path', 'booking');
             return $this->render('booking/index.html.twig', [
                 'not_access' => true,
                 'hostel' => $hostel,
