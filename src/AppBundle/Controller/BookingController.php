@@ -54,7 +54,6 @@ class BookingController extends Controller
         if($this->isGranted('create', $booking)) {
             return $this->renderBookingForm($request, $booking, $hostel);
         } else {
-//            $request->getSession()->set('_security.main.target_path', 'booking');
             return $this->render('booking/index.html.twig', [
                 'not_access' => true,
                 'hostel' => $hostel,
@@ -93,6 +92,9 @@ class BookingController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            if($hostel->getOfferType() != "SINGLE_ROOM" || sizeof($hostel->getRooms()) < 2) {
+                $booking->setRooms($hostel->getRooms());
+            }
             $this->sendEmail($booking);
             $this->saveInDatabase($booking);
 

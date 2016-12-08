@@ -40,24 +40,24 @@ class BookingType extends AbstractType
                 $hostel = $booking->getHostel();
                 $rooms = null === $hostel ? [] : $hostel->getRooms();
 
-                $persons = array();
-                for ($i = 1; $i <= $hostel->getCapacity(); $i++)
-                {
+                if($hostel->getOfferType() == "SINGLE_ROOM" && sizeof($rooms) > 1) {
+                    $form->add('rooms', EntityType::class, [
+                        'multiple' => true,
+                        'class' => 'AppBundle:Room',
+                        'expanded' => 'true',
+                        'choices' => $rooms,
+                        'translation_domain' => false,
+                    ]);
+                }
+
+                $persons = [];
+                for ($i = 1; $i <= $hostel->getCapacity(); $i++) {
                     $persons[$i] = $i;
                 }
 
-                $form
-                    ->add('rooms', EntityType::class, [
-                    'multiple' => true,
-                    'class' => 'AppBundle:Room',
-                    'expanded' => 'true',
-                    'choices' => $rooms,
-                    'translation_domain' => false,
-                ])
-                    ->add('numberOfPersons', ChoiceType::class, [
-                        'choices' => $persons
-                    ])
-                ;
+                $form->add('numberOfPersons', ChoiceType::class, [
+                    'choices' => $persons
+                ]);
             }
         );
     }

@@ -69,6 +69,20 @@ class Hostel
     /**
      * @var string
      *
+     * @ORM\Column(name="price_in_high", type="decimal", precision=10, scale=2)
+     */
+    private $priceInHigh;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price_in_low", type="decimal", precision=10, scale=2)
+     */
+    private $priceInLow;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="host_languages", type="string", length=255)
      */
     private $hostLanguages;
@@ -194,6 +208,13 @@ class Hostel
      * @ORM\Column(name="active", type="boolean")
      */
     private $active;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="offer_type", type="string", length=100)
+     */
+    private $offerType = "SINGLE_ROOM";
 
 //    /**
 //     *
@@ -703,6 +724,22 @@ class Hostel
         $this->active = $active;
     }
 
+    /**
+     * @return string
+     */
+    public function getOfferType(): string
+    {
+        return $this->offerType;
+    }
+
+    /**
+     * @param string $offerType
+     */
+    public function setOfferType(string $offerType)
+    {
+        $this->offerType = $offerType;
+    }
+
     public function getCapacity()
     {
         $capacity = 0;
@@ -712,8 +749,43 @@ class Hostel
         return $capacity;
     }
 
+    /**
+     * @return string
+     */
+    public function getPriceInHigh(): string
+    {
+        return $this->priceInHigh;
+    }
+
+    /**
+     * @param string $priceInHigh
+     */
+    public function setPriceInHigh(string $priceInHigh)
+    {
+        $this->priceInHigh = $priceInHigh;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPriceInLow(): string
+    {
+        return $this->priceInLow;
+    }
+
+    /**
+     * @param string $priceInLow
+     */
+    public function setPriceInLow(string $priceInLow)
+    {
+        $this->priceInLow = $priceInLow;
+    }
+
     public function getMinimumPrice()
     {
+        if($this->getOfferType() == "WHOLE_HOUSE") {
+            return min($this->getPriceInHigh(), $this->getPriceInLow());
+        }
         $roomPrice = 0;
         foreach ($this->getRooms() as $room) {
             if($roomPrice == 0 || $room->getPriceInLow() < $roomPrice) {

@@ -26,6 +26,14 @@
                             &hellip;
                         {% endif %}
                     </p>
+                    <h4>
+                        Capacity: {{ hostel.capacity }} people
+                    </h4>
+                    {% if hostel.offerType == 'WHOLE_HOUSE' %}
+                        <h4>
+                            Price: ${{ hostel.priceInLow }} / ${{ hostel.priceInHigh }} (For the whole house)
+                        </h4>
+                    {% endif %}
                     <h3>
                         <i class='material-icons'>place</i>
                         {% trans %}title.address{% endtrans %}
@@ -41,9 +49,13 @@
                                 <div class="panel-heading" role="tab" id="heading{{ loop.index }}">
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#mea-accordion" href="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}" class="collapsed">
-                                    {{ room.name }}
-                                    ({% transchoice room.capacity with {'%capacity%': room.capacity} %}room.capacity.label{% endtranschoice %}:
-                                    ${{ room.priceInLow }} / ${{ room.priceInHigh }})
+                                        {{ room.name }}
+                                        {% if hostel.offerType == 'WHOLE_HOUSE' %}
+                                            ({% transchoice room.capacity with {'%capacity%': room.capacity} %}room.capacity.label{% endtranschoice %})
+                                        {% else %}
+                                            ({% transchoice room.capacity with {'%capacity%': room.capacity} %}room.capacity.label{% endtranschoice %}:
+                                            ${{ room.priceInLow }} / ${{ room.priceInHigh }})
+                                        {% endif %}
                                     </a>
                                 </h4>
                                 </div>

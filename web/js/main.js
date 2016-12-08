@@ -108,7 +108,7 @@ $(document).ready(function() {
     //booking form
     var form = $('.booking-form');
     form.submit(function () {
-		// $('#loader').fadeIn();
+		$('#loader').fadeIn();
         var $this = $(this);
         $.post($(this).attr('action'), $(this).serialize(), function(data) {
 			$('#loader').fadeOut();

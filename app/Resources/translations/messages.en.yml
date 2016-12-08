@@ -108,7 +108,7 @@ room:
   info:
     title: General Information
   capacity:
-    label: "{1}One person|]1,Inf[ %capacity% persons"
+    label: "{1}One person|]1,Inf[ %capacity% guests"
   privateBathroom:
     label: Private bathroom | Shared bathroom
   hotWater:
