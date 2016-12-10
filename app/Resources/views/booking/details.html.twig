@@ -43,7 +43,7 @@
                                 <label class="sr-only" for="usermessage">Message</label>
                                 <textarea placeholder="Type here message" id="usermessage" rows="5" required="" class="form-control"></textarea>
                             </div>
-                            <a href="javascript:void(0)" class="mt-30 btn btn-common"><i class="material-icons"></i>{{ 'button.send'|trans }}<div class="ripple-container"></div></a>
+                            <a href="javascript:void(0)" id="post_message_btn" class="mt-30 btn btn-common"><i class="material-icons"></i>{{ 'button.send'|trans }}<div class="ripple-container"></div></a>
                         </div>
 
                         <ul>
@@ -72,3 +72,16 @@
         </div>
     </section>
 {% endblock %}
+
+{#{% block javascripts %}#}
+    {#{{ parent() }}#}
+    {#<script>#}
+        {#$(document).ready(function() {#}
+            {#$("#post_message_btn").on("click", function() {#}
+                {#var userMessage = $("#usermessage");#}
+                {#var text = userMessage.val();#}
+                {#userMessage.val("");#}
+            {#});#}
+        {#});#}
+    {#</script>#}
+{#{% endblock %}#}
