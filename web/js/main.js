@@ -105,20 +105,20 @@ $(document).ready(function() {
 	    return false;
 	  });
 
-    //booking form
-    var form = $('.booking-form');
-    form.submit(function () {
-		$('#loader').fadeIn();
-        var $this = $(this);
-        $.post($(this).attr('action'), $(this).serialize(), function(data) {
-			$('#loader').fadeOut();
-            $('#success-message').html(data.message);
-            $('#success-section').fadeIn();
-            $this.fadeOut();
-            //$this[0].reset();
-        },'json');
-        return false;
-    });
+    // //booking form
+    // var form = $('.booking-form');
+    // form.submit(function () {
+		// $('#loader').fadeIn();
+    //     var $this = $(this);
+    //     $.post($(this).attr('action'), $(this).serialize(), function(data) {
+		// 	$('#loader').fadeOut();
+    //         $('#success-message').html(data.message);
+    //         $('#success-section').fadeIn();
+    //         $this.fadeOut();
+    //         //$this[0].reset();
+    //     },'json');
+    //     return false;
+    // });
 	  
 	  $('.swipe-gallery').each( function() {
         // Get the items.

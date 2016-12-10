@@ -6,25 +6,25 @@
 
 {% block content %}
     <div class="container section-padding">
-        {% set label_class = {'PENDING': 'warning', 'CANCELLED': 'danger', 'CONFIRMED': 'success'} %}
+        {% set label_class = {'PENDING_FOR_CONFIRMATION': 'info', 'PENDING_FOR_AVAILABILITY': 'warning', 'CANCELLED': 'danger', 'CONFIRMED': 'success'} %}
         {% for booking in bookings %}
-            <div class="row">
+            <div class="row users-comment-section">
                 <div class="media">
-                    {#<div class="media-left">#}
-                        {#<i class="material-icons md-24 icon-round">wifi</i>#}
-                    {#</div>#}
+                    <div class="media-left">
+                        <img class="img-rounded img-raised" src="{{ vich_uploader_asset(booking.hostel.frontImage, 'imageFile')|imagine_filter('app_thumb') }}" alt="">
+                    </div>
                     <div class="media-body">
-                        <h2 class="subtitle">
+                        <h3>
                             <a href="{{ path('booking_details', {'id': booking.id }) }}">
                                 {{ booking.hostel }}
                             </a>
-                        </h2>
+                        </h3>
                         <p>
                             <span class="label label-{{ label_class[booking.status] }}">
-                                {{ booking.status|title }}
+                                {{ booking.status|trans }}
                             </span>
                             <br>
-                            {{ booking.startDate|date('d/m/Y') }} - {{ booking.endDate|date('d/m/Y') }}
+                            {{ booking.startDate|date('d/M/Y') }} - {{ booking.endDate|date('d/M/Y') }}
                         </p>
                     </div>
                 </div>

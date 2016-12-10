@@ -56,7 +56,7 @@ booking:
     dateRange: Choose a date range for the reservation.
     people: Number of guests
   success:
-    message: "<h2>Your request has been sent!</h2><br>We are taking notice of your request and we will attend it as soon as possible.<br>We will contact you via email to confirm availability."
+    message: "Your booking request has been received. We are taking notice and we will attend it as soon as possible to confirm availability. When we have a response you will receive a notification via email and in this thread."
 profile:
   show:
     fullName: Full name
@@ -144,3 +144,7 @@ title:
   activities: Activities
 copyright:
   message: All Rights Reserved.
+PENDING_FOR_CONFIRMATION: Pending for confirmation
+PENDING_FOR_AVAILABILITY: Pending for availability
+CONFIRMED: Confirmed
+CANCELLED: Cancelled

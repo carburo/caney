@@ -1,6 +1,6 @@
 {% extends "base_bare.html.twig" %}
 
-{% set label_class = {'PENDING': 'warning', 'CANCELLED': 'danger', 'CONFIRMED': 'success'} %}
+{% set label_class = {'PENDING_FOR_CONFIRMATION': 'warning', 'PENDING_FOR_AVAILABILITY': 'warning', 'CANCELLED': 'danger', 'CONFIRMED': 'success'} %}
 
 {% block title %}
     {% trans %}booking.title{% endtrans %}: {{ hostel }}
@@ -27,7 +27,16 @@
                     </span>
                 </p>
                 <p>
-                    {{ booking.startDate|date('d/m/Y') }} - {{ booking.endDate|date('d/m/Y') }}
+                    {{ booking.startDate|date('d M Y') }} - {{ booking.endDate|date('d M Y') }}
+                </p>
+                <p>
+                {% if booking.status == 'PENDING_FOR_CONFIRMATION' %}
+                    <a class="btn btn-common">Confirm</a>
+                {% endif %}
+                {% if booking.status == 'PENDING_FOR_AVAILABILITY' and is_granted('admin', booking) %}
+                    <a class="btn btn-raised">Confirm availability</a>
+                {% endif %}
+                    <a class="btn btn-common">Cancel this reservation</a>
                 </p>
             </div>
         {% endif %}

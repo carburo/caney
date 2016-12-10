@@ -3,12 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Booking;
+use AppBundle\Entity\ContactMessage;
 use AppBundle\Entity\Hostel;
-use AppBundle\Entity\User;
 use AppBundle\Form\BookingType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -65,8 +64,7 @@ class BookingController extends Controller
      * @Route("/booking/details/{id}", name="booking_details")
      */
     public function bookingDetailsAction(Request $request, Booking $booking) {
-        // TODO set the appropriate permissions. Should be edit
-        $this->denyAccessUnlessGranted('create', $booking);
+        $this->denyAccessUnlessGranted('edit', $booking);
 
         $repo = $this->getDoctrine()->getRepository("AppBundle:ContactMessage");
         $messages = $repo->createQueryBuilder('m')
@@ -95,23 +93,22 @@ class BookingController extends Controller
             if($hostel->getOfferType() != "SINGLE_ROOM" || sizeof($hostel->getRooms()) < 2) {
                 $booking->setRooms($hostel->getRooms());
             }
+
             $this->sendEmail($booking);
             $this->saveInDatabase($booking);
 
-            if($request->isXmlHttpRequest()) {
-                $status = array(
-                    'type' => 'success',
-                    'message' => $this->get('translator')->trans('booking.success.message')
-                );
-                return new JsonResponse($status);
-            } else {
-                // return redirectToAction("hostel_view", ["hostel" => $hostel]);
-                unset($booking);
-                unset($form);
-                $booking = new Booking();
-                $booking->setHostel($hostel);
-                $form = $this->createForm(BookingType::class, $booking);
-            }
+            $message = new ContactMessage();
+            $userManager = $this->get("fos_user.user_manager");
+            $message->setUser($userManager->findUserByUsername("admin"));
+            $message->setMessage($this->get('translator')->trans('booking.success.message'));
+            $message->setMessageDatetime(new \DateTime());
+            $message->setThread($booking->getCommentThread());
+            $booking->getCommentThread()->getMessages()->add($message);
+
+            $this->saveInDatabase($booking);
+            $this->saveInDatabase($message);
+
+            return $this->redirectToRoute('booking_details', ["id" => $booking->getId()]);
         }
 
         return $this->render('booking/index.html.twig', array(

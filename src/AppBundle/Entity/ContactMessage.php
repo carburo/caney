@@ -97,18 +97,12 @@ class ContactMessage {
         $this->messageDatetime = $messageDatetime;
     }
 
-    /**
-     * @return ContactMessage
-     */
-    public function getThread(): ContactMessage
+    public function getThread(): ContactThread
     {
         return $this->thread;
     }
 
-    /**
-     * @param ContactMessage $thread
-     */
-    public function setThread(ContactMessage $thread)
+    public function setThread(ContactThread $thread)
     {
         $this->thread = $thread;
     }

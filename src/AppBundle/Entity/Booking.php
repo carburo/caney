@@ -91,7 +91,7 @@ class Booking
     public function __construct()
     {
         $this->bookingDatetime = new \DateTime();
-        $this->status = "PENDING";
+        $this->status = "PENDING_FOR_AVAILABILITY";
         $this->commentThread = new ContactThread();
     }
 

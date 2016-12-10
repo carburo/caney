@@ -62,14 +62,14 @@ class Builder implements ContainerAwareInterface
                 ->setAttribute('material-icon', 'settings')
                 ->setAttribute('dropdown', true);
 
-//            $menu->addChild('person.full_name', [
-//                'uri' => "#"
-//            ])
-//                ->setExtra('translation_params', [
-//                    '%forename%' => $user->getForename(),
-//                    '%surname%' => $user->getSurname()
-//                ])
-//                ->setAttribute('dropdown_item', true);
+            $menu->addChild('person.full_name', [
+                'uri' => "#"
+            ])
+                ->setExtra('translation_params', [
+                    '%forename%' => $user->getForename(),
+                    '%surname%' => $user->getSurname()
+                ])
+                ->setAttribute('dropdown_item', true);
         
             $menu->addChild('menu.user.edit', [
                 'route' => 'fos_user_profile_edit'

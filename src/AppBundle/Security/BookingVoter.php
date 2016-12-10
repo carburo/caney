@@ -8,7 +8,6 @@
 
 namespace AppBundle\Security;
 
-
 use AppBundle\Entity\Booking;
 use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -20,6 +19,7 @@ class BookingVoter extends Voter {
     const CREATE = "create";
     const VIEW = "view";
     const EDIT = "edit";
+    const ADMIN = "admin";
 
     private $decisionManager;
 
@@ -39,7 +39,7 @@ class BookingVoter extends Voter {
     protected function supports($attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::CREATE, self::VIEW, self::EDIT))) {
+        if (!in_array($attribute, [self::CREATE, self::VIEW, self::EDIT, self::ADMIN])) {
             return false;
         }
 
@@ -83,23 +83,30 @@ class BookingVoter extends Voter {
                 return $this->canView($booking, $user);
             case self::EDIT:
                 return $this->canEdit($booking, $user);
+            case self::ADMIN:
+                return $this->canAdmin($booking, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
     }
 
-    private function canCreate(Booking $hostel, User $user)
+    private function canCreate(Booking $booking, User $user)
     {
         return true;
     }
 
-    private function canView(Booking $hostel, User $user)
+    private function canView(Booking $booking, User $user)
     {
-        return false;
+        return $booking->getUser()->getId() == $user->getId();
     }
 
-    private function canEdit(Booking $hostel, User $user)
+    private function canEdit(Booking $booking, User $user)
     {
-        return false;
+        return $booking->getUser()->getId() == $user->getId();
+    }
+
+    private function canAdmin(Booking $booking, User $user)
+    {
+        return $booking->getHostel()->getOwner()->getId() == $user->getId();
     }
 }

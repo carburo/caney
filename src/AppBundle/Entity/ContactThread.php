@@ -8,7 +8,9 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * ContactThread
@@ -28,9 +30,14 @@ class ContactThread {
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="ContactMessage", mappedBy="thread")
+     * @ORM\OneToMany(targetEntity="ContactMessage", mappedBy="thread", cascade={"persist"})
      */
     private $messages;
+
+    public function __construct()
+    {
+        $this->messages = new ArrayCollection();
+    }
 
     /**
      * Get id
