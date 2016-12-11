@@ -44,7 +44,7 @@ class Image
      * @Vich\UploadableField(mapping="images", fileNameProperty="filename")
      * @var UploadedFile
      * @Assert\Image(
-     * maxSize = "2048k"
+     * maxSize = "6144k"
      * )
      */
     protected $imageFile;

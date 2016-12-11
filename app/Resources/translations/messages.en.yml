@@ -56,7 +56,10 @@ booking:
     dateRange: Choose a date range for the reservation.
     people: Number of guests
   success:
-    message: "Your booking request has been received. We are taking notice and we will attend it as soon as possible to confirm availability. When we have a response you will receive a notification via email and in this thread."
+    message: "Your booking request has been received. We are taking notice and we will attend it as soon as possible to confirm availability. When we have a response you will receive a notification via email and through this webpage."
+  pending:
+    confirmation:
+      message: "The lodging you requested is available. We only need you to confirm the reservation and all we be set."
 profile:
   show:
     fullName: Full name

@@ -82,6 +82,50 @@ class BookingController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/booking/cancel/{id}", name="booking_cancel")
+     */
+    public function bookingCancelAction(Request $request, Booking $booking) {
+        $this->denyAccessUnlessGranted('edit', $booking);
+
+        $booking->setStatus("CANCELLED");
+        $this->saveInDatabase($booking);
+
+        return $this->redirectToRoute('booking_details', ['id' => $booking->getId()]);
+    }
+
+    /**
+     * @Route("/booking/confirm/{id}", name="booking_confirm")
+     */
+    public function bookingConfirmAction(Request $request, Booking $booking) {
+        $this->denyAccessUnlessGranted('edit', $booking);
+
+        $booking->setStatus("CONFIRMED");
+        $this->saveInDatabase($booking);
+
+        return $this->redirectToRoute('booking_details', ['id' => $booking->getId()]);
+    }
+
+    /**
+     * @Route("/booking/confirm_available/{id}", name="booking_confirm_availability")
+     */
+    public function bookingConfirmAvailabilityAction(Request $request, Booking $booking) {
+        $this->denyAccessUnlessGranted('admin', $booking);
+
+        $booking->setStatus("PENDING_FOR_CONFIRMATION");
+        $message = new ContactMessage();
+
+        $message->setMessageDatetime(new \DateTime());
+        $message->setUser($this->getUser());
+        $message->setMessage($this->get('translator')->trans('booking.pending.confirmation.message'));
+        $message->setThread($booking->getCommentThread());
+
+        $booking->getCommentThread()->getMessages()->add($message);
+        $this->saveInDatabase($booking);
+
+        return $this->redirectToRoute('booking_details', ['id' => $booking->getId()]);
+    }
+
     private function renderBookingForm(Request $request, Booking $booking, Hostel $hostel)  {
         $booking->setHostel($hostel);
         $booking->setUser($this->getUser());

@@ -23,7 +23,7 @@
                 <h2>{{ hostel.hostelName }}</h2>
                 <p>
                     <span class="label label-{{ label_class[booking.status] }}">
-                        {{ booking.status|title }}
+                        {{ booking.status|trans }}
                     </span>
                 </p>
                 <p>
@@ -31,12 +31,12 @@
                 </p>
                 <p>
                 {% if booking.status == 'PENDING_FOR_CONFIRMATION' %}
-                    <a class="btn btn-common">Confirm</a>
+                    <a href="{{ path('booking_confirm', {'id': booking.id}) }}" class="btn btn-raised btn-success">Confirm</a>
                 {% endif %}
                 {% if booking.status == 'PENDING_FOR_AVAILABILITY' and is_granted('admin', booking) %}
-                    <a class="btn btn-raised">Confirm availability</a>
+                    <a href="{{ path('booking_confirm_availability', {'id': booking.id}) }}" class="btn btn-raised">Confirm availability</a>
                 {% endif %}
-                    <a class="btn btn-common">Cancel this reservation</a>
+                    <a href="{{ path('booking_cancel', {'id': booking.id}) }}" class="btn btn-common">Cancel this reservation</a>
                 </p>
             </div>
         {% endif %}
