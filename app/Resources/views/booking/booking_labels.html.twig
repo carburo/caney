@@ -1,0 +1,4 @@
+{% macro label_class(status) %}
+    {% set label_array = {'PENDING_FOR_CONFIRMATION': 'info', 'PENDING_FOR_AVAILABILITY': 'warning', 'CANCELLED': 'danger', 'CONFIRMED': 'success'} %}
+    label-{{ label_array[status] }}
+{% endmacro %}

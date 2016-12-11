@@ -1,6 +1,5 @@
 {% extends "base_bare.html.twig" %}
-
-{% set label_class = {'PENDING_FOR_CONFIRMATION': 'warning', 'PENDING_FOR_AVAILABILITY': 'warning', 'CANCELLED': 'danger', 'CONFIRMED': 'success'} %}
+{% import 'booking/booking_labels.html.twig' as util %}
 
 {% block title %}
     {% trans %}booking.title{% endtrans %}: {{ hostel }}
@@ -22,7 +21,7 @@
             <div class="container">
                 <h2>{{ hostel.hostelName }}</h2>
                 <p>
-                    <span class="label label-{{ label_class[booking.status] }}">
+                    <span class="label {{ util.label_class(booking.status) }}">
                         {{ booking.status|trans }}
                     </span>
                 </p>
@@ -32,11 +31,12 @@
                 <p>
                 {% if booking.status == 'PENDING_FOR_CONFIRMATION' %}
                     <a href="{{ path('booking_confirm', {'id': booking.id}) }}" class="btn btn-raised btn-success">Confirm</a>
-                {% endif %}
-                {% if booking.status == 'PENDING_FOR_AVAILABILITY' and is_granted('admin', booking) %}
+                {% elseif booking.status == 'PENDING_FOR_AVAILABILITY' and is_granted('admin', booking) %}
                     <a href="{{ path('booking_confirm_availability', {'id': booking.id}) }}" class="btn btn-raised">Confirm availability</a>
                 {% endif %}
+                {% if booking.status != 'CANCELLED' %}
                     <a href="{{ path('booking_cancel', {'id': booking.id}) }}" class="btn btn-common">Cancel this reservation</a>
+                {% endif %}
                 </p>
             </div>
         {% endif %}

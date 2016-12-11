@@ -1,4 +1,5 @@
 {% extends "base_bare.html.twig" %}
+{% import 'booking/booking_labels.html.twig' as util %}
 
 {% block title %}
     {% trans %}hostels.title{% endtrans %}
@@ -6,7 +7,6 @@
 
 {% block content %}
     <div class="container section-padding">
-        {% set label_class = {'PENDING_FOR_CONFIRMATION': 'info', 'PENDING_FOR_AVAILABILITY': 'warning', 'CANCELLED': 'danger', 'CONFIRMED': 'success'} %}
         {% for booking in bookings %}
             <div class="row users-comment-section">
                 <div class="media">
@@ -20,7 +20,7 @@
                             </a>
                         </h3>
                         <p>
-                            <span class="label label-{{ label_class[booking.status] }}">
+                            <span class="label {{ util.label_class(booking.status) }}">
                                 {{ booking.status|trans }}
                             </span>
                             <br>

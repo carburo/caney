@@ -36,7 +36,6 @@ class RoomController extends Controller
 
         if($form->isSubmitted() && $form->isValid()) {
             $this->saveInDatabase($room);
-            return $this->redirectToRoute('room_view', ['id' => $room->getId()]);
         }
 
         return $this->render('room/edit.html.twig', [
