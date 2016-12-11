@@ -19,7 +19,6 @@
             {% include 'booking/request_login.html.twig' %}
         {% else %}
             <div class="container">
-                <h2>{{ hostel.hostelName }}</h2>
                 <p>
                     <span class="label {{ util.label_class(booking.status) }}">
                         {{ booking.status|trans }}

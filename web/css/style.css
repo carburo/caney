@@ -966,10 +966,6 @@ figure.single-portfolio:hover figcaption {
   color: #1769FF;
 }
 
-.single-team-widget:hover {
-  cursor: pointer;
-}
-
 .single-team-widget:hover .know-more, .single-team-widget:hover .social-profiles {
   display: block;
   -webkit-animation: 0.4s ease 0s normal none 1 running fadeInUpMenu;

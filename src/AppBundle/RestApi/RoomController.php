@@ -42,6 +42,24 @@ class RoomController extends FOSRestController implements ClassResourceInterface
         return $result;
     }
 
+    public function getAvailabilityByHostelAction($id)
+    {
+        $db = $this->getConnection();
+        $sql = "call room_availability_by_hostel(:id, :checkDate)";
+        $dataset = $db->fetchAssoc($sql, [
+            "id" => $id,
+            "checkDate" => (new DateTime())->format("y-m-d")
+        ]);
+//        $dataset->nextRowset();
+//        $result = [];
+//        foreach($dataset as $row) {
+//            $result[] = $row["available"] == "1";
+//        }
+//        return $result;
+
+        return $dataset;
+    }
+
     /**
      * @Get("hostels/{id}/available_rooms/{startDate}/{endDate}")
      */

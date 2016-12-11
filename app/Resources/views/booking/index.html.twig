@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends "base_bare.html.twig" %}
 
 {% block title %}
     {% trans %}booking.title{% endtrans %}: {{ hostel }}
@@ -34,46 +34,79 @@
                 </section>
                 <div class="container">
                     {{ form_start(form, {'attr': {'class': 'booking-form' }}) }}
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="hidden" style="display: none">
-                            {{ form_widget(form.hostel) }}
-                            {{ form_widget(form.user) }}
-                            {{ form_widget(form.startDate) }}
-                            {{ form_widget(form.endDate) }}
+                    <div class="hidden" style="display: none">
+                        {{ form_widget(form.hostel) }}
+                        {{ form_widget(form.user) }}
+                        {{ form_widget(form.startDate) }}
+                        {{ form_widget(form.endDate) }}
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    {% for room in hostel.rooms %}
+                                        <div class="swiper-slide hostel-image single-team-widget">
+                                            <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                                <img src="{{ vich_uploader_asset(room.images|first, 'imageFile')|imagine_filter('app_thumb') }}" itemprop="thumbnail" alt="{{ room.name }}" />
+                                                <figcaption class="team-member-info" itemprop="caption description">
+                                                    {{ room.name }}
+                                                    <h5 class="image-caption">{{ room.type }}</h5>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="swiper-pagination"></div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label" for="date_range">
-                                <i id="nights_icon" class="fa fa-circle-o-notch fa-spin"></i> <span id="nights"> Loading available dates</span>
-                            </label>
-                            <input type="text" id="date_range" required="required" maxlength="255" class="form-control"/>
+                        {#<div class="col-lg-6 col-sm-12">#}
+                            {#<div class="form-group">#}
+                                {#<label class="control-label" for="date_range">#}
+                                    {#<i id="nights_icon" class="fa fa-circle-o-notch fa-spin"></i> <span id="nights"> Loading available dates</span>#}
+                                {#</label>#}
+                                {#<input type="text" id="date_range" required="required" maxlength="255" class="form-control"/>#}
+                            {#</div>#}
+                        {#</div>#}
+                        <div class="col-lg-3 col-sm-6">
+                            <h3>First night</h3>
+                            <div id="check_in_container" class="form-group">
+
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label" for="booking_numberOfPersons">
-                                <i class="material-icons">people</i> {{ 'booking.form.people'|trans }}
-                            </label>
-                            {{ form_widget(form.numberOfPersons) }}
+                        <div class="col-lg-3 col-sm-6">
+                            <h3>Last night</h3>
+                            <div id="check_out_container" class="form-group">
+
+                            </div>
                         </div>
-                        {% if form.rooms is defined %}
-                        <div class="form-group">
-                            <div id="booking_room" class="form-group">
-                                {% for key, value in form.rooms %}
-                                    {% set room = form.rooms.vars.choices[key].data %}
-                                    {{
-                                    form_widget(value, {
-                                        'label': "#{room.name}: #{('room.type.' ~ room.type|lower)|trans},
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label class="control-label" for="booking_numberOfPersons">
+                                    <i class="material-icons">people</i> {{ 'booking.form.people'|trans }}
+                                </label>
+                                {{ form_widget(form.numberOfPersons) }}
+                            </div>
+                            {% if form.rooms is defined %}
+                                <div class="form-group">
+                                    <div id="booking_room" class="form-group">
+                                        {% for key, value in form.rooms %}
+                                            {% set room = form.rooms.vars.choices[key].data %}
+                                            {{
+                                            form_widget(value, {
+                                                'label': "#{room.name}: #{('room.type.' ~ room.type|lower)|trans},
                                     #{'room.capacity.label'|transchoice(room.capacity, { '%capacity%': room.capacity })}
                                     ($#{room.priceInLow}/$#{room.priceInHigh})"
-                                    })
-                                    }}
-                                {% endfor %}
-                            </div>
-                            </ul>
+                                            })
+                                            }}
+                                        {% endfor %}
+                                    </div>
+                                    </ul>
+                                </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
-                    </div><!--/.col-sm-8-->
-                    {#<div class="col-lg-6 col-md-6 col-sm-12">#}
-                        {#{{ form_row(form.comments, {'attr': {'rows': '12' }}) }}#}
-                    {#</div><!--/.col-sm-4-->#}
+                    </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -108,53 +141,128 @@
                 $("#nights").html("{{ 'booking.form.dateRange'|trans }}");
                 $("#nights_icon").attr("class", "material-icons");
                 $("#nights_icon").html("date_range");
-            });
+                console.log("Hey");
+                var startDate,
+                        endDate,
+                        updateStartDate = function() {
+                            startPicker.setStartRange(startDate);
+                            endPicker.setStartRange(startDate);
+                            endPicker.setMinDate(startDate);
+                            startPicker.gotoDate(startDate);
+                        },
+                        updateEndDate = function() {
+                            startPicker.setEndRange(endDate);
+                            //startPicker.setMaxDate(endDate);
+                            endPicker.setEndRange(endDate);
+                            endPicker.gotoDate(endDate);
+                            startPicker.gotoDate(startDate);
+                        },
+                        startPicker = new Pikaday({
+                            field: document.getElementById('booking_startDate'),
+                            minDate: new Date(),
+                            maxDate: new Date(2020, 12, 31),
+                            container: document.getElementById('check_in_container'),
+                            bound: false,
+                            disableDayFn: function(checkDate) {
+                                var checkMoment = moment(checkDate);
+                                return !availability[checkMoment.diff(moment(), "days")];
+                            },
+                            onSelect: function() {
+                                startDate = this.getDate();
+                                updateStartDate();
+                            }
+                        }),
+                        endPicker = new Pikaday({
+                            field: document.getElementById('booking_endDate'),
+                            minDate: new Date(),
+                            maxDate: new Date(2020, 12, 31),
+                            container: document.getElementById('check_out_container'),
+                            bound: false,
+                            disableDayFn: function(checkDate) {
+                                var checkMoment = moment(checkDate);
+                                return !availability[checkMoment.diff(moment(), "days")];
+                            },
+                            onSelect: function() {
+                                endDate = this.getDate();
+                                updateEndDate();
+                            }
+                        }),
+                        _startDate = startPicker.getDate(),
+                        _endDate = endPicker.getDate();
 
-            $('#date_range').daterangepicker({
-                autoUpdateInput: false,
-                autoApply: true,
-                isInvalidDate: function(checkDate) {
-                    if(checkDate < moment()) return true;
-                    if(checkDate > moment().add(1, "year")) return true;
-                    return !availability[checkDate.diff(moment(), "days")];
+                if (_startDate) {
+                    startDate = _startDate;
+                    updateStartDate();
                 }
-            }, function(start, end, label) {
-                $('#booking_startDate').val(start.format('YYYY-MM-DD'));
-                $('#booking_endDate').val(end.format('YYYY-MM-DD'));
-                var nights = end.diff(start, 'days');
-                var text = translateInfoNights(locale, nights + 1);
-                $('#nights').text(text);
+
+                if (_endDate) {
+                    endDate = _endDate;
+                    updateEndDate();
+                }
             });
 
-            $('#date_range').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+            {#$('#date_range').daterangepicker({#}
+                {#autoUpdateInput: false,#}
+                {#autoApply: true,#}
+                {#isInvalidDate: function(checkDate) {#}
+                    {#if(checkDate < moment()) return true;#}
+                    {#if(checkDate > moment().add(1, "year")) return true;#}
+                    {#return !availability[checkDate.diff(moment(), "days")];#}
+                {#}#}
+            {#}, function(start, end, label) {#}
+                {#$('#booking_startDate').val(start.format('YYYY-MM-DD'));#}
+                {#$('#booking_endDate').val(end.format('YYYY-MM-DD'));#}
+                {#var nights = end.diff(start, 'days');#}
+                {#var text = translateInfoNights(locale, nights + 1);#}
+                {#$('#nights').text(text);#}
+            {#});#}
 
-                var startDate = picker.startDate.format('YYYY-MM-DD');
-                var endDate = picker.endDate.format('YYYY-MM-DD');
+            {#$('#date_range').on('apply.daterangepicker', function(ev, picker) {#}
+                {#$(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));#}
 
-                $("#booking_room label").attr("style", "text-decoration: line-through")
-                $("#booking_room input").attr("disabled", "disabled")
-                $.getJSON("/api/{{ locale }}/hostels/{{ hostel.id }}/available_rooms/" + startDate + "/" + endDate, null, function(json) {
-                    for(var id in json) {
-                        console.log(json[id]);
-                        $("#booking_rooms_" + json[id]).parent("label").removeAttr("style");
-                        $("#booking_rooms_" + json[id]).removeAttr("disabled");
-                    }
-                    $(":disabled:checked").removeAttr("checked");
-                });
-            });
+                {#var startDate = picker.startDate.format('YYYY-MM-DD');#}
+                {#var endDate = picker.endDate.format('YYYY-MM-DD');#}
+
+                {#$("#booking_room label").attr("style", "text-decoration: line-through")#}
+                {#$("#booking_room input").attr("disabled", "disabled")#}
+                {#$.getJSON("/api/{{ locale }}/hostels/{{ hostel.id }}/available_rooms/" + startDate + "/" + endDate, null, function(json) {#}
+                    {#for(var id in json) {#}
+                        {#console.log(json[id]);#}
+                        {#$("#booking_rooms_" + json[id]).parent("label").removeAttr("style");#}
+                        {#$("#booking_rooms_" + json[id]).removeAttr("disabled");#}
+                    {#}#}
+                    {#$(":disabled:checked").removeAttr("checked");#}
+                {#});#}
+            {#});#}
         });
 
+    </script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+        });
     </script>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <style>
-        .page-title-section {
-            position: relative;
-            background: url("{{ vich_uploader_asset(hostel.frontImage, 'imageFile')|imagine_filter('app_slider') }}") no-repeat scroll center center;
-            background-size: cover;
+        .swiper-button-prev,
+        .swiper-button-next {
+            position: absolute;
+            top: 80%;
+            width: 13px;
+            height: 22px;
+            margin-top: -22px;
+            z-index: 10;
+            cursor: pointer;
+            -moz-background-size: 13px 22px;
+            -webkit-background-size: 13px 22px;
+            background-size: 13px 22px;
+            background-position: center;
+            background-repeat: no-repeat;
         }
     </style>
 {% endblock %}

@@ -5,13 +5,23 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="title-center">
-                        {#<div class="title-middle">#}
-                            {#<h2 class="page-tagline">{% block headingSubtitle %}{% endblock %}</h2>#}
-                            {#<h1 class="page-title">{% block headingTitle %}{% endblock %}</h1>#}
-                        {#</div>#}
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    {% block headingTitles %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <h1>{% block headingTitle %}{% endblock %} <small>{% block headingSubtitle %}{% endblock %}</small></h1>
+                        {#<h2></h2>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
 {% endblock %}

@@ -5,8 +5,10 @@
     {% trans %}hostels.title{% endtrans %}
 {% endblock %}
 
+{% block headingTitle %}Bookings{% endblock %}
+
 {% block content %}
-    <div class="container section-padding">
+    <div class="container">
         {% for booking in bookings %}
             <div class="row users-comment-section">
                 <div class="media">
