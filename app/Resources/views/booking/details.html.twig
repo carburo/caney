@@ -54,6 +54,10 @@
                             <a href="javascript:void(0)" id="post_message_btn" class="mt-30 btn btn-common"><i class="material-icons"></i>{{ 'button.send'|trans }}<div class="ripple-container"></div></a>
                         </div>
 
+                        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
+
+                        <div id="comments-container"></div>
+
                         <ul>
                             {% for message in messages %}
                                 <li class="media">
@@ -81,8 +85,23 @@
     </section>
 {% endblock %}
 
-{#{% block javascripts %}#}
-    {#{{ parent() }}#}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('#comments-container').comments({
+            getComments: function(success, error) {
+                var commentsArray = [{
+                    id: 1,
+                    created: '2015-10-01',
+                    content: 'Lorem ipsum dolort sit amet',
+                    fullname: 'Simon Powell',
+                    upvote_count: 2,
+                    user_has_upvoted: false
+                }];
+                success(commentsArray);
+            }
+        });
+    </script>
     {#<script>#}
         {#$(document).ready(function() {#}
             {#$("#post_message_btn").on("click", function() {#}
@@ -92,4 +111,4 @@
             {#});#}
         {#});#}
     {#</script>#}
-{#{% endblock %}#}
+{% endblock %}

@@ -115,6 +115,20 @@
     color: #fff; }
   .daterangepicker th.month {
     width: auto; }
+.daterangepicker.opensembed {
+   /*position: relative;*/
+   top: auto;
+   /*left: auto;*/
+   float: none;
+   z-index: auto;
+ }
+
+.daterangepicker.opensembed > .calendar,
+.daterangepicker.opensembed > .ranges {
+   display: inline-block;
+   vertical-align: top;
+   margin: 5px;
+ }
   .daterangepicker td.disabled, .daterangepicker option.disabled {
     color: #999;
     cursor: not-allowed;

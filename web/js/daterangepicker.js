@@ -373,6 +373,10 @@
             }
         }
 
+        if (this.opens == 'embed') {
+            this.show();
+        }
+
         if ((typeof options.ranges === 'undefined' && !this.singleDatePicker) || this.alwaysShowCalendars) {
             this.container.addClass('show-calendar');
         }
@@ -1039,6 +1043,8 @@
                         left: 9
                     });
                 }
+            } else if (this.opens == 'embed') {
+                this.element.after(this.container);
             } else {
                 this.container.css({
                     top: containerTop,
@@ -1085,7 +1091,7 @@
         },
 
         hide: function(e) {
-            if (!this.isShowing) return;
+            if (!this.isShowing || (this.opens == 'embed')) return;
 
             //incomplete date selection, revert to last values
             if (!this.endDate) {

@@ -1,5 +1,7 @@
 {% extends "base_bare.html.twig" %}
 
+{% set locale =  app.request.attributes.get('_locale') %}
+
 {% block title %}
     {% trans %}booking.title{% endtrans %}: {{ hostel }}
 {% endblock %}
@@ -39,6 +41,7 @@
                         {{ form_widget(form.user) }}
                         {{ form_widget(form.startDate) }}
                         {{ form_widget(form.endDate) }}
+                        <input id="booking_date">
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-sm-6">
@@ -47,37 +50,36 @@
                                     {% for room in hostel.rooms %}
                                         <div class="swiper-slide hostel-image single-team-widget">
                                             <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                                <img src="{{ vich_uploader_asset(room.images|first, 'imageFile')|imagine_filter('app_thumb') }}" itemprop="thumbnail" alt="{{ room.name }}" />
+                                                {% if room.images is not empty %}
+                                                    <img src="{{ vich_uploader_asset(room.images|first, 'imageFile')|imagine_filter('app_thumb') }}" itemprop="thumbnail" alt="{{ room.name }}" />
+                                                {% endif %}
+
                                                 <figcaption class="team-member-info" itemprop="caption description">
-                                                    {{ room.name }}
-                                                    <h5 class="image-caption">{{ room.type }}</h5>
+                                                    <h5 class="image-caption">{{ room.name }}</h5>
+                                                    <p>
+                                                        {{ ('room.type.' ~ room.type|lower)|trans }}, {{ 'room.capacity.label'|transchoice(room.capacity, { '%capacity%': room.capacity }) }}
+                                                        <br>
+                                                        {% set single_beds_count = room.singleBedsAmount %}
+                                                        {% set double_beds_count = room.doubleBedsAmount %}
+                                                        {% set concat_phrases = single_beds_count != 0 and double_beds_count != 0 %}
+                                                        {% set singleBeds = 'room.single_beds.label'|transchoice(single_beds_count, {'%single_beds_count%': single_beds_count}) %}
+                                                        {% set doubleBeds = 'room.double_beds.label'|transchoice(double_beds_count, {'%double_beds_count%': double_beds_count}) %}
+                                                        {{ 'room.beds.label'|transchoice(concat_phrases, { '%single_beds%': singleBeds, '%double_beds%': doubleBeds}) }}
+                                                        <br>
+                                                    </p>
                                                 </figcaption>
                                             </figure>
                                         </div>
                                     {% endfor %}
                                 </div>
                                 <div class="swiper-pagination"></div>
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next swiper-button-black"></div>
+                                <div class="swiper-button-prev swiper-button-black"></div>
                             </div>
                         </div>
-                        {#<div class="col-lg-6 col-sm-12">#}
-                            {#<div class="form-group">#}
-                                {#<label class="control-label" for="date_range">#}
-                                    {#<i id="nights_icon" class="fa fa-circle-o-notch fa-spin"></i> <span id="nights"> Loading available dates</span>#}
-                                {#</label>#}
-                                {#<input type="text" id="date_range" required="required" maxlength="255" class="form-control"/>#}
-                            {#</div>#}
-                        {#</div>#}
-                        <div class="col-lg-3 col-sm-6">
-                            <h3>First night</h3>
+                        <div class="col-lg-6 col-sm-12">
+                            {#<h3>Date range</h3>#}
                             <div id="check_in_container" class="form-group">
-
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <h3>Last night</h3>
-                            <div id="check_out_container" class="form-group">
 
                             </div>
                         </div>
@@ -93,18 +95,15 @@
                                     <div id="booking_room" class="form-group">
                                         {% for key, value in form.rooms %}
                                             {% set room = form.rooms.vars.choices[key].data %}
-                                            {{
-                                            form_widget(value, {
-                                                'label': "#{room.name}: #{('room.type.' ~ room.type|lower)|trans},
-                                    #{'room.capacity.label'|transchoice(room.capacity, { '%capacity%': room.capacity })}
-                                    ($#{room.priceInLow}/$#{room.priceInHigh})"
-                                            })
-                                            }}
+                                            {{ form_widget(value, { 'label': "#{room.name}" }) }}
                                         {% endfor %}
                                     </div>
                                     </ul>
                                 </div>
                             {% endif %}
+                            <span style="padding-bottom: 10px; border-bottom: 0.3em solid #e53935">
+                                <label style="font-size: xx-large;font-weight: 300;border-bottom-color: #7c1212">125 CUC</label>
+                            </span>
                         </div>
                     </div>
                     <div class="row">
@@ -127,7 +126,6 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var locale = "{{ app.request.attributes.get('_locale') }}";
-            {% set locale =  app.request.attributes.get('_locale') %}
 
             $("#date_range").attr("disabled", "true");
             var availability = [];
@@ -136,104 +134,49 @@
                     availability = json;
                 });
             }
+
             $.when(getAvailability()).done(function() {
-                $("#date_range").removeAttr("disabled");
-                $("#nights").html("{{ 'booking.form.dateRange'|trans }}");
-                $("#nights_icon").attr("class", "material-icons");
-                $("#nights_icon").html("date_range");
-                console.log("Hey");
-                var startDate,
-                        endDate,
-                        updateStartDate = function() {
-                            startPicker.setStartRange(startDate);
-                            endPicker.setStartRange(startDate);
-                            endPicker.setMinDate(startDate);
-                            startPicker.gotoDate(startDate);
-                        },
-                        updateEndDate = function() {
-                            startPicker.setEndRange(endDate);
-                            //startPicker.setMaxDate(endDate);
-                            endPicker.setEndRange(endDate);
-                            endPicker.gotoDate(endDate);
-                            startPicker.gotoDate(startDate);
-                        },
-                        startPicker = new Pikaday({
-                            field: document.getElementById('booking_startDate'),
-                            minDate: new Date(),
-                            maxDate: new Date(2020, 12, 31),
-                            container: document.getElementById('check_in_container'),
-                            bound: false,
-                            disableDayFn: function(checkDate) {
-                                var checkMoment = moment(checkDate);
-                                return !availability[checkMoment.diff(moment(), "days")];
-                            },
-                            onSelect: function() {
-                                startDate = this.getDate();
-                                updateStartDate();
-                            }
-                        }),
-                        endPicker = new Pikaday({
-                            field: document.getElementById('booking_endDate'),
-                            minDate: new Date(),
-                            maxDate: new Date(2020, 12, 31),
-                            container: document.getElementById('check_out_container'),
-                            bound: false,
-                            disableDayFn: function(checkDate) {
-                                var checkMoment = moment(checkDate);
-                                return !availability[checkMoment.diff(moment(), "days")];
-                            },
-                            onSelect: function() {
-                                endDate = this.getDate();
-                                updateEndDate();
-                            }
-                        }),
-                        _startDate = startPicker.getDate(),
-                        _endDate = endPicker.getDate();
-
-                if (_startDate) {
-                    startDate = _startDate;
-                    updateStartDate();
-                }
-
-                if (_endDate) {
-                    endDate = _endDate;
-                    updateEndDate();
-                }
+                $('#booking_startDate').dateRangePicker({
+                    inline:true,
+                    container: '#check_in_container',
+                    selectForward: true,
+                    alwaysOpen:true,
+                    startDate: new Date(),
+                    endDate: moment().add(1, 'years').toDate(),
+                    beforeShowDay: function(t)
+                    {
+                        var available = availability[Math.ceil(moment(t).diff(moment(), "days", true))];
+                        var _class = '';
+                        var _tooltip = available ? '' : 'sold out';
+                        return [available,_class,_tooltip];
+                    },
+                    getValue: function()
+                    {
+                        if ($('#booking_startDate').val() && $('#booking_endDate').val() )
+                            return $('#booking_startDate').val() + ' to ' + $('#booking_endDate').val();
+                        else
+                            return '';
+                    },
+                    setValue: function(s,s1,s2)
+                    {
+                        $('#booking_startDate').val(s1);
+                        $('#booking_endDate').val(s2);
+                    }
+                }).bind('datepicker-change',function(event,obj)
+                {
+                    $("#booking_room label").attr("style", "text-decoration: line-through");
+                    $("#booking_room input").attr("disabled", "disabled");
+                    $.getJSON("/api/{{ locale }}/hostels/{{ hostel.id }}/available_rooms/"
+                            + moment(obj.date1).format('YYYY-MM-DD') + "/"
+                            + moment(obj.date2).format('YYYY-MM-DD'), null, function (json) {
+                        for (var id in json) {
+                            $("#booking_rooms_" + json[id]).parent("label").removeAttr("style");
+                            $("#booking_rooms_" + json[id]).removeAttr("disabled");
+                        }
+                        $(":disabled:checked").removeAttr("checked");
+                    });
+                });
             });
-
-            {#$('#date_range').daterangepicker({#}
-                {#autoUpdateInput: false,#}
-                {#autoApply: true,#}
-                {#isInvalidDate: function(checkDate) {#}
-                    {#if(checkDate < moment()) return true;#}
-                    {#if(checkDate > moment().add(1, "year")) return true;#}
-                    {#return !availability[checkDate.diff(moment(), "days")];#}
-                {#}#}
-            {#}, function(start, end, label) {#}
-                {#$('#booking_startDate').val(start.format('YYYY-MM-DD'));#}
-                {#$('#booking_endDate').val(end.format('YYYY-MM-DD'));#}
-                {#var nights = end.diff(start, 'days');#}
-                {#var text = translateInfoNights(locale, nights + 1);#}
-                {#$('#nights').text(text);#}
-            {#});#}
-
-            {#$('#date_range').on('apply.daterangepicker', function(ev, picker) {#}
-                {#$(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));#}
-
-                {#var startDate = picker.startDate.format('YYYY-MM-DD');#}
-                {#var endDate = picker.endDate.format('YYYY-MM-DD');#}
-
-                {#$("#booking_room label").attr("style", "text-decoration: line-through")#}
-                {#$("#booking_room input").attr("disabled", "disabled")#}
-                {#$.getJSON("/api/{{ locale }}/hostels/{{ hostel.id }}/available_rooms/" + startDate + "/" + endDate, null, function(json) {#}
-                    {#for(var id in json) {#}
-                        {#console.log(json[id]);#}
-                        {#$("#booking_rooms_" + json[id]).parent("label").removeAttr("style");#}
-                        {#$("#booking_rooms_" + json[id]).removeAttr("disabled");#}
-                    {#}#}
-                    {#$(":disabled:checked").removeAttr("checked");#}
-                {#});#}
-            {#});#}
         });
 
     </script>
@@ -251,18 +194,16 @@
     <style>
         .swiper-button-prev,
         .swiper-button-next {
-            position: absolute;
-            top: 80%;
-            width: 13px;
+            top: 67%;
+            width: 7px;
             height: 22px;
-            margin-top: -22px;
-            z-index: 10;
-            cursor: pointer;
-            -moz-background-size: 13px 22px;
-            -webkit-background-size: 13px 22px;
-            background-size: 13px 22px;
-            background-position: center;
-            background-repeat: no-repeat;
+            margin-top: -21px;
+            -moz-background-size: 7px 22px;
+            -webkit-background-size: 7px 22px;
+            background-size: 7px 22px;
+        }
+        .swiper-button-prev {
+            left: 2px;
         }
     </style>
 {% endblock %}

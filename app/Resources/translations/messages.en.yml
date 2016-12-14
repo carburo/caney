@@ -112,6 +112,12 @@ room:
     title: General Information
   capacity:
     label: "{1}One person|]1,Inf[ %capacity% guests"
+  double_beds:
+    label: "{0}|{1}One double bed|]1,Inf[ %double_beds_count% double beds"
+  single_beds:
+    label: "{0}|{1}One single bed|]1,Inf[ %single_beds_count% single beds"
+  beds:
+    label: "{0}%single_beds%%double_beds%|{1}%single_beds% and %double_beds%"
   privateBathroom:
     label: Private bathroom | Shared bathroom
   hotWater:
@@ -147,7 +153,7 @@ title:
   activities: Activities
 copyright:
   message: All Rights Reserved.
-PENDING_FOR_CONFIRMATION: Pending for confirmation
-PENDING_FOR_AVAILABILITY: Pending for availability
+PENDING_FOR_CONFIRMATION: Pending for your confirmation
+PENDING_FOR_AVAILABILITY: Pending for confirmation of availability
 CONFIRMED: Confirmed
 CANCELLED: Cancelled

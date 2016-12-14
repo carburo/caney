@@ -141,6 +141,20 @@ class Room
     private $type;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="double_beds_amount", type="integer")
+     */
+    private $doubleBedsAmount = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="single_beds_amount", type="integer")
+     */
+    private $singleBedsAmount = 0;
+
+    /**
      * @var Hostel
      * @ORM\ManyToOne(targetEntity="Hostel", inversedBy="rooms")
      * @ORM\JoinColumn(name="hostel_id", referencedColumnName="id")
@@ -484,6 +498,38 @@ class Room
     public function setType(string $type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDoubleBedsAmount(): int
+    {
+        return $this->doubleBedsAmount;
+    }
+
+    /**
+     * @param int $doubleBedsAmount
+     */
+    public function setDoubleBedsAmount(int $doubleBedsAmount)
+    {
+        $this->doubleBedsAmount = $doubleBedsAmount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSingleBedsAmount(): int
+    {
+        return $this->singleBedsAmount;
+    }
+
+    /**
+     * @param int $singleBedsAmount
+     */
+    public function setSingleBedsAmount(int $singleBedsAmount)
+    {
+        $this->singleBedsAmount = $singleBedsAmount;
     }
 
     /**
