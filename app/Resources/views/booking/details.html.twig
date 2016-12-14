@@ -46,69 +46,10 @@
                 <!-- Single Blog Post -->
                 <div class="single-blog-page col-md-8">
                     <div class="users-comment-section mt-20">
-                        <div class="comment-box clearfix">
-                            <div class="form-group label-floating col-md-12 is-empty">
-                                <label class="sr-only" for="usermessage">Message</label>
-                                <textarea placeholder="Type here message" id="usermessage" rows="5" required="" class="form-control"></textarea>
-                            </div>
-                            <a href="javascript:void(0)" id="post_message_btn" class="mt-30 btn btn-common"><i class="material-icons"></i>{{ 'button.send'|trans }}<div class="ripple-container"></div></a>
-                        </div>
-
-                        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
-
-                        <div id="comments-container"></div>
-
-                        <ul>
-                            {% for message in messages %}
-                                <li class="media">
-                                    <div class="media-left">
-                                        {% set image = message.user.profilePicture %}
-                                        {% if(image is empty) %}
-                                            <i class="material-icons icon-round md-24" style="margin-right: 0">person</i>
-                                        {% else %}
-                                            <img class="img-circle img-raised" src="{{ vich_uploader_asset(message.user, 'imageFile')|imagine_filter('comment_thumb') }}" alt="">
-                                        {% endif %}
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#"><h3>{{ message.user.fullName }}</h3></a>
-                                        <p>
-                                            {{ message.message }}
-                                        </p>
-                                    </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
+                        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'booking-' ~ booking.id} %}
                     </div>
                 </div>
             </div>
         </div>
     </section>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $('#comments-container').comments({
-            getComments: function(success, error) {
-                var commentsArray = [{
-                    id: 1,
-                    created: '2015-10-01',
-                    content: 'Lorem ipsum dolort sit amet',
-                    fullname: 'Simon Powell',
-                    upvote_count: 2,
-                    user_has_upvoted: false
-                }];
-                success(commentsArray);
-            }
-        });
-    </script>
-    {#<script>#}
-        {#$(document).ready(function() {#}
-            {#$("#post_message_btn").on("click", function() {#}
-                {#var userMessage = $("#usermessage");#}
-                {#var text = userMessage.val();#}
-                {#userMessage.val("");#}
-            {#});#}
-        {#});#}
-    {#</script>#}
 {% endblock %}

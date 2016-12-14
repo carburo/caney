@@ -33,7 +33,6 @@ class BookingController extends Controller
                 ;
         }
 
-        // TODO Add a field in Booking with the date the booking was performed
         $bookings = $builder
             ->orderBy('b.bookingDatetime', 'DESC')
             ->getQuery()
@@ -66,19 +65,33 @@ class BookingController extends Controller
     public function bookingDetailsAction(Request $request, Booking $booking) {
         $this->denyAccessUnlessGranted('edit', $booking);
 
-        $repo = $this->getDoctrine()->getRepository("AppBundle:ContactMessage");
-        $messages = $repo->createQueryBuilder('m')
-            ->where('m.thread = :thread')
-            ->orderBy('m.messageDatetime', 'DESC')
-            ->setParameter('thread', $booking->getCommentThread())
-            ->getQuery()
-            ->getResult()
-        ;
+        $id = 'booking-' . $booking->getId();
+        $managerThread = $this->container->get('fos_comment.manager.thread');
+
+        $thread = $managerThread->findThreadById($id);
+        if (null === $thread) {
+            $managerComment = $this->container->get('fos_comment.manager.comment');
+            $thread = $managerThread->createThread();
+            $thread->setId($id);
+            $thread->setPermalink($request->getUri());
+
+            // Add the thread
+            $managerThread->saveThread($thread);
+
+            $userManager = $this->get("fos_user.user_manager");
+            $author = $userManager->findUserByUsername("admin");
+            $body = $this->get('translator')->trans('booking.success.message');
+
+            $comment = $managerComment->createComment($thread);
+            $comment->setAuthor($author);
+            $comment->setBody($body);
+
+            $managerComment->saveComment($comment);
+        }
 
         return $this->render('booking/details.html.twig', [
             'hostel' => $booking->getHostel(),
-            'booking' => $booking,
-            'messages' => $messages
+            'booking' => $booking
         ]);
     }
 
@@ -113,15 +126,29 @@ class BookingController extends Controller
         $this->denyAccessUnlessGranted('admin', $booking);
 
         $booking->setStatus("PENDING_FOR_CONFIRMATION");
-        $message = new ContactMessage();
-
-        $message->setMessageDatetime(new \DateTime());
-        $message->setUser($this->getUser());
-        $message->setMessage($this->get('translator')->trans('booking.pending.confirmation.message'));
-        $message->setThread($booking->getCommentThread());
-
-        $booking->getCommentThread()->getMessages()->add($message);
         $this->saveInDatabase($booking);
+
+        $id = 'booking-' . $booking->getId();
+        $managerThread = $this->container->get('fos_comment.manager.thread');
+        $managerComment = $this->container->get('fos_comment.manager.comment');
+
+        $thread = $managerThread->findThreadById($id);
+        if (null === $thread) {
+            $thread = $managerThread->createThread();
+            $thread->setId($id);
+            $thread->setPermalink($request->getUri());
+
+            // Add the thread
+            $managerThread->saveThread($thread);
+        }
+
+        $body = $this->get('translator')->trans('booking.pending.confirmation.message');
+
+        $comment = $managerComment->createComment($thread);
+        $comment->setAuthor($this->getUser());
+        $comment->setBody($body);
+
+        $managerComment->saveComment($comment);
 
         return $this->redirectToRoute('booking_details', ['id' => $booking->getId()]);
     }
@@ -140,17 +167,6 @@ class BookingController extends Controller
 
             $this->sendEmail($booking);
             $this->saveInDatabase($booking);
-
-            $message = new ContactMessage();
-            $userManager = $this->get("fos_user.user_manager");
-            $message->setUser($userManager->findUserByUsername("admin"));
-            $message->setMessage($this->get('translator')->trans('booking.success.message'));
-            $message->setMessageDatetime(new \DateTime());
-            $message->setThread($booking->getCommentThread());
-            $booking->getCommentThread()->getMessages()->add($message);
-
-            $this->saveInDatabase($booking);
-            $this->saveInDatabase($message);
 
             return $this->redirectToRoute('booking_details', ["id" => $booking->getId()]);
         }

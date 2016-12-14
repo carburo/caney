@@ -75,13 +75,6 @@ class Booking
     private $numberOfPersons;
 
     /**
-     * @var ContactThread
-     * @ORM\OneToOne(targetEntity="ContactThread", cascade={"persist"})
-     * @ORM\JoinColumn(name="thread_id", referencedColumnName="id")
-     */
-    private $commentThread;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="status", type="string")
@@ -92,7 +85,6 @@ class Booking
     {
         $this->bookingDatetime = new \DateTime();
         $this->status = "PENDING_FOR_AVAILABILITY";
-        $this->commentThread = new ContactThread();
     }
 
     /**
@@ -239,22 +231,6 @@ class Booking
     public function setBookingDatetime(\DateTime $bookingDatetime)
     {
         $this->bookingDatetime = $bookingDatetime;
-    }
-
-    /**
-     * @return ContactThread
-     */
-    public function getCommentThread(): ContactThread
-    {
-        return $this->commentThread;
-    }
-
-    /**
-     * @param ContactThread $commentThread
-     */
-    public function setCommentThread(ContactThread $commentThread)
-    {
-        $this->commentThread = $commentThread;
     }
 }
 

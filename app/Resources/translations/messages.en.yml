@@ -9,6 +9,9 @@ form:
   message: Message
   owner: Host
   comments: Comments
+comment:
+  message:
+    label: Type here message
 button:
   send: Send
   send_message: Send Message
@@ -59,7 +62,7 @@ booking:
     message: "Your booking request has been received. We are taking notice and we will attend it as soon as possible to confirm availability. When we have a response you will receive a notification via email and through this webpage."
   pending:
     confirmation:
-      message: "The lodging you requested is available. We only need you to confirm the reservation and all we be set."
+      message: "The lodging you requested is available. We only need you to confirm the reservation and all will be set. If you have any doubts, please, feel free to ask."
 profile:
   show:
     fullName: Full name
