@@ -179,4 +179,4 @@ top_destinations:
   title: "Destinos destacados"
   description: Our team is proficient in an array of services that can help elevate and empower your company or organization.
 search:
-  message: Type a city, a place, a house …
+  message: "Escriba una ciudad, un lugar …"
