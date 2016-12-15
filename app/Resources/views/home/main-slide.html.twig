@@ -9,8 +9,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12 text-left">
-                                <h1 class="slideInLeft animated wow hero-heading animated" data-wow-delay=".6s" style="visibility: visible;-webkit-animation-delay: .6s; -moz-animation-delay: .6s; animation-delay: .6s;">Create Amazing Web<br>Experiences</h1>
-                                <h5 class="fadeInDown wow animated hero-sub-heading animated" data-wow-delay=".8s" style="visibility: visible;-webkit-animation-delay: .8s; -moz-animation-delay: .8s; animation-delay: .8s;">Great choice for your next webdesign project</h5>
+                                <h1 class="slideInLeft animated wow hero-heading animated" data-wow-delay=".6s" style="visibility: visible;-webkit-animation-delay: .6s; -moz-animation-delay: .6s; animation-delay: .6s;">
+                                    {{ 'slide1.title'|trans|raw }}
+                                </h1>
+                                <h5 class="fadeInDown wow animated hero-sub-heading animated" data-wow-delay=".8s" style="visibility: visible;-webkit-animation-delay: .8s; -moz-animation-delay: .8s; animation-delay: .8s;">
+                                    {{ 'slide1.subtitle'|trans|raw }}
+                                </h5>
                                 {#<a href="#hostels" class="animated fadeInUp wow btn btn-common animated" data-wow-delay=".9s" style="visibility: visible;-webkit-animation-delay: .9s; -moz-animation-delay: .9s; animation-delay: .9s;"><i class="material-icons"></i> Explore<div class="ripple-container"></div></a>#}
                             </div>
                         </div>
@@ -23,9 +27,15 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <h1 class="animated wow fadeIn hero-heading animated" data-wow-delay=".7s" style="visibility: visible;-webkit-animation-delay: .7s; -moz-animation-delay: .7s; animation-delay: .7s;">Material Design Inspired</h1>
-                                <h5 class="animated5 hero-sub-heading">Refreshing Design - Built-with Latest Bootstrap &amp; HTML5</h5>
-                                <a href="#destinations" class="animated6 btn btn-lg btn-common"><i class="material-icons">lightbulb_outline</i> Purchase</a>
+                                <h1 class="animated wow fadeIn hero-heading animated" data-wow-delay=".7s" style="visibility: visible;-webkit-animation-delay: .7s; -moz-animation-delay: .7s; animation-delay: .7s;">
+                                    {{ 'slide2.title'|trans|raw }}
+                                </h1>
+                                <h5 class="animated5 hero-sub-heading">
+                                    {{ 'slide2.subtitle'|trans|raw }}
+                                </h5>
+                                <a href="#destinations" class="animated6 btn btn-lg btn-common">
+                                    <i class="material-icons">lightbulb_outline</i> {{ 'see_yourself'|trans }}
+                                </a>
                                 <a href="{{ path('contact') }}" class="animated6 btn btn-lg btn-raised btn-default">
                                     <i class="material-icons">chat</i> {{ 'button.contact_us'|trans }}<div class="ripple-container"></div></a><div class="ripple-container">
                                 </div>
@@ -40,9 +50,15 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <h1 class="animated wow bounceInUp hero-heading animated" data-wow-delay=".6s" style="visibility: visible;-webkit-animation-delay: .6s; -moz-animation-delay: .6s; animation-delay: .6s;">Cutting Edge Features</h1>
-                                <h5 class="animated4 hero-sub-heading">Material Design - Bootstrap - HTML5 - CSS3 - Responsive </h5>
-                                <a href="#hostels" class="animated4 btn btn-common"><i class="material-icons">visibility</i> Learn More</a>
+                                <h1 class="animated wow bounceInUp hero-heading animated" data-wow-delay=".6s" style="visibility: visible;-webkit-animation-delay: .6s; -moz-animation-delay: .6s; animation-delay: .6s;">
+                                    {{ 'slide3.title'|trans|raw }}
+                                </h1>
+                                <h5 class="animated4 hero-sub-heading">
+                                    {{ 'slide3.subtitle'|trans|raw }}
+                                </h5>
+                                <a href="#hostels" class="animated4 btn btn-common">
+                                    <i class="material-icons">visibility</i> {{ 'learn_more'|trans }}
+                                </a>
                             </div>
                         </div>
                     </div>

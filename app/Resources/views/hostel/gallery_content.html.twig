@@ -1,6 +1,6 @@
 {% for hostel in hostels %}
     {#<div class="row">#}
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-3 col-sm-6 col-xs-12">
             {% set hostelPath = path('hostel_view', {'slug' : hostel.slug }) %}
             <div class="swiper-slide hostel-image single-team-widget">
                 <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">

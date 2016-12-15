@@ -160,3 +160,23 @@ PENDING_FOR_CONFIRMATION: Pending for your confirmation
 PENDING_FOR_AVAILABILITY: Pending for confirmation of availability
 CONFIRMED: Confirmed
 CANCELLED: Cancelled
+REJECTED: Rejected
+slide1:
+  title: "Choose a place to<br>stay in Cuba"
+  subtitle: "Get ready for an unforgettable experience"
+slide2:
+  title: "Pick one of the available locations"
+  subtitle: "Discover every place worthy of be seen. We'll help you!"
+slide3:
+  title: "Do you want to have an authentic cuban experience?"
+  subtitle: "Choose one of our houses and you will not regret it."
+learn_more: Learn More
+see_yourself: See for yourself
+top_houses:
+  title: Top Houses
+  description: Our team is proficient in an array of services that can help elevate and empower your company or organization.
+top_destinations:
+  title: Top Locations
+  description: Our team is proficient in an array of services that can help elevate and empower your company or organization.
+search:
+  message: Type a city, a place, a house …

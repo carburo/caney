@@ -9,12 +9,16 @@ form:
   message: Mensaje
   owner: Anfitrión
   comments: Comentarios
+comment:
+  message:
+    label: Escriba aquí su mensaje
 button:
   send: Enviar
   send_message: Enviar mensaje
   book: Hacer una reservación
   go:
     back: Regresar
+  contact_us: Contáctenos
 account:
   log_in: Iniciar sesión
   sign_up: Crear cuenta
@@ -55,7 +59,10 @@ booking:
     dateRange: Elija un rango de fechas para la reservación.
     people: Cantidad de invitados.
   success:
-    message: "<h2>Su solicitud ha sido enviada!</h2><br>Estamos atendiendo su solicitud y le daremos respuesta lo más rápido posible.<br>Le contactaremos vía correo electrónico para confirmar disponibilidad."
+    message: "Su solicitud ha sido recibida y la estamos atendiendo de inmediato. Le daremos respuesta lo más rápido posible para confirmar disponibilidad. En cuanto tengamos una respuesta se la haremos llegar vía correo electrónico y a treavés de esta página web."
+  pending:
+    confirmation:
+      message: "El alojamiento que solicitó está disponible. Solo necesitamos que confirme su reservación y todo estará listo. Si tiene alguna duda no dude en preguntarnos."
 profile:
   show:
     fullName: Nombre completo
@@ -72,6 +79,10 @@ hostel:
     subtitle: Llene el formulario con los datos necesarios para registrar un nuevo hostal a su nombre.
   price:
       label: "desde <strong>%price%</strong> CUC"
+destination:
+  amount:
+    of:
+      hostels: "{1} 1 casa listada|]1,Inf[ %count% casas listadas"
 breakfast:
   label: Desayuno
   price: "Desayuno: %price% CUC"
@@ -103,7 +114,13 @@ room:
   info: 
     title: Información general
   capacity:
-    label: "{1}Una persona|]1,Inf[ %capacity% personas"
+    label: "{1}una persona|]1,Inf[ %capacity% personas"
+  double_beds:
+    label: "{0}|{1}una cama doble|]1,Inf[ %double_beds_count% camas dobles"
+  single_beds:
+    label: "{0}|{1}una cama personal|]1,Inf[ %single_beds_count% camas personales"
+  beds:
+    label: "{0}%single_beds%%double_beds%|{1}%single_beds% y %double_beds%"
   privateBathroom:
     label: Baño privado | Baño compartido
   hotWater:
@@ -139,3 +156,27 @@ title:
   activities: Actividades
 copyright:
   message: Todos los derechos reservados.
+PENDING_FOR_CONFIRMATION: Pendiente de su confirmación
+PENDING_FOR_AVAILABILITY: Pendiente de confirmación de disponibilidad
+CONFIRMED: Confirmada
+CANCELLED: Cancelada
+REJECTED: Rechazada
+slide1:
+  title: "Elija un lugar donde<br>quedarse en Cuba"
+  subtitle: "Préparese para una experiencia inolvidable"
+slide2:
+  title: "Seleccione una de los destinos disponibles"
+  subtitle: "Descubra cada lugar digno de ser visto. ¡Cuente con nosotros!"
+slide3:
+  title: "¿Quiere disfrutar de una auténtica experiencia cubana?"
+  subtitle: "Elija una de nuestras casas y no se arrepentirá."
+learn_more: "Descubra más"
+see_yourself: "Véalo usted mismo"
+top_houses:
+  title: "Casas destacadas"
+  description: Our team is proficient in an array of services that can help elevate and empower your company or organization.
+top_destinations:
+  title: "Destinos destacados"
+  description: Our team is proficient in an array of services that can help elevate and empower your company or organization.
+search:
+  message: Type a city, a place, a house …

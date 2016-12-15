@@ -3,7 +3,7 @@
         <div class="row">
             <form id="search-form" action="{{ path('hostels') }}">
                 <div id="bloodhound" class="col-md-12" style="text-align: center">
-                    <input type="text" id="search-box" name="query" class="typeahead" placeholder="Type a city, a place to go"/>
+                    <input type="text" id="search-box" name="query" class="typeahead" placeholder="{{ 'search.message'|trans }}"/>
                 </div>
                 <input type="submit" class="hidden">
             </form>

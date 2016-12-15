@@ -29,7 +29,7 @@ a a:focus {
   font-size: 56px;
   font-weight: 700;
   color: #fff;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   line-height: 70px;
   letter-spacing: 0.1rem;
 }
