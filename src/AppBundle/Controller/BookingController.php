@@ -174,6 +174,7 @@ class BookingController extends Controller
         return $this->render('booking/index.html.twig', array(
             'form' => $form->createView(),
             'hostel' => $hostel,
+            'errors' => $form->getErrors()
         ));
     }
 

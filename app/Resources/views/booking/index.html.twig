@@ -101,9 +101,22 @@
                                     </ul>
                                 </div>
                             {% endif %}
-                            <span style="padding-bottom: 10px; border-bottom: 0.3em solid #e53935">
-                                <label style="font-size: xx-large;font-weight: 300;border-bottom-color: #7c1212">125 CUC</label>
+
+                            <div>
+                            <span>
+                                <label id="booking_nights" style="font-size: x-large;font-weight: 300"></label>
                             </span>
+                            </div>
+                            <div>
+                            <span>
+                                <label id="booking_season" style="font-size: large;font-weight: 300">Choose</label>
+                            </span>
+                            </div>
+                            <div>
+                            <span style="padding-bottom: 10px; border-bottom: 0.3em solid #e53935">
+                                <label id="booking_price" style="font-size: xx-large;font-weight: 300;border-bottom-color: #7c1212">0 CUC</label>
+                            </span>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -123,9 +136,26 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script src='{{ asset("js/translations/booking_#{locale}.js") }}'></script>
     <script type="text/javascript">
         $(document).ready(function() {
             var locale = "{{ app.request.attributes.get('_locale') }}";
+            $("#booking_nights").html(polyglot.t("num_nights", 0));
+            var fullHouse = {{ hostel.offerType == 'WHOLE_HOUSE' ? "true" : "false" }};
+            var sStartDate = null;
+            var sEndDate = null;
+
+            if(fullHouse) {
+                var priceInHigh = {{ hostel.priceInHigh }};
+                var priceInLow = {{ hostel.priceInLow }};
+            } else {
+                var priceInLow = new Array({{ hostel.rooms.count }});
+                var priceInHigh = new Array({{ hostel.rooms.count }});
+                {% for room in hostel.rooms %}
+                    priceInLow[{{ loop.index - 1 }}] = {{ room.priceInLow }};
+                    priceInHigh[{{ loop.index - 1 }}] = {{ room.priceInHigh }}
+                {% endfor %}
+            }
 
             $("#date_range").attr("disabled", "true");
             var availability = [];
@@ -134,6 +164,12 @@
                     availability = json;
                 });
             }
+
+            $("#booking_room input").on("change", function () {
+                if(sStartDate != null && sEndDate != null) {
+                    updateInformation();
+                }
+            });
 
             $.when(getAvailability()).done(function() {
                 $('#booking_startDate').dateRangePicker({
@@ -150,6 +186,13 @@
                         var _tooltip = available ? '' : 'sold out';
                         return [available,_class,_tooltip];
                     },
+                    hoveringTooltip: function(days)
+                    {
+                        if(days == 1) {
+                            return polyglot.t("choose_a_date");
+                        }
+                        return polyglot.t("num_nights", days - 1);
+                    },
                     getValue: function()
                     {
                         if ($('#booking_startDate').val() && $('#booking_endDate').val() )
@@ -164,19 +207,43 @@
                     }
                 }).bind('datepicker-change',function(event,obj)
                 {
+                    var startDate = moment(obj.date1);
+                    var endDate = moment(obj.date2);
                     $("#booking_room label").attr("style", "text-decoration: line-through");
                     $("#booking_room input").attr("disabled", "disabled");
                     $.getJSON("/api/{{ locale }}/hostels/{{ hostel.id }}/available_rooms/"
-                            + moment(obj.date1).format('YYYY-MM-DD') + "/"
-                            + moment(obj.date2).format('YYYY-MM-DD'), null, function (json) {
+                            + startDate.format('YYYY-MM-DD') + "/"
+                            + endDate.format('YYYY-MM-DD'), null, function (json) {
                         for (var id in json) {
                             $("#booking_rooms_" + json[id]).parent("label").removeAttr("style");
                             $("#booking_rooms_" + json[id]).removeAttr("disabled");
                         }
                         $(":disabled:checked").removeAttr("checked");
+
+                        sStartDate = startDate;
+                        sEndDate = endDate;
+                        updateInformation();
                     });
                 });
             });
+
+            function updateInformation() {
+                var high_season_def = [0, 1, 2, 6, 7, 10, 11];
+                var high_season = high_season_def.indexOf(sStartDate.month()) != -1;
+                var num_nights = sEndDate.diff(sStartDate, "days");
+
+                var price = 0;
+                if({{ form.rooms is defined ? "true": "false" }}) {
+                    $("#booking_room input:checked").each(function(obj) {
+                        price += (high_season ? priceInHigh[obj] : priceInLow[obj]) * num_nights;
+                    });
+                } else {
+                    price = ((high_season) ? priceInHigh : priceInLow) * num_nights;
+                }
+                $("#booking_season").html(polyglot.t(high_season ? "high_season": "low_season"));
+                $("#booking_nights").html(polyglot.t("num_nights", num_nights));
+                $("#booking_price").html(price + " CUC");
+            }
         });
 
     </script>
