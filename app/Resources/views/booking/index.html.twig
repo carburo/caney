@@ -179,11 +179,12 @@
                     alwaysOpen:true,
                     startDate: new Date(),
                     endDate: moment().add(1, 'years').toDate(),
+                    language: locale,
                     beforeShowDay: function(t)
                     {
                         var available = availability[Math.ceil(moment(t).diff(moment(), "days", true))];
                         var _class = '';
-                        var _tooltip = available ? '' : 'sold out';
+                        var _tooltip = available ? '' : polyglot.t('sold_out');
                         return [available,_class,_tooltip];
                     },
                     hoveringTooltip: function(days)
@@ -191,7 +192,7 @@
                         if(days == 1) {
                             return polyglot.t("choose_a_date");
                         }
-                        return polyglot.t("num_nights", days - 1);
+                        return polyglot.t("num_nights", days);
                     },
                     getValue: function()
                     {
@@ -230,7 +231,7 @@
             function updateInformation() {
                 var high_season_def = [0, 1, 2, 6, 7, 10, 11];
                 var high_season = high_season_def.indexOf(sStartDate.month()) != -1;
-                var num_nights = sEndDate.diff(sStartDate, "days");
+                var num_nights = Math.ceil(sEndDate.diff(sStartDate, "days", true)) + 1;
 
                 var price = 0;
                 if({{ form.rooms is defined ? "true": "false" }}) {
