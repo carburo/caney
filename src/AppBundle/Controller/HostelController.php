@@ -47,12 +47,12 @@ class HostelController extends Controller
     }
 
     /**
-     * @Route("/hostels_row", name="hostels_row")
+     * @Route("/hostels_row/{location}/{id}", name="hostels_row", defaults={"id" = 0})
      */
-    public function rowAction() {
+    public function rowAction(Location $location, $id = 0) {
         $repo = $this->getRepository();
-        $query = $repo->createQueryBuilder('p')->getQuery()->setMaxResults(4);
-        $hostels = $query->getResult();
+        $hostels = $repo->findByLocation($location->getSlug(), $id, 8);
+
         return $this->render('hostel/hostels_row.html.twig', [
             'hostels' => $hostels
         ]);

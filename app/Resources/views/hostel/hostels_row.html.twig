@@ -1,3 +1,4 @@
+{% if hostels is not empty %}
 <div class="row">
     {% for hostel in hostels %}
         {% set hostelPath = path('hostel_view', {'slug' : hostel.slug }) %}
@@ -24,3 +25,6 @@
         </div>
     {% endfor %}
 </div>
+{% set hostel = hostels|last %}
+<a href="{{ path('hostels_row', {'location': hostel.location.slug, 'id': hostel.id}) }}">Next</a>
+{% endif %}

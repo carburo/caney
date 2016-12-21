@@ -37,6 +37,20 @@ class HostelRepository extends EntityRepository
         return $result;
     }
 
+    public function findByLocation($locationId, $lastHostelId, $limit) {
+        $em = $this->getEntityManager();
+        $mapping = new ResultSetMappingBuilder($em);
+        $mapping->addRootEntityFromClassMetadata('AppBundle\Entity\Hostel', 'h');
+
+        $sql = "CALL hostels_pagination_by_location(?, ?, ?)";
+        $query = $em->createNativeQuery($sql, $mapping);
+        $query->setParameter(1, $locationId);
+        $query->setParameter(2, $lastHostelId);
+        $query->setParameter(3, $limit);
+
+        return $query->getResult();
+    }
+
     public function activeByLocation($slug) {
         $em = $this->getEntityManager();
         $mapping = new ResultSetMappingBuilder($em);

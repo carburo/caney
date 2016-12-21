@@ -20,18 +20,9 @@
         </div>
     </section><!--/#destination-page-->
     {% endif %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                {% include 'hostel/slider.html.twig' %}
-            </div>
-        </div>
+    <div class="container jscroll">
+        {{ render(controller('AppBundle:Hostel:row', {'location': destination})) }}
     </div>
-    {#<div class="container" id="wrapper">#}
-        {#<div id="scroller">#}
-            {#{% include 'hostel/hostels_row.html.twig' %}#}
-        {#</div>#}
-    {#</div>#}
 {% endblock %}
 
 {% block javascripts %}
@@ -45,31 +36,13 @@
             spaceBetween: 10
         });
     </script>
-    {#<script>#}
-        {#$(document).ready(function() {#}
-            {#var myScroll;#}
-            {#myScroll = new IScroll('#wrapper', {#}
-                {#mouseWheel: true,#}
-                {#infiniteElements: '#scroller .row',#}
-                {#//infiniteLimit: 2000,#}
-                {#dataset: requestData,#}
-                {#dataFiller: updateContent,#}
-                {#cacheSize: 1000#}
-            {#});#}
-
-            {#function requestData (start, count) {#}
-{#//                $.get("/en/hostels_row", function(data) {#}
-{#//                    myScroll.updateCache(start, data);#}
-{#//                });#}
-            {#}#}
-
-            {#function updateContent (el, data) {#}
-                {#el.innerHTML = data;#}
-            {#}#}
-
-            {#document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);#}
-        {#});#}
-    {#</script>#}
+    <script>
+        $(document).ready(function() {
+            $('.jscroll').jscroll({
+                padding: 400
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block stylesheets %}
