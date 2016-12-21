@@ -157,10 +157,13 @@
                 {% endfor %}
             }
 
+            var today = moment.utc("{{ "now"|date("Y-m-d", "America/Havana") }}");
+            var todayFormatted = today.format("YYYY-MM-DD");
+
             $("#date_range").attr("disabled", "true");
             var availability = [];
             function getAvailability() {
-                return $.getJSON("/api/{{ locale }}/hostels/{{ hostel.id }}/availability", null, function(json) {
+                return $.getJSON("/api/{{ locale }}/hostels/{{ hostel.id }}/availabilities/" + todayFormatted, null, function(json) {
                     availability = json;
                 });
             }
@@ -177,8 +180,8 @@
                     container: '#check_in_container',
                     selectForward: true,
                     alwaysOpen:true,
-                    startDate: new Date(),
-                    endDate: moment().add(1, 'years').toDate(),
+                    startDate: today.clone().toDate(),
+                    endDate: today.clone().add(1, 'years').toDate(),
                     language: locale,
                     beforeShowDay: function(t)
                     {

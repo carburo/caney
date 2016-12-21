@@ -27,13 +27,13 @@ class RoomController extends FOSRestController implements ClassResourceInterface
         ]);
     }
 
-    public function getAvailabilityAction($id)
+    public function getAvailabilityAction($id, $checkDate)
     {
         $db = $this->getConnection();
         $sql = "call room_availability(:id, :checkDate)";
         $dataset = $db->fetchAll($sql, [
             "id" => $id,
-            "checkDate" => (new DateTime())->format("y-m-d")
+            "checkDate" => $checkDate
         ]);
         $result = [];
         foreach($dataset as $row) {
@@ -42,13 +42,13 @@ class RoomController extends FOSRestController implements ClassResourceInterface
         return $result;
     }
 
-    public function getAvailabilityByHostelAction($id)
+    public function getAvailabilityByHostelAction($id, $checkDate)
     {
         $db = $this->getConnection();
         $sql = "call room_availability_by_hostel(:id, :checkDate)";
         $dataset = $db->fetchAssoc($sql, [
             "id" => $id,
-            "checkDate" => (new DateTime())->format("y-m-d")
+            "checkDate" => $checkDate
         ]);
 //        $dataset->nextRowset();
 //        $result = [];

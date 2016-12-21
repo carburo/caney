@@ -1,0 +1,26 @@
+<div class="row">
+    {% for hostel in hostels %}
+        {% set hostelPath = path('hostel_view', {'slug' : hostel.slug }) %}
+        <div class="col-md-3">
+            <div class="hostel-image single-team-widget">
+                <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                    <a href="{{ hostelPath }}" itemprop="contentUrl" data-size="270x270">
+                        {% if hostel.frontImage is not null %}
+                            <img src="{{ vich_uploader_asset(hostel.frontImage, 'imageFile')|imagine_filter('app_thumb') }}" itemprop="thumbnail" alt="{{ hostel.hostelName }}" />
+                        {% endif %}
+                    </a>
+                    <figcaption class="team-member-info" itemprop="caption description">
+                        <div class="know-more">
+                            <a class="btn btn-round btn-fab" href="{{ hostelPath }}">
+                                <i class="material-icons">arrow_forward</i>
+                                <div class="ripple-container"></div>
+                            </a>
+                        </div>
+                        <h2 class="subtitle">{{ hostel.hostelName }}</h2>
+                        <p>{{ 'hostel.price.label'|trans({'%price%': hostel.minimumPrice})|raw }}</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    {% endfor %}
+</div>

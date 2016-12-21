@@ -24,13 +24,13 @@ class HostelController extends FOSRestController implements ClassResourceInterfa
         ]);
     }
 
-    public function getAvailabilityAction($id)
+    public function getAvailabilityAction($id, $checkDate)
     {
         $db = $this->getConnection();
         $sql = "call hostel_availability(:id, :checkDate)";
         $dataset = $db->fetchAll($sql, [
             "id" => $id,
-            "checkDate" => (new DateTime())->format("y-m-d")
+            "checkDate" => $checkDate
         ]);
         $result = [];
         foreach($dataset as $row) {
@@ -60,15 +60,4 @@ class HostelController extends FOSRestController implements ClassResourceInterfa
     {
         return $this->getDoctrine()->getRepository('AppBundle:Hostel');
     }
-
-    private $imagesSql = "
-        SELECT
-            filename,
-            description
-        FROM
-            image i
-        JOIN hostel_image hi ON i.id = hi.id
-        WHERE
-            hi.hostel_id = (select id from hostel where slug = :slug)
-    ";
 }

@@ -47,6 +47,18 @@ class HostelController extends Controller
     }
 
     /**
+     * @Route("/hostels_row", name="hostels_row")
+     */
+    public function rowAction() {
+        $repo = $this->getRepository();
+        $query = $repo->createQueryBuilder('p')->getQuery()->setMaxResults(4);
+        $hostels = $query->getResult();
+        return $this->render('hostel/hostels_row.html.twig', [
+            'hostels' => $hostels
+        ]);
+    }
+
+    /**
      * @Route("/hostel/search", name="hostel_search", options={"expose"=true})
      */
     public function searchAction(Request $request) {

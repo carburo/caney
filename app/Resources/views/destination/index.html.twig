@@ -27,6 +27,11 @@
             </div>
         </div>
     </div>
+    {#<div class="container" id="wrapper">#}
+        {#<div id="scroller">#}
+            {#{% include 'hostel/hostels_row.html.twig' %}#}
+        {#</div>#}
+    {#</div>#}
 {% endblock %}
 
 {% block javascripts %}
@@ -40,6 +45,31 @@
             spaceBetween: 10
         });
     </script>
+    {#<script>#}
+        {#$(document).ready(function() {#}
+            {#var myScroll;#}
+            {#myScroll = new IScroll('#wrapper', {#}
+                {#mouseWheel: true,#}
+                {#infiniteElements: '#scroller .row',#}
+                {#//infiniteLimit: 2000,#}
+                {#dataset: requestData,#}
+                {#dataFiller: updateContent,#}
+                {#cacheSize: 1000#}
+            {#});#}
+
+            {#function requestData (start, count) {#}
+{#//                $.get("/en/hostels_row", function(data) {#}
+{#//                    myScroll.updateCache(start, data);#}
+{#//                });#}
+            {#}#}
+
+            {#function updateContent (el, data) {#}
+                {#el.innerHTML = data;#}
+            {#}#}
+
+            {#document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);#}
+        {#});#}
+    {#</script>#}
 {% endblock %}
 
 {% block stylesheets %}
