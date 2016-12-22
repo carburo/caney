@@ -8,13 +8,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 
 /**
- * Service
+ * ServiceClassification
  *
- * @ORM\Table(name="service")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ServiceRepository")
- * @Gedmo\TranslationEntity(class="AppBundle\Entity\ServiceTranslation")
+ * @ORM\Table(name="service_classification")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ServiceClassificationRepository")
+ * @Gedmo\TranslationEntity(class="AppBundle\Entity\ServiceClassificationTranslation")
  */
-class Service
+class ServiceClassification
 {
     /**
      * @var int
@@ -36,27 +36,18 @@ class Service
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=255)
-     */
-    private $type;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="icon", type="string", length=255)
      */
     private $icon;
 
     /**
-     * @var ServiceClassification
-     * @ORM\ManyToOne(targetEntity="ServiceClassification", inversedBy="services")
-     * @ORM\JoinColumn(name="classification_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="Service", mappedBy="classification")
      */
-    private $classification;
+    private $services;
 
     /**
      * @ORM\OneToMany(
-     *   targetEntity="ServiceTranslation",
+     *   targetEntity="ServiceClassificationTranslation",
      *   mappedBy="object",
      *   cascade={"persist", "remove"}
      * )
@@ -72,7 +63,7 @@ class Service
         return $this->translations;
     }
 
-    public function addTranslation(ServiceTranslation $t)
+    public function addTranslation(ServiceClassificationTranslation $t)
     {
         if (!$this->translations->contains($t)) {
             $this->translations[] = $t;
@@ -141,17 +132,17 @@ class Service
     /**
      * @return mixed
      */
-    public function getClassification()
+    public function getServices()
     {
-        return $this->classification;
+        return $this->services;
     }
 
     /**
-     * @param mixed $classification
+     * @param mixed $services
      */
-    public function setClassification($classification)
+    public function setServices($services)
     {
-        $this->classification = $classification;
+        $this->services = $services;
     }
 
     public function __toString() {

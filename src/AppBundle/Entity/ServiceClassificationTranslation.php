@@ -13,13 +13,13 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="other_services_translations",
- *     uniqueConstraints={@ORM\UniqueConstraint(name="other_services_lookup_unique_idx", columns={
+ * @ORM\Table(name="service_classification_translation",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="service_lookup_unique_idx", columns={
  *         "locale", "object_id", "field"
  *     })}
  * )
  */
-class OtherServicesTranslation extends AbstractPersonalTranslation {
+class ServiceClassificationTranslation extends AbstractPersonalTranslation {
 
     /**
      * Convenient constructor
@@ -36,7 +36,7 @@ class OtherServicesTranslation extends AbstractPersonalTranslation {
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="OtherServices", inversedBy="translations")
+     * @ORM\ManyToOne(targetEntity="ServiceClassification", inversedBy="translations")
      * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $object;

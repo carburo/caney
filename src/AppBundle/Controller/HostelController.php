@@ -136,9 +136,15 @@ class HostelController extends Controller
         if($this->isGranted('edit', $hostel)) {
             $edit = true;
         }
+
+        $serviceRepo = $this->getDoctrine()->getRepository('AppBundle:ServiceClassification');
+        $serviceByHostelRepo = $this->getDoctrine()->getRepository('AppBundle:ServiceByHostel');
+
         return $this->render('hostel/view.html.twig', [
             'hostel' => $hostel,
-            'edit' => $edit
+            'edit' => $edit,
+            'serviceClasses' => $serviceRepo->findByHostel($hostel),
+            'serviceRepo' => $serviceByHostelRepo
         ]);
     }
 

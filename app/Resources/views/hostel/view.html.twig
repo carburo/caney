@@ -126,82 +126,21 @@
                     </div>
                 </div>{#--/.col-sm-8--#}
                 <div class="col-md-6 col-sm-12">
-                    <h3>{% trans %}hostel.info.title{% endtrans %}</h3>
-                    <ul>
-                        <li>
-                            <i class='material-icons'>child_friendly</i>
-                            {% transchoice hostel.childrenAccepted %}children.accepted{% endtranschoice %}
-                        </li>
-                        <li>
-                            <i class='material-icons'>directions_car</i>
-                            {% if hostel.garage %}
-                                {% trans with { '%price%': hostel.garagePrice } %}garage.price{% endtrans %}
-                            {% else %}
-                                {{ 'garage.label'|trans }}: <strong>{{ 'label.notAvailable'|trans }}</strong>
-                            {% endif %}
-                        </li>
-                        <li>
-                            <i class='material-icons'>local_laundry_service</i>
-                            {% transchoice hostel.laundry %}laundry.label{% endtranschoice %}
-                        </li>
-                        {% if hostel.swimmingPool %}<li>{{ 'swimmingPool.label'|trans }}</li>{% endif %}
-                        <li>
-                            <i class='material-icons'>http</i>
-                            {% transchoice hostel.internet %}internet.label{% endtranschoice %}
-                        </li>
-                        <li>
-                            <i class='material-icons'>wifi</i>
-                            {% transchoice hostel.wifi %}wifi.label{% endtranschoice %}
-                        </li>
-                    </ul>
-                    <h3>{% trans %}title.food{% endtrans %}</h3>
-                    <ul>
-                        <li>
-                            <i class='material-icons'>free_breakfast</i>
-                            {% if hostel.breakfast %}
-                                {% trans with {'%price%': hostel.breakfastPrice } %}breakfast.price{% endtrans %}
-                            {% else %}
-                                {{ 'breakfast.label'|trans }}: <strong>{{ 'label.notAvailable'|trans }}</strong>
-                            {% endif %}
-                        </li>
-                        <li>
-                            <i class='material-icons'>local_dining</i>
-                            {% if hostel.dinner %}
-                                {% trans with {'%price%': hostel.dinnerPrice } %}dinner.price{% endtrans %}
-                            {% else %}
-                                {{ 'dinner.label'|trans }}: <strong>{{ 'label.notAvailable'|trans }}</strong>
-                            {% endif %}
-                        </li>
-                        {% if hostel.cocktails %}
-                            <li>
-                                <i class='material-icons'>local_bar</i>
-                                {{ 'cocktails.label'|trans }}
-                            </li>
-                        {% endif %}
-                    </ul>
-                    {% if hostel.guide or hostel.horseRide or hostel.scubaDiving %}
-                        <h3>{% trans %}title.activities{% endtrans %}</h3>
+                    {% for serviceClass in serviceClasses %}
+                        <h3>{{ serviceClass.name|capitalize }}</h3>
                         <ul>
-                            {% if hostel.guide %}
+                            {% set services = serviceRepo.findByClassification(hostel, serviceClass) %}
+                            {% for service in services %}
                                 <li>
-                                    <i class="map-icon map-icon-point-of-interest"></i>
-                                    {{ 'guide.label'|trans }}
+                                    {{ service.service.icon|raw }}
+                                    {{ service.service.name|capitalize }}
+                                    {% if service.service.type == 'priced' and service.price is not empty and service.price != 0 %}
+                                        : {{ service.price }} CUC
+                                    {% endif %}
                                 </li>
-                            {% endif %}
-                            {% if hostel.horseRide %}
-                                <li>
-                                    <i class="map-icon map-icon-horse-riding"></i>
-                                    {{ 'horseRide.label'|trans }}
-                                </li>
-                            {% endif %}
-                            {% if hostel.scubaDiving %}
-                                <li>
-                                    <i class="map-icon map-icon-scuba-diving"></i>
-                                    {{ 'scubaDiving.label'|trans }}
-                                </li>
-                            {% endif %}
+                            {% endfor %}
                         </ul>
-                    {% endif %}
+                    {% endfor %}
                     <h3>
                         <i class='material-icons'>translate</i>
                         {{ 'hostel.languages.title'|trans }} 

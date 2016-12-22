@@ -88,111 +88,6 @@ class Hostel
     private $hostLanguages;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="breakfast", type="boolean")
-     */
-    private $breakfast;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="breakfast_price", type="decimal", precision=10, scale=2, nullable=true)
-     */
-    private $breakfastPrice;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="dinner", type="boolean")
-     */
-    private $dinner;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="dinner_price", type="decimal", precision=10, scale=2, nullable=true)
-     */
-    private $dinnerPrice;
-    
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="cocktails", type="boolean")
-     */
-    private $cocktails;
-    
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="children", type="boolean")
-     */
-    private $childrenAccepted;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="garage", type="boolean")
-     */
-    private $garage;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="garage_price", type="decimal", precision=10, scale=2, nullable=true)
-     */
-    private $garagePrice;
-    
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="swimming_pool", type="boolean")
-     */
-    private $swimmingPool;
-    
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="laundry", type="boolean")
-     */
-    private $laundry;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="guide", type="boolean")
-     */
-    private $guide;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="horse_ride", type="boolean")
-     */
-    private $horseRide;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="scuba_diving", type="boolean")
-     */
-    private $scubaDiving;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="internet", type="boolean")
-     */
-    private $internet;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="wifi", type="boolean")
-     */
-    private $wifi;
-
-    /**
      * @ORM\OneToMany(targetEntity="Room", mappedBy="hostel")
      */
     private $rooms;
@@ -222,25 +117,10 @@ class Hostel
      */
     private $rank;
 
-//    /**
-//     *
-//     * @ORM\ManyToMany(targetEntity="OtherServices")
-//     * @ORM\JoinTable(name="services_by_hostel",
-//     *      joinColumns={@ORM\JoinColumn(name="hostel_id", referencedColumnName="id")},
-//     *      inverseJoinColumns={@ORM\JoinColumn(name="service_id", referencedColumnName="id")}
-//     *      )
-//     */
-//    private $otherServices;
-
-//    /**
-//     *
-//     * @ORM\ManyToMany(targetEntity="Service")
-//     * @ORM\JoinTable(name="service_by_hostel",
-//     *      joinColumns={@ORM\JoinColumn(name="hostel_id", referencedColumnName="id")},
-//     *      inverseJoinColumns={@ORM\JoinColumn(name="service_id", referencedColumnName="id")}
-//     *      )
-//     */
-//    private $services;
+    /**
+     * @ORM\OneToMany(targetEntity="ServiceByHostel", mappedBy="hostel")
+     */
+    private $services;
 
     /**
      * @var Location
@@ -379,166 +259,6 @@ class Hostel
     }
 
     /**
-     * Set breakfastPrice
-     *
-     * @param string $breakfastPrice
-     *
-     * @return Hostel
-     */
-    public function setBreakfastPrice($breakfastPrice)
-    {
-        $this->breakfastPrice = $breakfastPrice;
-
-        return $this;
-    }
-
-    /**
-     * Get breakfastPrice
-     *
-     * @return string
-     */
-    public function getBreakfastPrice()
-    {
-        return $this->breakfastPrice;
-    }
-
-    /**
-     * Set dinnerPrice
-     *
-     * @param string $dinnerPrice
-     *
-     * @return Hostel
-     */
-    public function setDinnerPrice($dinnerPrice)
-    {
-        $this->dinnerPrice = $dinnerPrice;
-
-        return $this;
-    }
-
-    /**
-     * Get dinnerPrice
-     *
-     * @return string
-     */
-    public function getDinnerPrice()
-    {
-        return $this->dinnerPrice;
-    }
-
-    /**
-     * Set internet
-     *
-     * @param boolean $internet
-     *
-     * @return Hostel
-     */
-    public function setInternet($internet)
-    {
-        $this->internet = $internet;
-
-        return $this;
-    }
-
-    /**
-     * Get internet
-     *
-     * @return bool
-     */
-    public function getInternet()
-    {
-        return $this->internet;
-    }
-
-    /**
-     * Set wifi
-     *
-     * @param boolean $wifi
-     *
-     * @return Hostel
-     */
-    public function setWifi($wifi)
-    {
-        $this->wifi = $wifi;
-
-        return $this;
-    }
-
-    /**
-     * Get wifi
-     *
-     * @return bool
-     */
-    public function getWifi()
-    {
-        return $this->wifi;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGuide()
-    {
-        return $this->guide;
-    }
-
-    /**
-     * @param mixed $guide
-     */
-    public function setGuide($guide)
-    {
-        $this->guide = $guide;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isHorseRide()
-    {
-        return $this->horseRide;
-    }
-
-    /**
-     * @param boolean $horseRide
-     */
-    public function setHorseRide($horseRide)
-    {
-        $this->horseRide = $horseRide;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isScubaDiving()
-    {
-        return $this->scubaDiving;
-    }
-
-    /**
-     * @param boolean $scubaDiving
-     */
-    public function setScubaDiving($scubaDiving)
-    {
-        $this->scubaDiving = $scubaDiving;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getRooms()
-    {
-        return $this->rooms;
-    }
-
-    /**
-     * @param mixed $rooms
-     */
-    public function setRooms($rooms)
-    {
-        $this->rooms = $rooms;
-    }
-
-    /**
      * @return Location
      */
     public function getLocation()
@@ -600,134 +320,6 @@ class Hostel
     public function setWebsite($website)
     {
         $this->website = $website;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isBreakfast()
-    {
-        return $this->breakfast;
-    }
-
-    /**
-     * @param boolean $breakfast
-     */
-    public function setBreakfast($breakfast)
-    {
-        $this->breakfast = $breakfast;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isDinner()
-    {
-        return $this->dinner;
-    }
-
-    /**
-     * @param boolean $dinner
-     */
-    public function setDinner($dinner)
-    {
-        $this->dinner = $dinner;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isCocktails()
-    {
-        return $this->cocktails;
-    }
-
-    /**
-     * @param boolean $cocktails
-     */
-    public function setCocktails($cocktails)
-    {
-        $this->cocktails = $cocktails;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isChildrenAccepted()
-    {
-        return $this->childrenAccepted;
-    }
-
-    /**
-     * @param boolean $childrenAccepted
-     */
-    public function setChildrenAccepted($childrenAccepted)
-    {
-        $this->childrenAccepted = $childrenAccepted;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isGarage()
-    {
-        return $this->garage;
-    }
-
-    /**
-     * @param boolean $garage
-     */
-    public function setGarage($garage)
-    {
-        $this->garage = $garage;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGaragePrice()
-    {
-        return $this->garagePrice;
-    }
-
-    /**
-     * @param string $garagePrice
-     */
-    public function setGaragePrice($garagePrice)
-    {
-        $this->garagePrice = $garagePrice;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isSwimmingPool()
-    {
-        return $this->swimmingPool;
-    }
-
-    /**
-     * @param boolean $swimmingPool
-     */
-    public function setSwimmingPool($swimmingPool)
-    {
-        $this->swimmingPool = $swimmingPool;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isLaundry()
-    {
-        return $this->laundry;
-    }
-
-    /**
-     * @param boolean $laundry
-     */
-    public function setLaundry($laundry)
-    {
-        $this->laundry = $laundry;
     }
 
     /**
@@ -827,6 +419,38 @@ class Hostel
             }
         }
         return null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getServices()
+    {
+        return $this->services;
+    }
+
+    /**
+     * @param mixed $services
+     */
+    public function setServices($services)
+    {
+        $this->services = $services;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRooms()
+    {
+        return $this->rooms;
+    }
+
+    /**
+     * @param mixed $rooms
+     */
+    public function setRooms($rooms)
+    {
+        $this->rooms = $rooms;
     }
     
     public function __toString() {

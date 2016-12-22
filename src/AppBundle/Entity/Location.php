@@ -80,7 +80,7 @@ class Location
         return $this->translations;
     }
 
-    public function addTranslation(OtherServicesTranslation $t)
+    public function addTranslation(LocationTranslation $t)
     {
         if (!$this->translations->contains($t)) {
             $this->translations[] = $t;
