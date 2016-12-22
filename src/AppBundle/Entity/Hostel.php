@@ -216,6 +216,12 @@ class Hostel
      */
     private $offerType = "SINGLE_ROOM";
 
+    /**
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="rank", type="integer")
+     */
+    private $rank;
+
 //    /**
 //     *
 //     * @ORM\ManyToMany(targetEntity="OtherServices")
@@ -314,6 +320,22 @@ class Hostel
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRank()
+    {
+        return $this->rank;
+    }
+
+    /**
+     * @param mixed $rank
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
     }
 
     /**
