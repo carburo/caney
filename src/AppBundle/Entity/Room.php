@@ -162,6 +162,11 @@ class Room
     private $hostel;
 
     /**
+     * @ORM\OneToMany(targetEntity="ServiceByRoom", mappedBy="room")
+     */
+    private $services;
+
+    /**
      * @ORM\OneToMany(targetEntity="HostelImage", mappedBy="room")
      */
     private $images;
@@ -287,6 +292,22 @@ class Room
     public function setPriceInLow($priceInLow)
     {
         $this->priceInLow = $priceInLow;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getServices()
+    {
+        return $this->services;
+    }
+
+    /**
+     * @param mixed $services
+     */
+    public function setServices($services)
+    {
+        $this->services = $services;
     }
 
     /**

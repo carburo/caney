@@ -62,62 +62,15 @@
                                 <div id="collapse{{ loop.index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ loop.index }}" aria-expanded="false" style="height: 0px;">
                                 <div class="panel-body">
                                     <ul>
-                                        <li>
-                                            <i class="material-icons">hot_tub</i>
-                                            {% transchoice room.privateBathroom %}room.privateBathroom.label{% endtranschoice %}
-                                        </li>
-                                        {% if room.hotWater %}
+                                        {% for service in room.services %}
                                             <li>
-                                                <i class="material-icons">invert_colors</i>
-                                                {{ 'room.hotWater.label' | trans }}
+                                                {{ service.service.icon|raw }}
+                                                {{ service.service.name|capitalize }}
+                                                {% if service.service.type == 'priced' and service.price is not empty and service.price != 0 %}
+                                                    : {{ service.price }} CUC
+                                                {% endif %}
                                             </li>
-                                        {% endif %}
-                                        <li>
-                                            <i class='material-icons'>ac_unit</i>
-                                            {% transchoice room.airConditioner %}room.airConditioner.label{% endtranschoice %}
-                                        </li>
-                                        {% if room.voltage120 or room.voltage240 %}
-                                            <li>
-                                                <i class='material-icons'>flash_on</i>
-                                                {{ 'room.voltage.label' | trans({'%voltage%': room.voltage | join(', ')}) }}
-                                            </li>
-                                        {% endif %}
-                                        {% if room.privateEntrance %}
-                                            <li>
-                                                <i class="fa fa-check-square"></i>
-                                                {{ 'room.privateEntrance.label' | trans }}
-                                            </li>
-                                        {% endif %}
-                                        {% if room.safe %}
-                                            <li>
-                                                <i class="fa fa-check-square"></i>
-                                                {{ 'room.safe.label' | trans }}
-                                            </li>
-                                        {% endif %}
-                                        {% if room.terrace %}
-                                            <li>
-                                                <i class="fa fa-check-square"></i>
-                                                {{ 'room.terrace.label' | trans }}
-                                            </li>
-                                        {% endif %}
-                                        {% if room.minibar %}
-                                            <li>
-                                                <i class="fa fa-check-square"></i>
-                                                {{ 'room.minibar.label' | trans }}
-                                            </li>
-                                        {% endif %}
-                                        {% if room.hairDryer %}
-                                            <li>
-                                                <i class="fa fa-check-square"></i>
-                                                {{ 'room.hairDryer.label' | trans }}
-                                            </li>
-                                        {% endif %}
-                                        {% if room.television %}
-                                            <li>
-                                                <i class="material-icons">tv</i>
-                                                {{ 'room.television.label' | trans }}
-                                            </li>
-                                        {% endif %}                                    
+                                        {% endfor %}
                                     </ul>
                                 </div>
                                 </div>
