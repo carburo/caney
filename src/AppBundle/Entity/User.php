@@ -98,6 +98,13 @@ class User extends BaseUser
     private $owner;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="preferred_locale", type="string", length=10)
+     */
+    private $preferredLocale = 'en';
+
+    /**
      * @return string
      */
     public function getForename()
@@ -183,6 +190,22 @@ class User extends BaseUser
     public function setOwner($owner)
     {
         $this->owner = $owner;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPreferredLocale(): string
+    {
+        return $this->preferredLocale;
+    }
+
+    /**
+     * @param string $preferredLocale
+     */
+    public function setPreferredLocale(string $preferredLocale)
+    {
+        $this->preferredLocale = $preferredLocale;
     }
 
     public function getProfilePicture()

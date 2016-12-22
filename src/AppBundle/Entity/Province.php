@@ -72,7 +72,7 @@ class Province
         return $this->translations;
     }
 
-    public function addTranslation(OtherServicesTranslation $t)
+    public function addTranslation(ProvinceTranslation $t)
     {
         if (!$this->translations->contains($t)) {
             $this->translations[] = $t;

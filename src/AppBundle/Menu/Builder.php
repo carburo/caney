@@ -27,7 +27,6 @@ class Builder implements ContainerAwareInterface
         ]);
 
         $this->addUserMenu($menu);
-        $this->addLanguageMenu($menu, $options);
         
         return $menu;
     }
@@ -104,52 +103,6 @@ class Builder implements ContainerAwareInterface
                 ->setExtra('translation_domain', 'FOSUserBundle')
                 ->setAttribute('icon', 'fa fa-sign-in');
         }
-    }
-    
-    public function languageMenu(FactoryInterface $factory, array $options)
-    {
-        $menu = $factory->createItem('root');
-        $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
-    
-        $this->addLanguageMenu($menu, $options);
-    
-        return $menu;
-    }
-
-    private function addLanguageMenu(ItemInterface $root, array $options)
-    {
-        $request = $this->container->get('request_stack')->getCurrentRequest();
-        $requestLocale = $request->getLocale();
-        $locales = explode('|', $this->container->getParameter('app.locales'));
-
-        $menu = $root->addChild('Language', [
-            'label' => $this->localeName($requestLocale, $requestLocale)
-        ])
-            ->setExtra('translation_domain', false)
-            ->setAttribute('material-icon', 'translate')
-            ->setAttribute('dropdown', true);
-        
-        $route = $request->attributes->get('_route');
-        if($route != null) {
-            $routeParameters = $request->attributes->get('_route_params');
-            $locales = array_filter($locales, function($elem) use ($requestLocale) {
-               return $elem != $requestLocale; 
-            });
-            foreach ($locales as $locale) {
-                $menu->addChild($this->localeName($locale, $locale), [
-                    'route' => $route,
-                    'routeParameters' => array_merge($routeParameters, ['_locale' => $locale])
-                ])
-                    ->setExtra('translation_domain', false)
-                    ->setAttribute('dropdown_item', true);
-            }
-        }
-
-        return $menu;
-    }
-    
-    private function localeName($locale) {
-        return ucfirst(Intl::getLocaleBundle()->getLocaleName($locale, $locale));
     }
     
     public function user2Menu(FactoryInterface $factory, array $options)

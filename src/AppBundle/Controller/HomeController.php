@@ -14,7 +14,9 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
-        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $locale = $this->getUser()->getPreferredLocale();
+        } else if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             $locale = \Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
         }
 
