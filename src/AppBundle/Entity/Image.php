@@ -119,7 +119,7 @@ class Image
         return $this->translations;
     }
 
-    public function addTranslation(OtherServicesTranslation $t)
+    public function addTranslation(ImageTranslation $t)
     {
         if (!$this->translations->contains($t)) {
             $this->translations[] = $t;

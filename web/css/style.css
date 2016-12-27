@@ -912,6 +912,7 @@ figure.single-portfolio:hover figcaption {
   background: #f5f5f5;
   position: relative;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
+  width: 271px;
 }
 
 .single-team-widget img {

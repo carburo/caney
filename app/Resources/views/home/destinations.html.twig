@@ -22,8 +22,8 @@
                             <div class="swiper-slide hostel-image single-team-widget">
                                 <figure data-order="{{ loop.index - 1 }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                                     <a href="{{ destinationPath }}" itemprop="contentUrl" data-size="270x270">
-                                        {% if destination.frontImage is not null %}
-                                        <img src="{{ vich_uploader_asset(destination.frontImage, 'imageFile')|imagine_filter('app_thumb') }}" itemprop="thumbnail" alt="{{ destination.name }}" />
+                                        {% if destination.thumbnailImage is not null %}
+                                        <img src="{{ vich_uploader_asset(destination.thumbnailImage, 'imageFile')|imagine_filter('app_thumb') }}" itemprop="thumbnail" alt="{{ destination.name }}" />
                                         {% endif %}
                                     </a>
                                     <figcaption class="team-member-info" itemprop="caption description">

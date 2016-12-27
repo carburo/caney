@@ -71,6 +71,14 @@ class Location
      */
     private $translations;
 
+    /**
+     * @var LocationImage
+     *
+     * @ORM\OneToOne(targetEntity="LocationImage")
+     * @ORM\JoinColumn(name="thumbnail_id", referencedColumnName="id")
+     */
+    private $thumbnailImage;
+
     public function __construct() {
         $this->translations = new ArrayCollection();
     }
@@ -182,6 +190,22 @@ class Location
     public function setImages($images)
     {
         $this->images = $images;
+    }
+
+    /**
+     * @return LocationImage
+     */
+    public function getThumbnailImage(): LocationImage
+    {
+        return $this->thumbnailImage ?? $this->getFrontImage();
+    }
+
+    /**
+     * @param LocationImage $thumbnailImage
+     */
+    public function setThumbnailImage(LocationImage $thumbnailImage)
+    {
+        $this->thumbnailImage = $thumbnailImage;
     }
 
     /**
