@@ -12,6 +12,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Intl\Intl;
@@ -32,7 +33,7 @@ class ProfileType extends AbstractType {
             ->add('forename', null, ['label' => 'form.forename'])
             ->add('surname', null, ['label' => 'form.surname'])
             ->add('phoneNumber', null, ['label' => 'form.phoneNumber'])
-            ->add('preferredLocale', LocaleType::class)
+            ->add('preferredLocale', LanguageType::class)
             ->add('country', CountryType::class, [
                 'label' => 'form.country',
                 'required' => false,

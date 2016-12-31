@@ -54,7 +54,11 @@
                                             ({% transchoice room.capacity with {'%capacity%': room.capacity} %}room.capacity.label{% endtranschoice %})
                                         {% else %}
                                             ({% transchoice room.capacity with {'%capacity%': room.capacity} %}room.capacity.label{% endtranschoice %}:
-                                            ${{ room.priceInLow }} / ${{ room.priceInHigh }})
+                                            {% if room.priceInLow == room.priceInHigh %}
+                                                ${{ room.priceInLow }})
+                                            {% else %}
+                                                ${{ room.priceInLow }} / ${{ room.priceInHigh }})
+                                            {% endif %}
                                         {% endif %}
                                     </a>
                                 </h4>
@@ -93,7 +97,7 @@
                         {{ 'hostel.languages.title'|trans }} 
                         <small>{{ 'hostel.languages.subtitle'|trans }}</small>
                     </h3>
-                    <p>{{ hostel.hostLanguages|split(' ')|locales|join(', ') }}</p>
+                    <p>{{ hostel.hostLanguages|join(', ') }}</p>
                 </div>
             </div>
             <div class="row">

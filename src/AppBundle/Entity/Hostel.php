@@ -81,9 +81,12 @@ class Hostel
     private $priceInLow;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="host_languages", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="Language")
+     * @ORM\JoinTable(name="host_language",
+     *      joinColumns={@ORM\JoinColumn(name="hostel_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="language_code", referencedColumnName="iso_code")}
+     *      )
      */
     private $hostLanguages;
 
@@ -242,7 +245,7 @@ class Hostel
     /**
      * Set hostLanguages
      *
-     * @param string $hostLanguages
+     * @param mixed $hostLanguages
      *
      * @return Hostel
      */
@@ -256,7 +259,7 @@ class Hostel
     /**
      * Get hostLanguages
      *
-     * @return string
+     * @return mixed
      */
     public function getHostLanguages()
     {

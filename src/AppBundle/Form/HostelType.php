@@ -48,11 +48,13 @@ class HostelType extends AbstractType
             ->add('website', UrlType::class, [
                 'required' => false
             ])
-            ->add('hostLanguages')
-            ->add('location')
-            ->add('services', null, array(
+            ->add('hostLanguages', null, [
                 'expanded' => 'true',
-            ))
+            ])
+            ->add('location')
+            ->add('services', null, [
+                'expanded' => 'true',
+            ])
         ;
     }
     
