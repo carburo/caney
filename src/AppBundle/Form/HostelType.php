@@ -49,28 +49,10 @@ class HostelType extends AbstractType
                 'required' => false
             ])
             ->add('hostLanguages')
-            ->add('breakfast')
-            ->add('breakfastPrice', MoneyType::class, [
-                'currency' => 'CUC'
-            ])
-            ->add('dinner')
-            ->add('dinnerPrice', MoneyType::class, [
-                'currency' => 'CUC'
-            ])
-            ->add('cocktails')
-            ->add('childrenAccepted')
-            ->add('garage')
-            ->add('garagePrice', MoneyType::class, [
-                'currency' => 'CUC'
-            ])
-            ->add('swimmingPool')
-            ->add('laundry')
-            ->add('internet')
-            ->add('wifi')
             ->add('location')
-            ->add('guide')
-            ->add('scubaDiving')
-            ->add('horseRide')
+            ->add('services', null, array(
+                'expanded' => 'true',
+            ))
         ;
     }
     

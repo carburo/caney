@@ -64,11 +64,8 @@
                                     <ul>
                                         {% for service in room.services %}
                                             <li>
-                                                {{ service.service.icon|raw }}
-                                                {{ service.service.name|capitalize }}
-                                                {% if service.service.type == 'priced' and service.price is not empty and service.price != 0 %}
-                                                    : {{ service.price }} CUC
-                                                {% endif %}
+                                                {{ service.icon|raw }}
+                                                {{ service.name|capitalize }}
                                             </li>
                                         {% endfor %}
                                     </ul>
@@ -85,11 +82,8 @@
                             {% set services = serviceRepo.findByClassification(hostel, serviceClass) %}
                             {% for service in services %}
                                 <li>
-                                    {{ service.service.icon|raw }}
-                                    {{ service.service.name|capitalize }}
-                                    {% if service.service.type == 'priced' and service.price is not empty and service.price != 0 %}
-                                        : {{ service.price }} CUC
-                                    {% endif %}
+                                    {{ service.icon|raw }}
+                                    {{ service.name|capitalize }}
                                 </li>
                             {% endfor %}
                         </ul>

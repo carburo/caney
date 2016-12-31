@@ -26,17 +26,9 @@ class RoomType extends AbstractType
             ->add('priceInLow', MoneyType::class, [
                 'currency' => 'CUC'
             ])
-            ->add('privateBathroom')
-            ->add('hotWater')
-            ->add('airConditioner')
-            ->add('voltage120')
-            ->add('voltage240')
-            ->add('privateEntrance')
-            ->add('safe')
-            ->add('terrace')
-            ->add('minibar')
-            ->add('hairDryer')
-            ->add('television')
+            ->add('services', null, array(
+                'expanded' => 'true',
+            ))
             ->add('hostel')
         ;
     }

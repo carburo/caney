@@ -107,7 +107,7 @@ class HostelController extends Controller
 
         if($form->isSubmitted() && $form->isValid()) {
             $this->saveInDatabase($hostel);
-            return $this->redirectToRoute('hostel_view', ['slug' => $hostel->getSlug()]);
+//            return $this->redirectToRoute('hostel_view', ['slug' => $hostel->getSlug()]);
         }
 
         return $this->render('hostel/edit.html.twig', [
@@ -138,13 +138,13 @@ class HostelController extends Controller
         }
 
         $serviceRepo = $this->getDoctrine()->getRepository('AppBundle:ServiceClassification');
-        $serviceByHostelRepo = $this->getDoctrine()->getRepository('AppBundle:ServiceByHostel');
+        $hostelServiceRepo = $this->getDoctrine()->getRepository('AppBundle:Service');
 
         return $this->render('hostel/view.html.twig', [
             'hostel' => $hostel,
             'edit' => $edit,
             'serviceClasses' => $serviceRepo->findByHostel($hostel),
-            'serviceRepo' => $serviceByHostelRepo
+            'serviceRepo' => $hostelServiceRepo
         ]);
     }
 

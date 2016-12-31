@@ -118,7 +118,12 @@ class Hostel
     private $rank;
 
     /**
-     * @ORM\OneToMany(targetEntity="ServiceByHostel", mappedBy="hostel")
+     *
+     * @ORM\ManyToMany(targetEntity="Service")
+     * @ORM\JoinTable(name="service_by_hostel",
+     *      joinColumns={@ORM\JoinColumn(name="hostel_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="service_id", referencedColumnName="id")}
+     *      )
      */
     private $services;
 

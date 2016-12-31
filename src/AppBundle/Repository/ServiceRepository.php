@@ -1,6 +1,9 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\Hostel;
+use AppBundle\Entity\ServiceClassification;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 /**
  * ServiceRepository
@@ -10,4 +13,16 @@ namespace AppBundle\Repository;
  */
 class ServiceRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByClassification(Hostel $hostel, ServiceClassification $classification) {
+        $em = $this->getEntityManager();
+        $mapping = new ResultSetMappingBuilder($em);
+        $mapping->addRootEntityFromClassMetadata('AppBundle\Entity\Service', 's');
+
+        $sql = "CALL hostel_services_by_classification(?,?)";
+        $query = $em->createNativeQuery($sql, $mapping);
+        $query->setParameter(1, $hostel->getId());
+        $query->setParameter(2, $classification->getId());
+
+        return $query->getResult();
+    }
 }
