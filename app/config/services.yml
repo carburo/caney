@@ -55,6 +55,12 @@ services:
   app.hostel.image:
       class: AppBundle\Entity\HostelImage
       arguments: ['@liip_imagine.cache.manager']
+  app.hostel_type:
+    class: AppBundle\Form\HostelType
+    arguments: ['@security.token_storage']
+    tags:
+      - { name: form.type }
+
 #  app.form.hostel_admin:
 #    class: AppBundle\Form\Type\HostelType
 #    arguments: ['@security.token_storage']

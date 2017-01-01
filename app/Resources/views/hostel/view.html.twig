@@ -131,11 +131,13 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
+        {% if hostel.frontImage is not null %}
         .page-title-section {
             position: relative;
             background: url("{{ vich_uploader_asset(hostel.frontImage, 'imageFile')|imagine_filter('app_slider') }}") no-repeat scroll center center;
             background-size: cover;
         }
+        {% endif %}
         .single-team-widget .team-member-info {
             height: auto;
         }
