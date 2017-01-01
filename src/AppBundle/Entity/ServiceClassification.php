@@ -46,6 +46,11 @@ class ServiceClassification
     private $services;
 
     /**
+     * @ORM\OneToMany(targetEntity="RoomService", mappedBy="classification")
+     */
+    private $roomServices;
+
+    /**
      * @ORM\OneToMany(
      *   targetEntity="ServiceClassificationTranslation",
      *   mappedBy="object",
@@ -158,6 +163,22 @@ class ServiceClassification
     public function setServices($services)
     {
         $this->services = $services;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoomServices()
+    {
+        return $this->roomServices;
+    }
+
+    /**
+     * @param mixed $roomServices
+     */
+    public function setRoomServices($roomServices)
+    {
+        $this->roomServices = $roomServices;
     }
 
     public function __toString() {

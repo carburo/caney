@@ -49,6 +49,21 @@ services:
     arguments: [~, AppBundle\Entity\HostelImage, ~]
     tags:
       - { name: sonata.admin, manager_type: orm, label: Image }
+  admin.classification_service:
+    class: AppBundle\Admin\ServiceClassificationAdmin
+    arguments: [~, AppBundle\Entity\ServiceClassification, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: ServiceClassification }
+  admin.service:
+    class: AppBundle\Admin\ServiceAdmin
+    arguments: [~, AppBundle\Entity\Service, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: Service }
+  admin.room_service:
+    class: AppBundle\Admin\ServiceAdmin
+    arguments: [~, AppBundle\Entity\RoomService, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: RoomService }
   app.image:
     class: AppBundle\Entity\Image
     arguments: ['@liip_imagine.cache.manager']
@@ -60,9 +75,3 @@ services:
     arguments: ['@security.token_storage']
     tags:
       - { name: form.type }
-
-#  app.form.hostel_admin:
-#    class: AppBundle\Form\Type\HostelType
-#    arguments: ['@security.token_storage']
-#    tags:
-#      - { name: form.type }

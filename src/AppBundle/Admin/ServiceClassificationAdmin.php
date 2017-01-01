@@ -8,27 +8,19 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class RoomAdmin extends AbstractAdmin {
+class ServiceClassificationAdmin extends AbstractAdmin {
 	
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-            ->add('hostel')
             ->add('name')
-            ->add('type')
-            ->add('description', TextareaType::class, [
+            ->add('icon', null, [
                 'required' => false
             ])
-            ->add('capacity')
-            ->add('priceInHigh', MoneyType::class, [
-                'currency' => 'CUC'
-            ])
-            ->add('priceInLow', MoneyType::class, [
-                'currency' => 'CUC'
-            ])
-            ->add('services', null, array(
-                'expanded' => 'true',
-            ))
+            ->end()->end()
+            ->tab('Services')
+                ->add('services', 'sonata_type_collection')
+            ->end()->end()
             ;
 	}
 	
@@ -39,7 +31,6 @@ class RoomAdmin extends AbstractAdmin {
 	
 	protected function configureListFields(ListMapper $listMapper)
 	{
-        $listMapper->addIdentifier('hostel');
 		$listMapper->addIdentifier('name');
 	}
 }
