@@ -71,14 +71,14 @@ class Hostel
      *
      * @ORM\Column(name="price_in_high", type="decimal", precision=10, scale=2)
      */
-    private $priceInHigh;
+    private $priceInHigh = "0";
 
     /**
      * @var string
      *
      * @ORM\Column(name="price_in_low", type="decimal", precision=10, scale=2)
      */
-    private $priceInLow;
+    private $priceInLow = "0";
 
     /**
      *

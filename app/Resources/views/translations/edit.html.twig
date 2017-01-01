@@ -1,0 +1,41 @@
+{% extends "base_bare.html.twig" %}
+
+{% block title %}
+Translations
+{% endblock %}
+
+{% block headingTitle %}Services{% endblock %}
+
+{% block content %}
+    <section id="contact-page">
+        <div class="container">
+            <div class="row">
+                    {#<form>#}
+                        {#{% for key in keys %}#}
+                            <div class="col-md-6 col-sm-12">
+                                {{ form_start(form) }}
+                                {{ form_widget(form) }}
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-common btn-lg">{% trans %}button.update{% endtrans %}</button>
+                                </div>
+                                {{ form_end(form) }}
+                                {#<div class="form-group">#}
+                                    {#<label class="control-label" for="">#}
+                                        {#{{ key.setLocale('en') }}#}
+                                        {#{{ em.refresh(key) }}#}
+                                        {#{{ key }}#}
+                                    {#</label>#}
+                                    {#{{  key.setLocale(locale) }}#}
+                                    {#{{ em.refresh(key) }}#}
+                                    {#<input type="text" id="" name="" class="form-control" value="{{ key }}" /></div>#}
+                                 {#</div>#}
+                            </div>
+                        {#{% endfor %}#}
+                        {#<div class="col-md-12">#}
+                            {#<input class="btn btn-common" type="submit" value="Update" />#}
+                        {#</div>#}
+                    {#</form>#}
+            </div>
+        </div>
+    </section><!--/#contact-page-->
+{% endblock %}

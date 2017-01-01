@@ -54,6 +54,13 @@ class ServiceClassification
      */
     private $translations;
 
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
+
     public function __construct() {
         $this->translations = new ArrayCollection();
     }
@@ -69,6 +76,14 @@ class ServiceClassification
             $this->translations[] = $t;
             $t->setObject($this);
         }
+    }
+
+    /**
+     * @param mixed $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
     }
 
     /**

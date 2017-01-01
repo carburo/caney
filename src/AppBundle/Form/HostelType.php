@@ -3,16 +3,11 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class HostelType extends AbstractType
 {
@@ -52,6 +47,14 @@ class HostelType extends AbstractType
                 'expanded' => 'true',
             ])
             ->add('location')
+            ->add('offerType', ChoiceType::class, [
+                'choices' => [
+                    'SINGLE_ROOM' => 'SINGLE_ROOM',
+                    'WHOLE_HOUSE' => 'WHOLE_HOUSE',
+                ]
+            ])
+            ->add('priceInLow')
+            ->add('priceInHigh')
             ->add('services', null, [
                 'expanded' => 'true',
             ])

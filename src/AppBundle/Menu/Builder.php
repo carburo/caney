@@ -57,18 +57,12 @@ class Builder implements ContainerAwareInterface
             $securityContext = $this->container->get('security.token_storage');
             $user = $securityContext->getToken()->getUser();
 
-            $menu = $root->addChild('menu.settings')
-                ->setAttribute('material-icon', 'settings')
-                ->setAttribute('dropdown', true);
-
-            $menu->addChild('person.full_name', [
-                'uri' => "#"
-            ])
+            $menu = $root->addChild('person.full_name')
                 ->setExtra('translation_params', [
                     '%forename%' => $user->getForename(),
                     '%surname%' => $user->getSurname()
                 ])
-                ->setAttribute('dropdown_item', true);
+                ->setAttribute('dropdown', true);
         
             $menu->addChild('menu.user.edit', [
                 'route' => 'fos_user_profile_edit'
