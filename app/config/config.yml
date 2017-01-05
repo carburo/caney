@@ -143,6 +143,12 @@ liip_imagine:
   driver: gd
   filter_sets:
     cache: ~
+    menu_thumb:
+      quality: 75
+      filters:
+        auto_rotate: ~
+        thumbnail: { size: [28, 28], mode: outbound }
+        strip: ~
     comment_thumb:
       quality: 75
       filters:

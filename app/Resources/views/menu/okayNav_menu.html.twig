@@ -91,6 +91,9 @@
         {% if item.attribute('material-icon') is not empty  %}
             <i class="material-icons">{{ item.attribute('material-icon') }}</i>
         {% endif %}
+        {% if item.attribute('image') is not empty  %}
+            <img src="{{ "uploads/images/profile/#{item.attribute('image')}.jpg"|imagine_filter('menu_thumb') }}" itemprop="thumbnail" />
+        {% endif %}
 		{{ block('label') }}
 	</a>
 {% endblock %}
@@ -109,6 +112,9 @@
         {% if item.attribute('material-icon') is not empty  %}
             <i class="material-icons">{{ item.attribute('material-icon') }}</i>
         {% endif %}
+        {% if item.attribute('image') is not empty  %}
+            <img src="{{ "uploads/images/profile/#{item.attribute('image')}.jpg"|imagine_filter('menu_thumb') }}" itemprop="thumbnail" />
+        {% endif %}
 		{{ block('label') }}
 	</span>
 {% endblock %}
@@ -125,6 +131,9 @@
     	{% endif %}
         {% if item.attribute('material-icon') is not empty  %}
             <i class="material-icons">{{ item.attribute('material-icon') }}</i>
+        {% endif %}
+        {% if item.attribute('image') is not empty  %}
+            <img src="{{ "uploads/images/profile/#{item.attribute('image')}.jpg"|imagine_filter('menu_thumb') }}" itemprop="thumbnail" />
         {% endif %}
     	{{ block('label') }}
     </a>
