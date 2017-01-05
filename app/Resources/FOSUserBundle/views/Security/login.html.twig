@@ -17,7 +17,11 @@
             {% endif %}
             <fieldset class="registration-form">
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
-                <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') ?? url('homepage') }}" />
+                {% set referer = app.request.headers.get('referer') %}
+                {% if referer is empty or referer[-6:] == '/login' %}
+                    {% set referer = url('homepage') %}
+                {% endif %}
+                <input type="hidden" name="_target_path" value="{{ referer }}" />
                 <div class="form-group label-floating">
                     <label class="control-label" for="username">
                         <i class="material-icons">face</i> {{ 'security.login.username'|trans }}
