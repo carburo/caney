@@ -78,10 +78,10 @@ doctrine:
 swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
-#    port:      465
+    port:      "%mailer_port%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-#    encryption: "ssl"
+    encryption: "%mailer_encryption%"
     spool:     { type: memory }
 
 stof_doctrine_extensions:
@@ -100,15 +100,15 @@ fos_user:
   user_class: AppBundle\Entity\User
   registration:
     confirmation:
-      enabled: false
+      enabled: true
     form:
       type: AppBundle\Form\RegistrationType
   profile:
     form:
       type: AppBundle\Form\ProfileType
   from_email:
-    address: noreply@hostalcabriales.com
-    sender_name: Hostal Cabriales
+    address: "%sender_email%"
+    sender_name: Caney Lodging (no reply)
 
 fos_comment:
   db_driver: orm

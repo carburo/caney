@@ -60,7 +60,7 @@ class ContactController extends Controller
 
     private function sendEmail(Contact $contact) {
         $message = \Swift_Message::newInstance()
-            ->setSubject('Nuevo mensaje de hostalcabriales.com')
+            ->setSubject('Nuevo mensaje de caneylodging.com')
             ->setFrom($this->getParameter('sender.email'))
             ->setTo($this->getParameter('addressee.email'))
             ->setBody($this->renderView(
